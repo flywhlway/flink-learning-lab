@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.flywhl.flinklab</groupId>
+  <artifactId>flink-learning-lab-examples</artifactId>
+  <version>0.1.0</version>
+  <packaging>pom</packaging>
+  <name>flink-learning-lab :: examples (parent)</name>
+
+  <modules>
+    <module>common</module>
+    <module>e01-hello-flink</module>
+    <module>e02-time-window</module>
+    <module>e03-state</module>
+    <module>e04-checkpoint</module>
+    <module>e05-sql</module>
+    <module>e06-table-api</module>
+    <module>e07-connectors</module>
+    <module>e08-cdc</module>
+    <module>e10-cep</module>
+    <module>e11-async-io</module>
+    <module>e12-01-polling-vs-event</module>
+    <module>e12-02-event-bus</module>
+    <module>e12-06-streaming-feature</module>
+    <module>e12-15-observability</module>
+    <module>e12-17-streaming-guardrail</module>
+    <module>e12-18-streaming-cost-control</module>
+    <module>e12-22-streaming-prompt</module>
+  </modules>
+
+  <properties>
+    <!-- ══ 版本 SSOT:全部示例模块只允许在此声明版本 ══ -->
+    <maven.compiler.release>21</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <flink.version>2.2.1</flink.version>
+    <!-- Kafka connector 采用独立版本线:5.0.0-2.2 兼容 Flink 2.1.x / 2.2.x -->
+    <flink.kafka.connector.version>5.0.0-2.2</flink.kafka.connector.version>
+    <!-- JDBC 连接器独立版本线(4.x 对应 Flink 2.x;与 2.2 的兼容以本机构建为准,见 docs/00) -->
+    <flink.jdbc.connector.version>4.0.0-2.0</flink.jdbc.connector.version>
+    <!-- Flink CDC(Postgres DataStream Source 用;Pipeline YAML 走独立 CLI 发行包) -->
+    <flink.cdc.version>3.6.0</flink.cdc.version>
+    <postgres.driver.version>42.7.4</postgres.driver.version>
+    <jedis.version>5.2.0</jedis.version>
+    <!-- Flink Agents 0.3.0(Preview):e12-07/e12-08 用,独立 pom 不进本聚合构建(见 e12-07 README 说明) -->
+    <flink.agents.version>0.3.0</flink.agents.version>
+    <jackson.version>2.17.2</jackson.version>
+    <slf4j.version>1.7.36</slf4j.version>
+    <junit.version>5.10.2</junit.version>
+
+    <shade.plugin.version>3.6.0</shade.plugin.version>
+    <exec.plugin.version>3.3.0</exec.plugin.version>
+    <surefire.plugin.version>3.2.5</surefire.plugin.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Flink 核心:集群已提供,作业 jar 一律 provided,防止类冲突与巨包 -->
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-streaming-java</artifactId>
+        <version>${flink.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-clients</artifactId>
+        <version>${flink.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-table-api-java-bridge</artifactId>
+        <version>${flink.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-table-planner-loader</artifactId>
+        <version>${flink.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-table-runtime</artifactId>
+        <version>${flink.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <!-- 连接器:不在集群 lib 中,必须打进作业 jar(compile) -->
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-connector-kafka</artifactId>
+        <version>${flink.kafka.connector.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-connector-base</artifactId>
+        <version>${flink.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <!-- datagen 连接器:不在集群 lib,打入作业 jar(本地实验的无界数据源标准方案) -->
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-connector-datagen</artifactId>
+        <version>${flink.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.flywhl.flinklab</groupId>
+        <artifactId>common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+
+      <!-- CEP:发行版位于 opt/ 而非 lib/,必须打进作业 jar -->
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-cep</artifactId>
+        <version>${flink.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-metrics-dropwizard</artifactId>
+        <version>${flink.version}</version>
+      </dependency>
+      <!-- FileSink(flink-connector-files 已随发行版 lib 提供) -->
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-connector-files</artifactId>
+        <version>${flink.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-connector-jdbc</artifactId>
+        <version>${flink.jdbc.connector.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${postgres.driver.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-connector-postgres-cdc</artifactId>
+        <version>${flink.cdc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>${jedis.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${surefire.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>${exec.plugin.version}</version>
+        </plugin>
+        <!-- 统一 shade:打瘦作业 jar(仅 connector + 业务依赖),供 flink run 提交 -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>${shade.plugin.version}</version>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals><goal>shade</goal></goals>
+              <configuration>
+                <createDependencyReducedPom>false</createDependencyReducedPom>
+                <filters>
+                  <filter>
+                    <artifact>*:*</artifact>
+                    <excludes>
+                      <exclude>META-INF/*.SF</exclude>
+                      <exclude>META-INF/*.DSA</exclude>
+                      <exclude>META-INF/*.RSA</exclude>
+                    </excludes>
+                  </filter>
+                </filters>
+                <transformers>
+                  <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                </transformers>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <profiles>
+    <!--
+      local 运行档:把 provided 的 Flink 核心补回 compile classpath,
+      使 `mvn -Plocal exec:java -Dexec.mainClass=...` 可直接在本机 MiniCluster 运行。
+      提交到 Docker 集群时不要启用该 profile。
+    -->
+    <profile>
+      <id>local</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.flink</groupId>
+          <artifactId>flink-streaming-java</artifactId>
+          <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.flink</groupId>
+          <artifactId>flink-clients</artifactId>
+          <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.flink</groupId>
+          <artifactId>flink-table-api-java-bridge</artifactId>
+          <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.flink</groupId>
+          <artifactId>flink-table-planner-loader</artifactId>
+          <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.flink</groupId>
+          <artifactId>flink-table-runtime</artifactId>
+          <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+          <version>${slf4j.version}</version>
+        </dependency>
+        <!-- 本地实验增强:RocksDB 后端 + 本地 WebUI(集群端两者均已随发行版提供) -->
+        <dependency>
+          <groupId>org.apache.flink</groupId>
+          <artifactId>flink-statebackend-rocksdb</artifactId>
+          <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.flink</groupId>
+          <artifactId>flink-runtime-web</artifactId>
+          <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.flink</groupId>
+          <artifactId>flink-connector-files</artifactId>
+          <version>${flink.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+</project>

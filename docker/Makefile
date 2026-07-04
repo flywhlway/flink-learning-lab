@@ -1,0 +1,58 @@
+# flink-learning-lab · docker 环境入口
+SHELL := /bin/bash
+TM ?= 2            # TaskManager 数量(2 台 × 4 slot = 8 slots)
+
+.PHONY: up up-ai down clean ps logs init urls topics submit-e01 sql savepoint-e01
+
+up:            ## 启动全部核心服务(TaskManager 默认 2 个,不含 AI profile)
+	docker compose up -d --scale taskmanager=$(TM)
+	@echo "等待核心服务健康……" && sleep 3 && docker compose ps
+
+up-ai:         ## 额外启动 Phase 3 AI profile(Milvus 向量库;核心服务需已 up)
+	docker compose --profile ai up -d milvus-etcd milvus-minio milvus-standalone
+	@echo "Milvus 启动中,等待健康检查……" && sleep 3 && docker compose --profile ai ps
+
+down:          ## 停止(保留数据卷)
+	docker compose down
+
+clean:         ## 停止并清空全部数据卷(危险)
+	docker compose down -v
+
+ps:
+	docker compose ps
+
+logs:          ## 用法: make logs S=jobmanager
+	docker compose logs -f $(S)
+
+init:          ## 初始化 topic / bucket / ClickHouse(幂等)
+	bash ./init.sh
+
+topics:        ## 列出 Kafka topics
+	docker compose exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+urls:
+	@echo "Flink Dashboard   http://localhost:8081"
+	@echo "Kafka UI          http://localhost:8080"
+	@echo "Grafana           http://localhost:3000   (admin / flinklab)"
+	@echo "Prometheus        http://localhost:9090"
+	@echo "MinIO Console     http://localhost:9001   (flinklab / flinklab123)"
+	@echo "ClickHouse HTTP   http://localhost:8123   (flinklab / flinklab123)"
+	@echo "Kafka(宿主机)   localhost:9094"
+	@echo "PostgreSQL        localhost:5432          (flinklab / flinklab123)"
+	@echo "Redis             localhost:6379"
+	@echo "Milvus(profile=ai,先 make up-ai)  localhost:19530  WebUI http://localhost:9091/webui/"
+	@echo "Ollama(宿主机原生,非容器)         http://localhost:11434(容器内访问用 http://host.docker.internal:11434)"
+
+sql:           ## 打开 Flink SQL Client(交互式)
+	docker compose exec -it jobmanager ./bin/sql-client.sh
+
+submit-e01:    ## 提交 e01 的 Kafka 端到端作业(先在 examples/ 下 mvn package)
+	cp ../examples/e01-hello-flink/target/e01-hello-flink-*.jar ./jobs/ 2>/dev/null || \
+		(echo "未找到 jar,请先: cd ../examples && mvn -q clean package" && exit 1)
+	docker compose exec jobmanager flink run -d \
+		-c com.flywhl.flinklab.e01.KafkaClickstreamWindowJob \
+		/opt/flink/usrlib/$$(ls ../examples/e01-hello-flink/target | grep '^e01-hello-flink.*\.jar$$' | head -1)
+	@echo "已提交,打开 http://localhost:8081 查看"
+
+savepoint-e01: ## 对指定作业触发 savepoint: make savepoint-e01 JOB=<jobId>
+	docker compose exec jobmanager flink savepoint $(JOB) s3://flink/savepoints

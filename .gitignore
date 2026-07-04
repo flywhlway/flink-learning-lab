@@ -1,0 +1,463 @@
+# =============================================================================
+# flink-learning-lab · .gitignore
+# 适配: Apple Silicon (macOS) + OrbStack/Docker · Java 21/Maven · Python/uv
+#        · Jupyter/PyFlink · 多 IDE · AI Coding 工具
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 操作系统
+# -----------------------------------------------------------------------------
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+*.icloud
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+[Dd]esktop.ini
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# -----------------------------------------------------------------------------
+# IDE / 编辑器
+# -----------------------------------------------------------------------------
+
+# IntelliJ IDEA / JetBrains (含 Flink 插件本地缓存)
+.idea/
+*.iml
+*.iws
+*.ipr
+*.ipr.bak
+out/
+.idea_modules/
+
+# Eclipse / STS
+.project
+.classpath
+.settings/
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders/
+.factorypath
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/nbdist/
+/.nb-gradle/
+
+# VS Code / Cursor IDE 工作区本地态
+# 共享规则可提交: .vscode/extensions.json、.vscode/settings.json(团队约定时)
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim / Neovim / Emacs
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+.netrwhist
+tags
+[._]*.un~
+\#*\#
+.\#*
+auto-save-list/
+tramp
+.projectile
+
+# -----------------------------------------------------------------------------
+# Java / Maven / 构建产物
+# -----------------------------------------------------------------------------
+
+target/
+**/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+!/.mvn/wrapper/maven-wrapper.jar
+
+# 编译产物与打包(examples 构建的 fat-jar;docker/jobs 下载的连接器 jar)
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+*.hprof
+
+# docker/jobs 仅保留占位,jar 由 scripts/fetch_lakehouse_jars.sh 按需拉取
+!docker/jobs/.gitkeep
+docker/jobs/*.jar
+
+# Gradle(若后续引入)
+.gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# -----------------------------------------------------------------------------
+# Python / uv / Jupyter / PyFlink
+# -----------------------------------------------------------------------------
+
+# 虚拟环境
+.venv/
+venv/
+ENV/
+env/
+.env/
+.python-version
+
+# uv / pip
+.uv/
+# uv.lock 默认入库以保证可复现;notebook/pyflink-lab 整目录已忽略故其 lock 不会入库
+
+# 字节码与缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+.eggs/
+dist/
+develop-eggs/
+downloads/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+
+# 测试 / 覆盖率 / 类型检查
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+.ruff_cache/
+.hypothesis/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+*.ipynb_checkpoints
+.jupyter/
+
+# notebook/ 本地 uv 初始化的 PyFlink 实验环境(见 notebook/README.md)
+notebook/pyflink-lab/
+
+# -----------------------------------------------------------------------------
+# Docker / OrbStack / 本地运行时数据
+# -----------------------------------------------------------------------------
+
+# 个人覆盖凭据与本地私密环境变量
+# 说明: docker/.env 是实验环境镜像/账号 SSOT,允许入库;个人覆盖请用下列文件名
+.env.local
+.env.*.local
+*.local.env
+.env.override
+docker/.env.local
+docker/.env.override
+
+# 通用 .env 忽略,但保留仓库约定的 docker/.env
+.env
+!.env.example
+!docker/.env
+
+# Compose 覆盖与本地数据卷挂载残留
+docker-compose.override.yml
+compose.override.yml
+**/docker-data/
+**/volumes/
+*.log.gz
+
+# -----------------------------------------------------------------------------
+# Flink 本地运行残留
+# -----------------------------------------------------------------------------
+
+# 本地 Checkpoint / Savepoint / 元数据(勿提交)
+checkpoint*/
+savepoint*/
+_checkpoints/
+_savepoints/
+metastore_db/
+flink-checkpoints/
+flink-savepoints/
+**/checkpoints/
+**/savepoints/
+*.chk
+*.sst
+
+# JobManager / TaskManager 本地日志与 stdout 捕获
+*.out
+jobmanager.log*
+taskmanager.log*
+standalonesession*.log*
+
+# -----------------------------------------------------------------------------
+# 日志 / 临时 / 缓存 / 备份
+# -----------------------------------------------------------------------------
+
+*.log
+*.log.*
+logs/
+log/
+tmp/
+temp/
+.tmp/
+*.tmp
+*.temp
+*.cache
+.cache/
+*.bak
+*.backup
+*.old
+*.orig
+*~
+*.swp
+*.swo
+
+# -----------------------------------------------------------------------------
+# 密钥 / 证书 / 凭据(宁多勿漏)
+# -----------------------------------------------------------------------------
+
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+*.secret
+secrets/
+credentials.json
+service-account*.json
+**/secrets/**
+!**/secrets/.gitkeep
+!**/secrets/README.md
+
+# -----------------------------------------------------------------------------
+# AI Coding 工具 · 本地态 / 缓存 / 会话(共享规则可选择性提交)
+# -----------------------------------------------------------------------------
+
+# Cursor
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+!.cursor/mcp.json
+.cursor/plans/
+.cursor/projects/
+.cursor/ai-tracking/
+.cursor/*.log
+*.canvas.tsx.local
+
+# Claude Code / Anthropic
+.claude/settings.local.json
+.claude/settings.json
+.claude/*.local.*
+.claude/cache/
+.claude/todos/
+.claude/sessions/
+.claude/statsig/
+.claude/debug/
+# 保留可共享的项目说明与技能约定
+!.claude/CLAUDE.md
+!.claude/commands/
+!.claude/commands/**
+!.claude/agents/
+!.claude/agents/**
+
+# open-gsd / GSD 工作流
+# .planning/ 是项目规划 SSOT,默认应入库;仅忽略本地临时与缓存
+.planning/.cache/
+.planning/tmp/
+.planning/**/*.local.md
+.planning/STATE.local.md
+.gsd-local/
+.gsd/cache/
+
+# GitHub Copilot / Copilot Chat
+.github/copilot-instructions.local.md
+.copilot/
+
+# Continue.dev
+.continue/
+.continuerc.json
+
+# Aider
+.aider*
+.aider.chat.history.md
+.aider.input.history
+.aider.tags.cache.v3/
+
+# Windsurf / Codeium
+.windsurf/
+.codeium/
+.windsurfrules.local
+
+# Cline / Roo Code / Cascade
+.cline/
+.roo/
+.clinerules.local
+.roomodes.local
+
+# Amazon Q / CodeWhisperer
+.aws/amazonq/
+.kiro/
+
+# Gemini CLI / Google AI
+.gemini/
+.gemini-cli/
+
+# OpenAI Codex CLI / ChatGPT 本地
+.codex/
+.openai/
+
+# Devin / Sweep / 其他 agent 本地目录
+.devin/
+.sweep/
+.agent/
+.agents/cache/
+.agents/tmp/
+
+# Tabnine / Sourcegraph Cody
+.tabnine/
+.tabnine_config.json
+.cody/
+
+# 通用 AI 会话与草稿
+.ai/
+.ai-cache/
+*.ai.local.*
+AGENTS.local.md
+CLAUDE.local.md
+.cursorrules.local
+
+# -----------------------------------------------------------------------------
+# Node.js(脚本/工具链若引入前端或 MCP 桥接时)
+# -----------------------------------------------------------------------------
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+.npm/
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+# 锁文件(package-lock.json / yarn.lock / pnpm-lock.yaml / uv.lock)默认入库
+# 仅忽略本地 uv 缓存;若某目录不需要提交 lock,在该目录单独加规则
+
+# -----------------------------------------------------------------------------
+# 测试产物 / 基准 / 杂项
+# -----------------------------------------------------------------------------
+
+# 压测与基准本地结果(方法论在 benchmark/,结果不入库)
+benchmark/results/
+benchmark/out/
+benchmark/*.csv
+benchmark/*.jsonl
+!benchmark/README.md
+
+# datasets 生成的大体量本地数据
+datasets/raw/
+datasets/generated/
+datasets/**/*.parquet
+datasets/**/*.orc
+datasets/**/*.avro
+!datasets/README.md
+
+# PlantUML / Mermaid 本地渲染缓存
+*.png.cache
+.plantuml-cache/
+.mmdc-cache/
+
+# 杂项系统文件
+*.pid
+*.seed
+*.pid.lock
+.tern-port
+.vscode-test/
+.history/
+.hop.metadata/
+)
