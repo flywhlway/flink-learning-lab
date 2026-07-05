@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!--
+    独立脚手架:不挂在 examples 父 pom 下(模板会被复制到全新项目里使用),
+    版本按需对齐 flink-learning-lab 主线(见 docs/00-landscape SSOT)。
+  -->
+  <groupId>com.example.flinkjob</groupId>
+  <artifactId>job-datastream-template</artifactId>
+  <version>0.1.0</version>
+  <name>job-datastream-template</name>
+
+  <properties>
+    <maven.compiler.release>21</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <flink.version>2.2.1</flink.version>
+    <flink.kafka.connector.version>5.0.0-2.2</flink.kafka.connector.version>
+    <slf4j.version>1.7.36</slf4j.version>
+    <junit.version>5.10.2</junit.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.flink</groupId><artifactId>flink-streaming-java</artifactId>
+      <version>${flink.version}</version><scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId><artifactId>flink-clients</artifactId>
+      <version>${flink.version}</version><scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId><artifactId>flink-connector-base</artifactId>
+      <version>${flink.version}</version><scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId><artifactId>flink-connector-kafka</artifactId>
+      <version>${flink.kafka.connector.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version><scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId><artifactId>flink-test-utils</artifactId>
+      <version>${flink.version}</version><scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId>
+      <version>${junit.version}</version><scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.6.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals><goal>shade</goal></goals>
+            <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.flywhl.flinklab.template.JobTemplate</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>local</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.flink</groupId><artifactId>flink-streaming-java</artifactId>
+          <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.flink</groupId><artifactId>flink-clients</artifactId>
+          <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId>
+          <version>${slf4j.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+</project>

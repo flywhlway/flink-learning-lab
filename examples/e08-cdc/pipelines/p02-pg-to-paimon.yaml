@@ -1,0 +1,36 @@
+################################################################################
+# e08-p02 · PostgreSQL → Paimon 数据湖表(整库入湖,免手工建表)。
+#
+# 与 p01 的本质区别:sink 从"消息队列"换成"湖仓表格式"——Paimon 会
+# 根据源表结构自动建表并持续 upsert(主键表语义,e09 详解)。这就是
+# "CDC 整库入湖"在 2.x 生态里最短的实现路径,不需要手写 Flink 作业。
+#
+# 提交:./bin/flink-cdc.sh pipelines/p02-pg-to-paimon.yaml
+# 验证(e09 环境就绪后):Paimon 表 ods.orders 行数与 PG 源表一致,
+# 且更新 PG 一行,几秒内湖表可查到新版本(时间旅行见 e09-C3)。
+################################################################################
+source:
+  type: postgres
+  hostname: postgres
+  port: 5432
+  username: flinklab
+  password: flinklab123
+  database-name: flinklab
+  schema-name: public
+  table-name: orders,order_pii
+  slot.name: flink_cdc_slot_p02
+
+sink:
+  type: paimon
+  catalog.properties.warehouse: s3://warehouse/paimon
+  catalog.properties.fs.s3a.endpoint: http://minio:9000
+
+route:
+  - source-table: public.orders
+    sink-table: ods.orders
+  - source-table: public.order_pii
+    sink-table: ods.order_pii
+
+pipeline:
+  name: e08-p02-pg-to-paimon
+  parallelism: 2

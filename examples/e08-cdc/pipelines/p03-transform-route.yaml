@@ -1,0 +1,42 @@
+################################################################################
+# e08-p03 · Transform 能力:声明式脱敏 + 条件分流(不写一行 Java)。
+#
+# CDC YAML 的 transform 块允许在"抽取"与"落地"之间插入表达式计算,
+# 常见于:① 敏感字段脱敏(手机号/身份证不能明文入湖);
+#        ② 按条件把同一源表拆到不同 sink(如大额订单单独一张审计表)。
+# 这把 e05-C9(UDF 脱敏)与 e03-C8(Side Output 分流)的能力,
+# 平移成了运维可读、无需编译部署的 YAML 配置——治理团队改规则不需要找开发。
+#
+# 提交:./bin/flink-cdc.sh pipelines/p03-transform-route.yaml
+################################################################################
+source:
+  type: postgres
+  hostname: postgres
+  port: 5432
+  username: flinklab
+  password: flinklab123
+  database-name: flinklab
+  schema-name: public
+  table-name: order_pii
+  slot.name: flink_cdc_slot_p03
+
+transform:
+  - source-table: public.order_pii
+    projection: >
+      order_id,
+      CONCAT(SUBSTR(phone, 1, 3), '****', SUBSTR(phone, 8, 4)) AS phone_masked,
+      CONCAT(SUBSTR(id_card, 1, 6), '********', SUBSTR(id_card, 15, 4)) AS id_card_masked
+    filter: phone IS NOT NULL
+
+sink:
+  type: kafka
+  properties.bootstrap.servers: kafka:9092
+  value.format: debezium-json
+
+route:
+  - source-table: public.order_pii
+    sink-table: cdc.order_pii_masked
+
+pipeline:
+  name: e08-p03-transform-mask
+  parallelism: 1

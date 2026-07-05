@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.flywhl.flinklab</groupId>
+    <artifactId>flink-learning-lab-examples</artifactId>
+    <version>0.1.0</version>
+  </parent>
+  <artifactId>e07-connectors</artifactId>
+  <name>e07 :: connectors and custom source/sink (8 cases)</name>
+  <dependencies>
+    <dependency><groupId>com.flywhl.flinklab</groupId><artifactId>common</artifactId></dependency>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-streaming-java</artifactId></dependency>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-clients</artifactId></dependency>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-table-api-java-bridge</artifactId></dependency>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-table-planner-loader</artifactId></dependency>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-table-runtime</artifactId></dependency>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-connector-files</artifactId></dependency>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-connector-datagen</artifactId></dependency>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-connector-base</artifactId></dependency>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-connector-kafka</artifactId></dependency>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-connector-jdbc</artifactId></dependency>
+    <dependency><groupId>org.postgresql</groupId><artifactId>postgresql</artifactId></dependency>
+    <dependency><groupId>redis.clients</groupId><artifactId>jedis</artifactId></dependency>
+    <dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId></dependency>
+  </dependencies>
+  <build><plugins><plugin>
+    <groupId>org.apache.maven.plugins</groupId><artifactId>maven-shade-plugin</artifactId>
+  </plugin></plugins></build>
+</project>

@@ -1,0 +1,41 @@
+################################################################################
+# e08-p01 · Flink CDC 3.6 YAML Pipeline:PostgreSQL 整库(2张表)同步到 Kafka。
+#
+# 这是 CDC 3.x 的核心心智转变:不再是"一个 DataStream 作业对应一张表",
+# 而是"一份声明式 YAML 描述整库同步策略",引擎自动处理:
+#   ① Schema 变更事件(source 表加列)自动透传下游建表/加列;
+#   ② 表路由(route)把多张源表映射到目标 topic 命名规则;
+#   ③ 全量快照 + 增量 binlog/WAL 无缝切换(用户无感)。
+#
+# 前置:先执行 sql/pg-init.sql 配置好逻辑复制与发布。
+# 提交(需 Flink CDC CLI,随发行版单独下载,不是 flink run):
+#   ./bin/flink-cdc.sh pipelines/p01-pg-to-kafka.yaml
+################################################################################
+source:
+  type: postgres
+  hostname: postgres
+  port: 5432
+  username: flinklab
+  password: flinklab123
+  database-name: flinklab
+  schema-name: public
+  table-name: orders,order_pii
+  slot.name: flink_cdc_slot_p01
+  decoding.plugin.name: pgoutput   # PG 内置逻辑解码插件,无需额外装 wal2json
+
+sink:
+  type: kafka
+  properties.bootstrap.servers: kafka:9092
+  # 目标格式:debezium-json 保留 before/after/op,供下游做全量对账
+  value.format: debezium-json
+
+# 表路由:public.orders → topic cdc.orders;public.order_pii → topic cdc.order_pii
+route:
+  - source-table: public.orders
+    sink-table: cdc.orders
+  - source-table: public.order_pii
+    sink-table: cdc.order_pii
+
+pipeline:
+  name: e08-p01-pg-to-kafka
+  parallelism: 2
