@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.flywhl.flinklab</groupId>
+    <artifactId>flink-learning-lab-examples</artifactId>
+    <version>0.1.0</version>
+  </parent>
+  <artifactId>common</artifactId>
+  <name>common :: shared model and lab sources</name>
+  <dependencies>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-streaming-java</artifactId></dependency>
+    <dependency><groupId>org.apache.flink</groupId><artifactId>flink-connector-datagen</artifactId></dependency>
+  </dependencies>
+</project>
