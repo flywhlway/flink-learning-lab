@@ -68,9 +68,9 @@ Progress: [████████░░] 75%
 - [Phase 01-p03]: p03 独立 pom，不挂入 examples/ 父工程
 - [Phase 01-p03]: p03-init 复用 KAFKA_IMAGE，经 wget POST ClickHouse HTTP 执行挂载 DDL（不引入未登记镜像）
 - [Phase 01-p03]: up-p03 显式 up p03-init；default up 目标不加 --profile p03
-- [Phase ?]: JobConfig 手写 --key 解析（Flink 2.2 无 ParameterTool）
-- [Phase ?]: MATCH/TIMEOUT 经 union 后双写同一 Kafka topic 与 vehicle_alerts 表（alert_type 区分）
-- [Phase ?]: submit 仅复制 p03-vehicle-monitoring-*.jar（排除 original-），flink run -c 固定主类
+- [Phase 01-p03]: JobConfig 手写 --key 解析（Flink 2.2 无 ParameterTool）
+- [Phase 01-p03]: MATCH/TIMEOUT 经 union 后双写同一 Kafka topic 与 vehicle_alerts 表（alert_type 区分）
+- [Phase 01-p03]: submit 仅复制 p03-vehicle-monitoring-*.jar（排除 original-），flink run -c 固定主类
 
 ### Pending Todos
 
