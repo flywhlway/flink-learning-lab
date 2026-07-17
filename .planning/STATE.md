@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-17T16:27:51.259Z"
+last_updated: "2026-07-17T16:34:08.672Z"
 last_activity: 2026-07-17
 progress:
   total_phases: 7
   completed_phases: 0
   total_plans: 4
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
@@ -25,11 +25,11 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 1 (p03 告警链路样板) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-07-17
 
-Progress: [█████░░░░░] 50%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
@@ -53,6 +53,7 @@ Progress: [█████░░░░░] 50%
 *Updated after each plan completion*
 | Phase 01-p03 P00 | 2min | 2 tasks | 6 files |
 | Phase 01-p03 P01 | 2min | 3 tasks | 4 files |
+| Phase 01-p03 P02 | 5min | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -67,6 +68,9 @@ Progress: [█████░░░░░] 50%
 - [Phase 01-p03]: p03 独立 pom，不挂入 examples/ 父工程
 - [Phase 01-p03]: p03-init 复用 KAFKA_IMAGE，经 wget POST ClickHouse HTTP 执行挂载 DDL（不引入未登记镜像）
 - [Phase 01-p03]: up-p03 显式 up p03-init；default up 目标不加 --profile p03
+- [Phase ?]: JobConfig 手写 --key 解析（Flink 2.2 无 ParameterTool）
+- [Phase ?]: MATCH/TIMEOUT 经 union 后双写同一 Kafka topic 与 vehicle_alerts 表（alert_type 区分）
+- [Phase ?]: submit 仅复制 p03-vehicle-monitoring-*.jar（排除 original-），flink run -c 固定主类
 
 ### Pending Todos
 
@@ -85,6 +89,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-17T16:26:49.867Z
-Stopped at: Completed 01-00-PLAN.md
+Last session: 2026-07-17T16:34:02.168Z
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None

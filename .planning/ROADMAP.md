@@ -28,7 +28,7 @@
   2. 造数后可在 ClickHouse/Kafka 告警通道观察到 CEP 匹配或旁路输出
   3. 验证脚本失败时非 0 退出（含断言，而非仅 echo）
 
-**Plans:** 2/4 plans executed
+**Plans:** 3/4 plans executed
 Plans:
 **Wave 1**
 
@@ -37,7 +37,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 01-02-PLAN.md — VEH-02：CEP 作业 + Parse/Sink + package/submit + 单测
+- [x] 01-02-PLAN.md — VEH-02：CEP 作业 + Parse/Sink + package/submit + 单测
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -138,7 +138,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. p03 告警链路样板 | 2/4 | In Progress|  |
+| 1. p03 告警链路样板 | 3/4 | In Progress|  |
 | 2. p03 模式库与 Broadcast | 0/TBD | Not started | - |
 | 3. p03 大盘与演练收官 | 0/TBD | Not started | - |
 | 4. p01 日志 AI 平台 | 0/TBD | Not started | - |
