@@ -21,5 +21,6 @@ submit: package
 		"/opt/flink/usrlib/$$JAR_NAME"
 	@echo "已提交 p03 VehicleAlertJob，打开 http://localhost:8081 查看"
 
+# T-1-05：仅调用仓库内固定造数脚本；场景锁定 match（不接受覆盖脚本路径）
 gen:
-	@echo "未实现" >&2; exit 1
+	uv run scripts/gen_vehicle_events.py --scenario match

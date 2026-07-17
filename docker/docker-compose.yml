@@ -46,11 +46,17 @@ services:
         execution.checkpointing.dir: s3://flink/checkpoints
         execution.checkpointing.savepoint-dir: s3://flink/savepoints
         s3.endpoint: http://minio:9000
-        s3.path.style.access: "true"
+        s3.path.style.access: true
         s3.access-key: ${MINIO_ROOT_USER}
         s3.secret-key: ${MINIO_ROOT_PASSWORD}
+        fs.s3a.endpoint: http://minio:9000
+        fs.s3a.path.style.access: true
+        fs.s3a.access.key: ${MINIO_ROOT_USER}
+        fs.s3a.secret.key: ${MINIO_ROOT_PASSWORD}
+        fs.s3a.connection.ssl.enabled: false
+        fs.s3a.aws.credentials.provider: org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider
         metrics.reporter.prom.factory.class: org.apache.flink.metrics.prometheus.PrometheusReporterFactory
-        metrics.reporter.prom.port: "9249"
+        metrics.reporter.prom.port: 9249
       ENABLE_BUILT_IN_PLUGINS: flink-s3-fs-hadoop-2.2.1.jar
     volumes:
       - ./jobs:/opt/flink/usrlib          # 本地构建好的作业 jar 放这里
@@ -77,11 +83,17 @@ services:
         execution.checkpointing.dir: s3://flink/checkpoints
         execution.checkpointing.savepoint-dir: s3://flink/savepoints
         s3.endpoint: http://minio:9000
-        s3.path.style.access: "true"
+        s3.path.style.access: true
         s3.access-key: ${MINIO_ROOT_USER}
         s3.secret-key: ${MINIO_ROOT_PASSWORD}
+        fs.s3a.endpoint: http://minio:9000
+        fs.s3a.path.style.access: true
+        fs.s3a.access.key: ${MINIO_ROOT_USER}
+        fs.s3a.secret.key: ${MINIO_ROOT_PASSWORD}
+        fs.s3a.connection.ssl.enabled: false
+        fs.s3a.aws.credentials.provider: org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider
         metrics.reporter.prom.factory.class: org.apache.flink.metrics.prometheus.PrometheusReporterFactory
-        metrics.reporter.prom.port: "9249"
+        metrics.reporter.prom.port: 9249
       ENABLE_BUILT_IN_PLUGINS: flink-s3-fs-hadoop-2.2.1.jar
     volumes:
       - ./jobs:/opt/flink/usrlib
