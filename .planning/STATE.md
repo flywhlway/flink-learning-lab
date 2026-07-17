@@ -72,7 +72,7 @@ Progress: [██████████] 100%
 - [Phase 01-p03]: JobConfig 手写 --key 解析（Flink 2.2 无 ParameterTool）
 - [Phase 01-p03]: MATCH/TIMEOUT 经 union 后双写同一 Kafka topic 与 vehicle_alerts 表（alert_type 区分）
 - [Phase 01-p03]: submit 仅复制 p03-vehicle-monitoring-*.jar（排除 original-），flink run -c 固定主类
-- [Phase ?]: verify 唯一放行条件为 ClickHouse MATCH count；Kafka 仅诊断
+- [Phase 01-p03]: verify 唯一放行条件为 ClickHouse MATCH count；Kafka 仅诊断
 - [Phase 01-p03]: 造数在 DTC 后追加晚心跳推进 watermark（ooo=5s），避免 MATCH 迟迟不落库
 - [Phase 01-p03]: Flink FLINK_PROPERTIES 固定 S3a SimpleAWSCredentialsProvider，消除 INITIALIZING 挂起
 
