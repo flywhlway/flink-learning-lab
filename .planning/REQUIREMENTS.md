@@ -76,37 +76,37 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VEH-01 | TBD | Pending |
-| VEH-02 | TBD | Pending |
-| VEH-03 | TBD | Pending |
-| VEH-04 | TBD | Pending |
-| VEH-05 | TBD | Pending |
-| VEH-06 | TBD | Pending |
-| VEH-07 | TBD | Pending |
-| LOG-01 | TBD | Pending |
-| LOG-02 | TBD | Pending |
-| LOG-03 | TBD | Pending |
-| LOG-04 | TBD | Pending |
-| LOG-05 | TBD | Pending |
-| RECO-01 | TBD | Pending |
-| RECO-02 | TBD | Pending |
-| RECO-03 | TBD | Pending |
-| PROD-01 | TBD | Pending |
-| PROD-02 | TBD | Pending |
-| PROD-03 | TBD | Pending |
-| PROD-04 | TBD | Pending |
-| QA-01 | TBD | Pending |
-| QA-02 | TBD | Pending |
-| ENG-01 | TBD | Pending |
-| ENG-02 | TBD | Pending |
-| ENG-03 | TBD | Pending |
-| ENG-04 | TBD | Pending |
+| VEH-01 | Phase 1 | Pending |
+| VEH-02 | Phase 1 | Pending |
+| VEH-03 | Phase 2 | Pending |
+| VEH-04 | Phase 2 | Pending |
+| VEH-05 | Phase 3 | Pending |
+| VEH-06 | Phase 3 | Pending |
+| VEH-07 | Phase 3 | Pending |
+| LOG-01 | Phase 4 | Pending |
+| LOG-02 | Phase 4 | Pending |
+| LOG-03 | Phase 4 | Pending |
+| LOG-04 | Phase 4 | Pending |
+| LOG-05 | Phase 4 | Pending |
+| RECO-01 | Phase 5 | Pending |
+| RECO-02 | Phase 5 | Pending |
+| RECO-03 | Phase 5 | Pending |
+| PROD-01 | Phase 6 | Pending |
+| PROD-02 | Phase 6 | Pending |
+| PROD-03 | Phase 6 | Pending |
+| PROD-04 | Phase 6 | Pending |
+| QA-01 | Phase 7 | Pending |
+| QA-02 | Phase 7 | Pending |
+| ENG-01 | Phase 7 | Pending |
+| ENG-02 | Phase 7 | Pending |
+| ENG-03 | Phase 7 | Pending |
+| ENG-04 | Phase 7 | Pending |
 
 **Coverage:**
 - v1 requirements: 25 total
-- Mapped to phases: 0
-- Unmapped: 25（roadmap 创建时填充）
+- Mapped to phases: 25
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-07-17*
-*Last updated: 2026-07-17 after requirements approval*
+*Last updated: 2026-07-17 after roadmap mapping*
