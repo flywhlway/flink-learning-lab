@@ -9,8 +9,17 @@ verify:
 test:
 	mvn -q test
 
-submit:
-	@echo "未实现" >&2; exit 1
+# T-1-05：仅复制固定 p03 jar 通配，flink run -c 固定主类（不接受任意路径参数）
+submit: package
+	@mkdir -p ../../docker/jobs
+	@JAR=$$(ls target/p03-vehicle-monitoring-*.jar 2>/dev/null | grep -v original | head -1); \
+	if [ -z "$$JAR" ]; then echo "未找到 p03-vehicle-monitoring-*.jar，请先 make package" >&2; exit 1; fi; \
+	cp "$$JAR" ../../docker/jobs/; \
+	JAR_NAME=$$(basename "$$JAR"); \
+	cd ../../docker && docker compose exec jobmanager flink run -d \
+		-c com.flywhl.flinklab.p03.VehicleAlertJob \
+		"/opt/flink/usrlib/$$JAR_NAME"
+	@echo "已提交 p03 VehicleAlertJob，打开 http://localhost:8081 查看"
 
 gen:
 	@echo "未实现" >&2; exit 1
