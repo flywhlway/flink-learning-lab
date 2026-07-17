@@ -13,7 +13,8 @@ import java.util.Map;
 /**
  * harsh→fault 匹配主流 + 超时半成品 Side Output（对齐 e10-C3）。
  *
- * <p>TDD RED 桩：超时路径尚未写出 TIMEOUT AlertEvent，单测应失败；GREEN 补齐。
+ * <p>MATCH 走 Collector 主流；TIMEOUT 经 {@code ctx.output(timeoutTag, ...)}，
+ * 同表 {@code alert_type} 语义（Open Questions RESOLVED Q3）。
  */
 public final class AlertPatternHandler
         extends PatternProcessFunction<VehicleEvent, AlertEvent>
@@ -53,6 +54,17 @@ public final class AlertPatternHandler
     public void processTimedOutMatch(
             Map<String, List<VehicleEvent>> match,
             Context ctx) {
-        // TDD RED：故意不调用 ctx.output，使 TIMEOUT 契约单测失败
+        List<VehicleEvent> harshEvents = match.get("harsh");
+        if (harshEvents == null || harshEvents.isEmpty()) {
+            return;
+        }
+        VehicleEvent harsh = harshEvents.get(0);
+        ctx.output(timeoutTag, new AlertEvent(
+                harsh.vin,
+                "TIMEOUT",
+                harsh.value,
+                0.0,
+                harsh.eventTime,
+                "急加速后 30s 内未出现故障信号"));
     }
 }
