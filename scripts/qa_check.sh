@@ -18,10 +18,10 @@ import yaml; yaml.safe_load(open('docker/docker-compose.yml'))
 PY
 fi
 
-# ② 违禁词(排除规则声明所在的元文件)
+# ② 违禁词(排除规则声明所在的元文件与规划目录)
 HITS=$(grep -rn --include='*.md' --include='*.java' --include='*.py' \
         -E '(TODO|FIXME|自行实现|请参考官网)' . \
-      | grep -v -E '(PHASES\.md|scripts/README\.md|scripts/qa_check\.sh|docs/README\.md)' || true)
+      | grep -v -E '(\./\.planning/|PHASES\.md|CLAUDE\.md|AGENTS\.md|scripts/README\.md|scripts/qa_check\.sh|docs/README\.md)' || true)
 if [ -n "$HITS" ]; then bad "违禁词:"; printf '%s\n' "$HITS"; else ok "违禁词扫描"; fi
 
 # ③ Markdown 相对链接存在性(锚点忽略,外链忽略)

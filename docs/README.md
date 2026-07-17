@@ -68,6 +68,12 @@
 
 见 PHASES.md Phase 4 定义;每个案例独立目录:`projects/p01-log-ai-platform`、`projects/p02-realtime-reco`、`projects/p03-vehicle-monitoring`。
 
+| 编号 | 项目 | 状态 |
+|---|---|---|
+| 15-03 | [p03 车联网监控 · Phase 1 告警样板](../projects/p03-vehicle-monitoring/README.md)（compose profile `p03` + CEP MATCH→CH 权威 verify） | 🚧 Phase 1 告警链路样板已交付；完整 ADR（VEH-07）/ Grafana / Broadcast 模式库延 Phase 2–3 |
+| 15-01 | p01 日志 AI 平台 | 📋(后续 Phase) |
+| 15-02 | p02 实时推荐 | 📋(后续 Phase) |
+
 ---
 
 ### 交叉引用规则
