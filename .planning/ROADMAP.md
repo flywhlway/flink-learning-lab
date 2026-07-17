@@ -17,7 +17,7 @@
 ## Phase Details
 
 ### Phase 1: p03 告警链路样板
-**Goal:** 建立 p03 最小可验收端到端告警链路，并固化独立 compose profile 与验证断言样板
+**Goal:** As a 仓库维护者, I want to 用独立 p03 compose profile 一键拉起并复现事件→Kafka→CEP→Side Output→ClickHouse/Kafka 告警链路且用断言脚本验收, so that default make up 不受影响且告警可观察、验证失败非 0.
 **Mode:** mvp
 **Depends on:** Nothing (first phase；依赖已交付 P0–P3 基座)
 **Requirements:** VEH-01, VEH-02
@@ -25,7 +25,13 @@
   1. 维护者执行 p03 profile 启动后，default `make up` 仍可用
   2. 造数后可在 ClickHouse/Kafka 告警通道观察到 CEP 匹配或旁路输出
   3. 验证脚本失败时非 0 退出（含断言，而非仅 echo）
-**Plans:** TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 01-00-PLAN.md — Wave 0：Nyquist 夹具（surefire + 失败态单测/verify）
+- [ ] 01-01-PLAN.md — VEH-01：p03 compose profile 隔离与 topic/表初始化
+- [ ] 01-02-PLAN.md — VEH-02：CEP 告警端到端 + 造数断言 + 文档收尾
+
 
 ### Phase 2: p03 模式库与 Broadcast
 **Goal:** 将单模式告警升级为可评审的模式库，并支持 Broadcast 动态切换预编译模式
@@ -104,7 +110,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. p03 告警链路样板 | 0/TBD | Not started | - |
+| 1. p03 告警链路样板 | 0/3 | Planned | - |
 | 2. p03 模式库与 Broadcast | 0/TBD | Not started | - |
 | 3. p03 大盘与演练收官 | 0/TBD | Not started | - |
 | 4. p01 日志 AI 平台 | 0/TBD | Not started | - |
