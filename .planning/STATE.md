@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-last_updated: "2026-07-17T17:36:01.148Z"
+last_updated: "2026-07-17T17:36:13.108Z"
 last_activity: 2026-07-17
 progress:
   total_phases: 7
@@ -54,6 +54,7 @@ Progress: [██████████] 100%
 | Phase 01-p03 P00 | 2min | 2 tasks | 6 files |
 | Phase 01-p03 P01 | 2min | 3 tasks | 4 files |
 | Phase 01-p03 P02 | 5min | 2 tasks | 10 files |
+| Phase 01-p03 P03 | 61min | 3 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,9 @@ Progress: [██████████] 100%
 - [Phase 01-p03]: JobConfig 手写 --key 解析（Flink 2.2 无 ParameterTool）
 - [Phase 01-p03]: MATCH/TIMEOUT 经 union 后双写同一 Kafka topic 与 vehicle_alerts 表（alert_type 区分）
 - [Phase 01-p03]: submit 仅复制 p03-vehicle-monitoring-*.jar（排除 original-），flink run -c 固定主类
+- [Phase ?]: verify 唯一放行条件为 ClickHouse MATCH count；Kafka 仅诊断
+- [Phase 01-p03]: 造数在 DTC 后追加晚心跳推进 watermark（ooo=5s），避免 MATCH 迟迟不落库
+- [Phase 01-p03]: Flink FLINK_PROPERTIES 固定 S3a SimpleAWSCredentialsProvider，消除 INITIALIZING 挂起
 
 ### Pending Todos
 
