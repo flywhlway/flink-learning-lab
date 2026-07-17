@@ -28,12 +28,12 @@
   2. 造数后可在 ClickHouse/Kafka 告警通道观察到 CEP 匹配或旁路输出
   3. 验证脚本失败时非 0 退出（含断言，而非仅 echo）
 
-**Plans:** 1/4 plans executed
+**Plans:** 2/4 plans executed
 Plans:
 **Wave 1**
 
 - [x] 01-00-PLAN.md — Wave 0：Nyquist 夹具（surefire + 失败态单测/verify）
-- [ ] 01-01-PLAN.md — VEH-01：p03 compose profile 隔离与 topic/表初始化
+- [x] 01-01-PLAN.md — VEH-01：p03 compose profile 隔离与 topic/表初始化
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -138,7 +138,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. p03 告警链路样板 | 1/4 | In Progress|  |
+| 1. p03 告警链路样板 | 2/4 | In Progress|  |
 | 2. p03 模式库与 Broadcast | 0/TBD | Not started | - |
 | 3. p03 大盘与演练收官 | 0/TBD | Not started | - |
 | 4. p01 日志 AI 平台 | 0/TBD | Not started | - |

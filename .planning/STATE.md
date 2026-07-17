@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-17T16:23:41.506Z"
+last_updated: "2026-07-17T16:27:51.259Z"
 last_activity: 2026-07-17
 progress:
   total_phases: 7
   completed_phases: 0
   total_plans: 4
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -25,11 +25,11 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 1 (p03 告警链路样板) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-07-17
 
-Progress: [███░░░░░░░] 25%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -52,6 +52,7 @@ Progress: [███░░░░░░░] 25%
 
 *Updated after each plan completion*
 | Phase 01-p03 P00 | 2min | 2 tasks | 6 files |
+| Phase 01-p03 P01 | 2min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -64,6 +65,8 @@ Progress: [███░░░░░░░] 25%
 - [Phase 01-p03]: Wave 0 故意省略 Pattern.within(30s)，单测断言失败以建立 RED 反馈环
 - [Phase 01-p03]: verify.sh 以 ClickHouse count 为唯一 exit 0 条件；Kafka 仅诊断
 - [Phase 01-p03]: p03 独立 pom，不挂入 examples/ 父工程
+- [Phase 01-p03]: p03-init 复用 KAFKA_IMAGE，经 wget POST ClickHouse HTTP 执行挂载 DDL（不引入未登记镜像）
+- [Phase 01-p03]: up-p03 显式 up p03-init；default up 目标不加 --profile p03
 
 ### Pending Todos
 
@@ -82,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-17T16:23:35.110Z
+Last session: 2026-07-17T16:26:49.867Z
 Stopped at: Completed 01-00-PLAN.md
 Resume file: None
