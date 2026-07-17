@@ -6,7 +6,7 @@
 
 ## Phases
 
-- [ ] **Phase 1: p03 告警链路样板** - compose profile + 事件→CEP→告警落库可复现
+- [x] **Phase 1: p03 告警链路样板** - compose profile + 事件→CEP→告警落库可复现 (completed 2026-07-17)
 - [ ] **Phase 2: p03 模式库与 Broadcast** - ≥3 模式五元组 + 动态选择预编译模式
 - [ ] **Phase 3: p03 大盘与演练收官** - Grafana 大盘 + 压测/故障演练 + 完整文档包
 - [ ] **Phase 4: p01 日志 AI 平台** - 可降级 AI 路径 + 生产项目纪律全套
@@ -28,7 +28,7 @@
   2. 造数后可在 ClickHouse/Kafka 告警通道观察到 CEP 匹配或旁路输出
   3. 验证脚本失败时非 0 退出（含断言，而非仅 echo）
 
-**Plans:** 3/4 plans executed
+**Plans:** 4/4 plans complete
 Plans:
 **Wave 1**
 
@@ -41,7 +41,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 01-03-PLAN.md — VEH-02：造数 + e2e verify + 八段式文档 + 人工验收
+- [x] 01-03-PLAN.md — VEH-02：造数 + e2e verify + 八段式文档 + 人工验收
 
 ### Phase 2: p03 模式库与 Broadcast
 
@@ -138,7 +138,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. p03 告警链路样板 | 3/4 | In Progress|  |
+| 1. p03 告警链路样板 | 4/4 | Complete   | 2026-07-17 |
 | 2. p03 模式库与 Broadcast | 0/TBD | Not started | - |
 | 3. p03 大盘与演练收官 | 0/TBD | Not started | - |
 | 4. p01 日志 AI 平台 | 0/TBD | Not started | - |
