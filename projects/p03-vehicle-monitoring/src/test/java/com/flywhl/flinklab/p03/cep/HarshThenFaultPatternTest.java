@@ -1,18 +1,25 @@
 package com.flywhl.flinklab.p03.cep;
 
+import com.flywhl.flinklab.p03.model.AlertEvent;
 import com.flywhl.flinklab.p03.model.VehicleEvent;
+import org.apache.flink.cep.functions.PatternProcessFunction;
 import org.apache.flink.cep.pattern.Pattern;
 import org.apache.flink.cep.pattern.conditions.IterativeCondition;
+import org.apache.flink.util.OutputTag;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Wave 0 RED 夹具：锁定 HARSH_ACCEL/DTC 阈值与 within(30s) 语义。
- * 当前 {@link HarshThenFaultPattern#build()} 故意缺 within，本测试应失败。
+ * HarshThenFault 模式谓词 / within(30s) / Handler TIMEOUT 旁路契约。
  */
 class HarshThenFaultPatternTest {
 
@@ -39,10 +46,52 @@ class HarshThenFaultPatternTest {
                 "within 窗口必须为 30 秒（对齐 e10-C5）");
     }
 
+    @Test
+    void processTimedOutMatchEmitsTimeoutAlert() throws Exception {
+        OutputTag<AlertEvent> tag = new OutputTag<>("test-timeout") {
+        };
+        AlertPatternHandler handler = new AlertPatternHandler(tag);
+        CapturingContext ctx = new CapturingContext();
+
+        VehicleEvent harsh = new VehicleEvent("VIN-T", "HARSH_ACCEL", 460.0, 10_000L);
+        Map<String, List<VehicleEvent>> partial = new HashMap<>();
+        partial.put("harsh", List.of(harsh));
+
+        handler.processTimedOutMatch(partial, ctx);
+
+        assertFalse(ctx.sideOutputs.isEmpty(),
+                "超时半成品必须经 ctx.output 写出 Side Output");
+        AlertEvent alert = ctx.sideOutputs.get(0);
+        assertEquals("TIMEOUT", alert.alertType,
+                "超时路径 alertType 必须为 TIMEOUT");
+        assertEquals("VIN-T", alert.vin);
+        assertEquals(460.0, alert.harshValue, 0.001);
+    }
+
     @SuppressWarnings("unchecked")
     private static boolean matches(
             IterativeCondition<? extends VehicleEvent> condition,
             VehicleEvent event) throws Exception {
         return ((IterativeCondition<VehicleEvent>) condition).filter(event, null);
+    }
+
+    /** 捕获 Side Output 的测试用 Context 桩。 */
+    static final class CapturingContext implements PatternProcessFunction.Context {
+        final List<AlertEvent> sideOutputs = new ArrayList<>();
+
+        @Override
+        public <X> void output(OutputTag<X> outputTag, X value) {
+            sideOutputs.add((AlertEvent) value);
+        }
+
+        @Override
+        public long timestamp() {
+            return 0L;
+        }
+
+        @Override
+        public long currentProcessingTime() {
+            return 0L;
+        }
     }
 }
