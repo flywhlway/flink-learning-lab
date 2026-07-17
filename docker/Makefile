@@ -2,15 +2,19 @@
 SHELL := /bin/bash
 TM ?= 2            # TaskManager 数量(2 台 × 4 slot = 8 slots)
 
-.PHONY: up up-ai down clean ps logs init urls topics submit-e01 sql savepoint-e01
+.PHONY: up up-ai up-p03 down clean ps logs init urls topics submit-e01 sql savepoint-e01
 
-up:            ## 启动全部核心服务(TaskManager 默认 2 个,不含 AI profile)
+up:            ## 启动全部核心服务(TaskManager 默认 2 个,不含 AI/p03 profile)
 	docker compose up -d --scale taskmanager=$(TM)
 	@echo "等待核心服务健康……" && sleep 3 && docker compose ps
 
 up-ai:         ## 额外启动 Phase 3 AI profile(Milvus 向量库;核心服务需已 up)
 	docker compose --profile ai up -d milvus-etcd milvus-minio milvus-standalone
 	@echo "Milvus 启动中,等待健康检查……" && sleep 3 && docker compose --profile ai ps
+
+up-p03:        ## 额外启动 p03 profile(创建 vehicle topics + CH DDL;核心服务需已 up 或一并拉起依赖)
+	docker compose --profile p03 up -d p03-init
+	@echo "p03-init 已调度,查看: docker compose --profile p03 ps -a"
 
 down:          ## 停止(保留数据卷)
 	docker compose down

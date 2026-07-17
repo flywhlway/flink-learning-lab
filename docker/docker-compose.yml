@@ -276,6 +276,44 @@ services:
       timeout: 10s
       retries: 12
 
+  # ─────────────────────────── P4 · p03 车联网告警样板(profile=p03,按需启动)───────────────────────────
+  # 用法: make up-p03  或  docker compose --profile p03 up -d p03-init
+  # 说明: 一次性创建 vehicle.events / vehicle.alerts + 执行 vehicle_alerts DDL；
+  # 禁止写入 default init.sh，保证 make up 不被拖入。
+  p03-init:
+    image: ${KAFKA_IMAGE}
+    container_name: fll-p03-init
+    profiles: ["p03"]
+    restart: "no"
+    environment:
+      CH_USER: ${CH_USER}
+      CH_PASSWORD: ${CH_PASSWORD}
+    volumes:
+      - ../projects/p03-vehicle-monitoring/sql/clickhouse_alerts.sql:/ddl/clickhouse_alerts.sql:ro
+    depends_on:
+      kafka:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -euo pipefail
+        echo "==> p03-init: 创建 Kafka topics"
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists \
+          --topic vehicle.events --partitions 4 --replication-factor 1
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists \
+          --topic vehicle.alerts --partitions 4 --replication-factor 1
+        echo "==> p03-init: 等待 ClickHouse HTTP"
+        for i in $$(seq 1 30); do
+          if wget -qO- "http://clickhouse:8123/ping" >/dev/null 2>&1; then break; fi
+          sleep 1
+        done
+        echo "==> p03-init: 执行 ClickHouse DDL"
+        wget -qO- --post-file=/ddl/clickhouse_alerts.sql \
+          "http://clickhouse:8123/?user=$${CH_USER}&password=$${CH_PASSWORD}"
+        echo
+        echo "==> p03-init: 完成（vehicle.events / vehicle.alerts + flinklab.vehicle_alerts）"
 
 volumes:
   kafka-data:
