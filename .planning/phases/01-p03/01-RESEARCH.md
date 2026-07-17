@@ -360,22 +360,21 @@ kafka-topics.sh --bootstrap-server localhost:9092 --create --if-not-exists \
 
 **说明:** A1–A4 为范围/产品选择假设（非未经核实的库名）。技术栈坐标均已 VERIFIED/CITED。
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **p03-init 实现载体**
-   - What we know: ai profile 用长期服务；init.sh 用宿主机 bash。
-   - What's unclear: 用 `profile` 挂载的 one-shot container，还是 `make up-p03` 调项目脚本。
-   - Recommendation: one-shot compose service + Makefile 封装，保证「一键」与文档路径一致。
+1. **p03-init 实现载体** — **RESOLVED**
+   - Decision: one-shot compose 服务 `p03-init`（`profiles: ["p03"]`）+ `docker/Makefile` 目标 `up-p03` 封装；禁止写入 default `init.sh`。
+   - Locked by: Plan 01-01（对齐 ai profile 隔离纪律）。
 
-2. **Flink 作业提交方式**
-   - What we know: `submit-e01` 复制 jar 到 `docker/jobs` 再 `flink run`。
-   - What's unclear: p03 是否提供同等 Makefile 目标还是项目内 `submit.sh`。
-   - Recommendation: 项目 `Makefile` 提供 `submit`/`verify`，docker Makefile 可加薄封装 `submit-p03`。
+2. **Flink 作业提交方式** — **RESOLVED**
+   - Decision: 项目 `Makefile` 提供 `package`/`submit`/`gen`/`verify`；`docker/Makefile` 薄封装 `submit-p03`（复制 jar → `docker/jobs` → `flink run`，对齐 `submit-e01`）。
+   - Locked by: Plan 01-02（submit 接线）+ Plan 01-03（gen/verify 端到端）。
 
-3. **超时 Side Output 是否写入同一 CH 表**
-   - What we know: VEH-02 要求 Side Output 在链路中。
-   - What's unclear: 超时与匹配是否同表加 `alert_type` 字段。
-   - Recommendation: 同表 + `alert_type ENUM('MATCH','TIMEOUT')`，verify 至少断言 MATCH≥1（TIMEOUT 可选注入场景）。
+3. **超时 Side Output 是否写入同一 CH 表** — **RESOLVED**
+   - Decision: 同表 `flinklab.vehicle_alerts` + `alert_type`（`MATCH`/`TIMEOUT`）；verify 至少断言 MATCH≥1；TIMEOUT 可观察（Side Output 入同表/同 topic）。
+   - Locked by: Plan 01-01 DDL + Plan 01-02 Handler/Sink + Plan 01-03 verify。
+
+**ADR / VEH-07 文档深度：** 完整 ADR 与简历级文档延至 Phase 3；本 Phase 仅在 `docs/README.md` 模块 15 登记「Phase 1 告警样板」占位，项目 README 交付八段式最小文档（Plan 01-03）。
 
 ## Environment Availability
 

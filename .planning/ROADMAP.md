@@ -25,12 +25,13 @@
   1. 维护者执行 p03 profile 启动后，default `make up` 仍可用
   2. 造数后可在 ClickHouse/Kafka 告警通道观察到 CEP 匹配或旁路输出
   3. 验证脚本失败时非 0 退出（含断言，而非仅 echo）
-**Plans:** 3 plans
+**Plans:** 4 plans
 
 Plans:
 - [ ] 01-00-PLAN.md — Wave 0：Nyquist 夹具（surefire + 失败态单测/verify）
 - [ ] 01-01-PLAN.md — VEH-01：p03 compose profile 隔离与 topic/表初始化
-- [ ] 01-02-PLAN.md — VEH-02：CEP 告警端到端 + 造数断言 + 文档收尾
+- [ ] 01-02-PLAN.md — VEH-02：CEP 作业 + Parse/Sink + package/submit + 单测
+- [ ] 01-03-PLAN.md — VEH-02：造数 + e2e verify + 八段式文档 + 人工验收
 
 
 ### Phase 2: p03 模式库与 Broadcast
