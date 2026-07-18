@@ -55,11 +55,11 @@ Plans:
   2. 维护者可通过 Broadcast 配置切换模式集并观察到匹配行为变化
   3. 无 within 的模式无法通过项目自检/评审清单
 
-**Plans:** 5 plans
+**Plans:** 1/5 plans executed
 Plans:
 **Wave 0**
 
-- [ ] 02-00-PLAN.md — Wave 0：Nyquist RED 夹具（Registry within / 新模式 / Gate / verify PATTERN_ID）
+- [x] 02-00-PLAN.md — Wave 0：Nyquist RED 夹具（Registry within / 新模式 / Gate / verify PATTERN_ID）
 
 **Wave 1** *(blocked on Wave 0)*
 
@@ -159,7 +159,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. p03 告警链路样板 | 4/4 | Complete    | 2026-07-17 |
-| 2. p03 模式库与 Broadcast | 0/4 | Planned | - |
+| 2. p03 模式库与 Broadcast | 1/5 | In Progress|  |
 | 3. p03 大盘与演练收官 | 0/TBD | Not started | - |
 | 4. p01 日志 AI 平台 | 0/TBD | Not started | - |
 | 5. p02 实时推荐 | 0/TBD | Not started | - |
