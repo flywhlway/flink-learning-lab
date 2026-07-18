@@ -498,22 +498,21 @@ spec:
 | A5 | Argo 指向 GitHub remote 可接受（非本地 file://） | PROD-03 | 无私有库访问时需改用公开 fork 或文档化替代源 |
 | A6 | AI 看板可用 p01 自定义指标 + 等价业务面板，不强制真实 token 计费后端 | PROD-04 D-10 | 面板可能偏「成本护栏」而非严格 token |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **K8s↔Compose 网络权威地址是什么？**
    - What we know: OrbStack 共享容器引擎；compose 端口已暴露到 Mac。
    - What's unclear: 从 Pod 访问 Kafka 的稳定 DNS/IP。
-   - Recommendation: Wave 0 探针任务实测并写入 `production/docs/operator-install.md`；锁定一种写法。
+   - **RESOLVED:** 执行期（06-02 Wave 0/安装文档）用探测锁定一种写法并写入 `production/docs/operator-install.md`：优先尝试 `host.docker.internal:<published-port>` / OrbStack 文档推荐的宿主机网关；探测失败则记录实际可达地址。禁止在未实测时写死云厂商内网 DNS。
 
 2. **Argo 的 Git remote 用用户哪条 URL？**
    - What we know: Application 需要 repoURL。
    - What's unclear: 本机默认 remote / 是否 private。
-   - Recommendation: Discretion——SOP 用占位符 + `git remote get-url origin` 检测；执行时填实。
+   - **RESOLVED:** SOP 与 Application manifest 使用占位符 `REPO_URL`；安装/sync 脚本以 `git remote get-url origin` 检测并注入。私有库凭据走本机 Argo repo secret（文档化步骤），不以硬编码 token 合入仓库。
 
 3. **压测跑在 compose Flink 还是 K8s Flink？**
-   - What we know: D-01 未锁部署形态；D-02 复用现有 gen；PITFALLS 要求可复现。
-   - What's unclear: 5k+RocksDB 在双 TM compose 上是否更稳。
-   - Recommendation: **PROD-01 默认 compose Flink**（与现有 submit/loadtest 一致）；K8s 仅服务 PROD-02/03，避免矩阵与 BG 耦合失败。
+   - What we know: D-02 复用现有 gen；PITFALLS 要求可复现；06-01 已锁定部署形态。
+   - **RESOLVED:** **PROD-01 默认 compose Flink**（与现有 `make up` / submit / 项目 loadtest 一致）。K8s Flink 仅服务 PROD-02/03（Operator Blue/Green + GitOps），避免压测矩阵与 BG 演练耦合失败。
 
 ## Environment Availability
 
