@@ -14,12 +14,15 @@ import java.util.Map;
  * harsh→fault 匹配主流 + 超时半成品 Side Output（对齐 e10-C3）。
  *
  * <p>MATCH 走 Collector 主流；TIMEOUT 经 {@code ctx.output(timeoutTag, ...)}，
- * 同表 {@code alert_type} 语义（Open Questions RESOLVED Q3）。
+ * 同表 {@code alert_type} 语义；两条路径均写入 {@link PatternIds#HARSH_THEN_FAULT}（D-08/D-09）。
+ *
+ * <p>作业图优先使用 {@link HarshThenFaultHandler}；本类保留兼容既有单测构造。
  */
-public final class AlertPatternHandler
+public class AlertPatternHandler
         extends PatternProcessFunction<VehicleEvent, AlertEvent>
         implements TimedOutPartialMatchHandler<VehicleEvent> {
 
+    /** 三 CEP 分支共享 Side Output 标签名，union 后进同一门控。 */
     public static final OutputTag<AlertEvent> TIMEOUT_TAG =
             new OutputTag<>("p03-timeout-alerts") {
             };
@@ -47,7 +50,8 @@ public final class AlertPatternHandler
                 harsh.value,
                 fault.value,
                 fault.eventTime,
-                "急加速后出现故障信号"));
+                "急加速后出现故障信号",
+                PatternIds.HARSH_THEN_FAULT));
     }
 
     @Override
@@ -65,6 +69,7 @@ public final class AlertPatternHandler
                 harsh.value,
                 0.0,
                 harsh.eventTime,
-                "急加速后 30s 内未出现故障信号"));
+                "急加速后 30s 内未出现故障信号",
+                PatternIds.HARSH_THEN_FAULT));
     }
 }
