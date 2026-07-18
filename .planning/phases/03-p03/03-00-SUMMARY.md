@@ -72,7 +72,7 @@ completed: 2026-07-18
 2. **Task 2: RED 骨架 — loadtest.sh + drill_watermark_stall.sh** — `a56bc90` (test)
 3. **Task 3: 骨架 — window DDL + Grafana provisioning + SSOT** — `cfe6d69` (feat)
 
-**Plan metadata:** （本 SUMMARY 提交后回填）
+**Plan metadata:** `d0e608f` (docs: complete plan)
 
 ## Files Created/Modified
 
