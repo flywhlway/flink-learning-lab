@@ -290,8 +290,8 @@ services:
 
   # ─────────────────────────── P4 · p03 车联网告警样板(profile=p03,按需启动)───────────────────────────
   # 用法: make up-p03  或  docker compose --profile p03 up -d p03-init
-  # 说明: 一次性创建 vehicle.events / vehicle.alerts + 执行 vehicle_alerts DDL；
-  # 禁止写入 default init.sh，保证 make up 不被拖入。
+  # 说明: 一次性创建 vehicle.events / vehicle.alerts / vehicle.pattern.control
+  #       + 执行 vehicle_alerts DDL；禁止写入 default init.sh，保证 make up 不被拖入。
   p03-init:
     image: ${KAFKA_IMAGE}
     container_name: fll-p03-init
@@ -316,6 +316,8 @@ services:
           --topic vehicle.events --partitions 4 --replication-factor 1
         /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists \
           --topic vehicle.alerts --partitions 4 --replication-factor 1
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists \
+          --topic vehicle.pattern.control --partitions 1 --replication-factor 1
         echo "==> p03-init: 等待 ClickHouse HTTP"
         for i in $$(seq 1 30); do
           if wget -qO- "http://clickhouse:8123/ping" >/dev/null 2>&1; then break; fi
@@ -325,7 +327,7 @@ services:
         wget -qO- --post-file=/ddl/clickhouse_alerts.sql \
           "http://clickhouse:8123/?user=$${CH_USER}&password=$${CH_PASSWORD}"
         echo
-        echo "==> p03-init: 完成（vehicle.events / vehicle.alerts + flinklab.vehicle_alerts）"
+        echo "==> p03-init: 完成（vehicle.events / vehicle.alerts / vehicle.pattern.control + flinklab.vehicle_alerts）"
 
 volumes:
   kafka-data:

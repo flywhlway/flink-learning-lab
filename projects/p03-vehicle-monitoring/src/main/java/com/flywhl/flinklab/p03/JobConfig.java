@@ -3,7 +3,8 @@ package com.flywhl.flinklab.p03;
 /**
  * p03 作业参数集中解析：禁止在业务代码散落硬编码 broker/topic/checkpoint。
  *
- * <p>默认值对齐 compose 网络内服务名与 RESEARCH 约定。
+ * <p>默认值对齐 compose 网络内服务名与 RESEARCH 约定；
+ * {@code controlTopic} 默认 {@code vehicle.pattern.control}（D-04）。
  */
 public final class JobConfig {
 
@@ -13,6 +14,7 @@ public final class JobConfig {
     public final String kafkaBootstrap;
     public final String eventsTopic;
     public final String alertsTopic;
+    public final String controlTopic;
     public final String groupId;
     public final String clickhouseUrl;
     public final String clickhouseUser;
@@ -26,6 +28,7 @@ public final class JobConfig {
             String kafkaBootstrap,
             String eventsTopic,
             String alertsTopic,
+            String controlTopic,
             String groupId,
             String clickhouseUrl,
             String clickhouseUser,
@@ -37,6 +40,7 @@ public final class JobConfig {
         this.kafkaBootstrap = kafkaBootstrap;
         this.eventsTopic = eventsTopic;
         this.alertsTopic = alertsTopic;
+        this.controlTopic = controlTopic;
         this.groupId = groupId;
         this.clickhouseUrl = clickhouseUrl;
         this.clickhouseUser = clickhouseUser;
@@ -52,6 +56,7 @@ public final class JobConfig {
                 arg(args, "kafka-bootstrap", "kafka:9092"),
                 arg(args, "events-topic", "vehicle.events"),
                 arg(args, "alerts-topic", "vehicle.alerts"),
+                arg(args, "control-topic", "vehicle.pattern.control"),
                 arg(args, "group-id", "p03-vehicle-alerts"),
                 arg(args, "clickhouse-url", "http://clickhouse:8123/"),
                 arg(args, "clickhouse-user", "flinklab"),

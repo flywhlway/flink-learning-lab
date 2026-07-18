@@ -1,5 +1,6 @@
 package com.flywhl.flinklab.p03.sink;
 
+import com.flywhl.flinklab.p03.cep.PatternIds;
 import com.flywhl.flinklab.p03.model.AlertEvent;
 import org.apache.flink.api.connector.sink2.Sink;
 import org.apache.flink.api.connector.sink2.SinkWriter;
@@ -17,7 +18,7 @@ import java.util.Set;
 /**
  * ClickHouse HTTP SinkV2：写入 {@code flinklab.vehicle_alerts}（对齐 e07-C6，修正 flush 坑）。
  *
- * <p>T-1-01：vin / alertType 拒绝引号与反斜杠；表名列名常量；非 2xx 抛错。
+ * <p>T-1-01 / T-02-06：vin / alertType / patternId 拒绝引号与反斜杠；表名列名常量；非 2xx 抛错。
  */
 public final class ClickHouseAlertSink implements Sink<AlertEvent> {
 
@@ -65,10 +66,11 @@ public final class ClickHouseAlertSink implements Sink<AlertEvent> {
             StringBuilder body = new StringBuilder();
             for (AlertEvent a : buffer) {
                 String summary = a.message == null ? "" : a.message.replace('\'', ' ');
-                body.append("('%s','%s','%s',%.4f,%.4f,fromUnixTimestamp64Milli(%d))"
+                body.append("('%s','%s','%s','%s',%.4f,%.4f,fromUnixTimestamp64Milli(%d))"
                                 .formatted(
                                         a.vin,
                                         a.alertType,
+                                        a.patternId,
                                         summary,
                                         a.harshValue,
                                         a.faultValue,
@@ -78,7 +80,7 @@ public final class ClickHouseAlertSink implements Sink<AlertEvent> {
             body.setLength(body.length() - 1);
 
             String sql = "INSERT INTO flinklab.vehicle_alerts"
-                    + "(vin,alert_type,signal_summary,harsh_value,fault_value,event_time) VALUES "
+                    + "(vin,alert_type,pattern_id,signal_summary,harsh_value,fault_value,event_time) VALUES "
                     + body;
 
             String endpoint = baseUrl
@@ -106,14 +108,21 @@ public final class ClickHouseAlertSink implements Sink<AlertEvent> {
         }
 
         static void validate(AlertEvent alert) {
-            if (alert == null || alert.vin == null || alert.alertType == null) {
-                throw new IllegalArgumentException("AlertEvent vin/alertType 不能为空");
+            if (alert == null || alert.vin == null || alert.alertType == null
+                    || alert.patternId == null) {
+                throw new IllegalArgumentException("AlertEvent vin/alertType/patternId 不能为空");
             }
             if (!ALLOWED_ALERT_TYPES.contains(alert.alertType)) {
                 throw new IllegalArgumentException("非法 alertType: " + alert.alertType);
             }
-            if (containsForbidden(alert.vin) || containsForbidden(alert.alertType)) {
-                throw new IllegalArgumentException("vin/alertType 含引号或反斜杠，拒绝写入");
+            if (!PatternIds.isKnown(alert.patternId)) {
+                throw new IllegalArgumentException("非法 patternId: " + alert.patternId);
+            }
+            if (containsForbidden(alert.vin)
+                    || containsForbidden(alert.alertType)
+                    || containsForbidden(alert.patternId)) {
+                throw new IllegalArgumentException(
+                        "vin/alertType/patternId 含引号或反斜杠，拒绝写入");
             }
         }
 
