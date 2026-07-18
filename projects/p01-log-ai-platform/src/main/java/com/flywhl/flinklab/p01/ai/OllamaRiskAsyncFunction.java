@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.flywhl.flinklab.p01.model.LogResult;
 import org.apache.flink.api.common.functions.OpenContext;
+import org.apache.flink.metrics.Counter;
+import org.apache.flink.metrics.MetricGroup;
 import org.apache.flink.streaming.api.functions.async.ResultFuture;
 import org.apache.flink.streaming.api.functions.async.RichAsyncFunction;
 import org.slf4j.Logger;
@@ -46,6 +48,9 @@ public final class OllamaRiskAsyncFunction extends RichAsyncFunction<LogResult, 
     private transient HttpClient httpClient;
     private transient ObjectMapper mapper;
     private transient String chatUrl;
+    private transient Counter aiCalls;
+    private transient Counter aiTimeouts;
+    private transient Counter aiDegrades;
 
     public OllamaRiskAsyncFunction(String endpoint, String model) {
         this.endpoint = endpoint == null || endpoint.isBlank()
@@ -62,6 +67,11 @@ public final class OllamaRiskAsyncFunction extends RichAsyncFunction<LogResult, 
                 .build();
         this.mapper = new ObjectMapper();
         this.chatUrl = endpoint + "/api/chat";
+        // 实际调用侧指标（D-11 / RESEARCH Pattern 4）；budget_trips 在 BudgetGate
+        MetricGroup g = getRuntimeContext().getMetricGroup().addGroup("p01");
+        this.aiCalls = g.counter("ai_calls");
+        this.aiTimeouts = g.counter("ai_timeouts");
+        this.aiDegrades = g.counter("ai_degrades");
     }
 
     @Override
@@ -70,10 +80,12 @@ public final class OllamaRiskAsyncFunction extends RichAsyncFunction<LogResult, 
             resultFuture.complete(Collections.emptyList());
             return;
         }
+        aiCalls.inc();
         final String body;
         try {
             body = buildRequestBody(input);
         } catch (Exception e) {
+            aiDegrades.inc();
             resultFuture.complete(Collections.singleton(degraded(input)));
             return;
         }
@@ -98,9 +110,14 @@ public final class OllamaRiskAsyncFunction extends RichAsyncFunction<LogResult, 
                                     "Ollama HTTP " + response.statusCode()));
                             return;
                         }
-                        resultFuture.complete(Collections.singleton(parseChat(input, response.body())));
+                        LogResult parsed = parseChat(input, response.body());
+                        if ("DEGRADED".equals(parsed.aiSource)) {
+                            aiDegrades.inc();
+                        }
+                        resultFuture.complete(Collections.singleton(parsed));
                     } catch (Exception ex) {
                         LOG.warn("Ollama 响应解析失败，降级 DEGRADED: {}", ex.toString());
+                        aiDegrades.inc();
                         resultFuture.complete(Collections.singleton(degraded(input)));
                     }
                 });
@@ -109,6 +126,8 @@ public final class OllamaRiskAsyncFunction extends RichAsyncFunction<LogResult, 
     @Override
     public void timeout(LogResult input, ResultFuture<LogResult> resultFuture) {
         // 总超时：降级落库，作业不因无模型/慢模型而失败（D-01）
+        aiTimeouts.inc();
+        aiDegrades.inc();
         resultFuture.complete(Collections.singleton(degraded(input)));
     }
 
