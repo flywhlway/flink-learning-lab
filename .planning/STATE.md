@@ -1,38 +1,45 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.0
-milestone_name: milestone
-current_plan: Not started
-status: completed
-last_updated: "2026-07-18T17:04:17.958Z"
-last_activity: 2026-07-18
+milestone_name: P4-P6 Production
+status: Awaiting next milestone
+last_updated: "2026-07-19T01:35:00+08:00"
+last_activity: 2026-07-19 — Milestone v1.0 archived and tagged
 progress:
   total_phases: 7
-  completed_phases: 4
-  total_plans: 35
+  completed_phases: 7
+  total_plans: 32
   completed_plans: 32
-  percent: 57
+  percent: 100
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-07-17)
+See: .planning/PROJECT.md (updated 2026-07-19)
 
 **Core value:** 每个生产级项目必须在 OrbStack arm64 上独立 compose profile 一键起、端到端可复现，且压测与故障演练真实跑通——不可验证的内容不合入。
-**Current focus:** Milestone complete
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 7
-Plan: 4 of 4
-Current Plan: Not started
-Total Plans in Phase: 4
-Status: Milestone complete
-Last activity: 2026-07-18
+Phase: Milestone v1.0 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-07-19 — Milestone v1.0 archived and tagged
 
-Progress: [██████████] 100%
+## Deferred Items
+
+Items acknowledged and deferred at milestone close on 2026-07-19:
+
+| Category | Item | Status |
+|----------|------|--------|
+| uat_gap | phase-02/02-HUMAN-UAT.md | approved (0 pending; false-positive in audit-open) |
+| uat_gap | phase-03/03-HUMAN-UAT.md | partial (3 pending browser/UI/RESUME scenarios) |
+| verification_gap | phase-03/03-VERIFICATION.md | human_needed (must-haves 3/3 automated; human visual UAT open) |
+
+Known deferred items at close: 3 (see also `.planning/milestones/v1.0-MILESTONE-AUDIT.md` tech_debt)
 
 ## Performance Metrics
 
@@ -182,21 +189,19 @@ None yet.
 - P2/P3 遗留「沙箱未验证」债务：本里程碑禁止再以该理由标 ✅
 - **文档行数硬门禁与「禁止注水」激励冲突** — 已用 D-14 消除；勿再引入类似 KPI
 
-## Deferred Items
-
-| Category | Item | Status | Deferred At |
-|----------|------|--------|-------------|
-| *(none)* | | | |
-
 ## Session Continuity
 
-Last session: 2026-07-19T17:20:00.000Z
-Stopped at: Quick task — 撤销 30k 文档硬指标并回退 Wave 2 注水
-Resume file: 
-.planning/MEMORY.md
+Last session: 2026-07-19T01:35:00+08:00
+Stopped at: Milestone v1.0 complete — archived + tagged
+Resume file: .planning/MILESTONES.md
 
 ## Quick Tasks Completed
 
 | Quick Task | Date | Slug | Result |
 |------------|------|------|--------|
 | 撤销 QA 3万行硬指标 + 注水文档回退 | 2026-07-19 | 260719-1ou-qa-3-5b427d4-0435b7b-3cc6882-c75c72c-d48 | 内容回退 + 门禁修订 + MEMORY 落盘 |
+
+## Operator Next Steps
+
+- Start the next milestone with `/gsd-new-milestone`
+- Optional: 补签 Phase 3 HUMAN-UAT；回填 Phase 2 VALIDATION Nyquist 元数据
