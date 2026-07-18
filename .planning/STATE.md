@@ -4,7 +4,7 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: 4
 status: executing
-last_updated: "2026-07-18T06:18:26.501Z"
+last_updated: "2026-07-18T06:18:38.937Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
@@ -78,6 +78,7 @@ Progress: [██████████] 96%
 | Phase 05 P03 | 7min | 3 tasks | 11 files |
 | Phase 6 P01 | 21min | 2 tasks | 9 files |
 | Phase 06 P02 | 26min | 2 tasks | 12 files |
+| Phase 06 P03 | 14min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -148,6 +149,9 @@ Progress: [██████████] 96%
 - [Phase 6]: 20k/ForSt SKIPPED+原因；热身 45s 并声明相对理想 3 分钟偏差
 - [Phase 06]: Kafka K8S listener 9095（host.docker.internal）；拒绝 hostNetwork 因 JM+TM 端口冲突
 - [Phase 06]: p03 chart 自带 flink SA RBAC；BG 演练以 image.tag 触发 TRANSITION
+- [Phase ?]: origin 无 chart 时用 OrbStack git-daemon 本机镜像
+- [Phase 06]: origin 无 chart 时用 OrbStack git-daemon 本机镜像保证 Argo Synced/Healthy
+- [Phase 06]: Application 默认显式 sync；CI 硬门禁=compile+qa_check，buildx 非硬门禁
 
 ### Pending Todos
 
@@ -166,7 +170,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T06:18:26.495Z
-Stopped at: Phase 6 executing 06-03 Argo CD + CI
+Last session: 2026-07-18T06:18:38.930Z
+Stopped at: Completed 06-03-PLAN.md
 Resume file: 
 None
