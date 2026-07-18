@@ -24,16 +24,18 @@ HITS=$(grep -rn --include='*.md' --include='*.java' --include='*.py' \
       | grep -v -E '(\./\.planning/|PHASES\.md|CLAUDE\.md|AGENTS\.md|scripts/README\.md|scripts/qa_check\.sh|docs/README\.md)' || true)
 if [ -n "$HITS" ]; then bad "违禁词:"; printf '%s\n' "$HITS"; else ok "违禁词扫描"; fi
 
-# ③ Markdown 相对链接存在性(锚点忽略,外链忽略)
+# ③ Markdown 相对链接存在性(锚点忽略,外链忽略；排除 .planning 规划稿)
 LINKFAIL=0
 while IFS=: read -r f link; do
   tgt="${link%%#*}"
   [ -z "$tgt" ] && continue
   case "$tgt" in http*|mailto*) continue ;; esac
+  case "$f" in ./.planning/*|.planning/*) continue ;; esac
   if [ ! -e "$(dirname "$f")/$tgt" ]; then
     bad "断链 $f → $link"; LINKFAIL=1
   fi
 done < <(grep -rno --include='*.md' -E '\]\(([^)]+)\)' . \
+         --exclude-dir=.planning \
          | sed -E 's/\]\(([^)]+)\)/\1/' | sed 's/:[0-9]*:/:/' )
 [ "$LINKFAIL" -eq 0 ] && ok "Markdown 相对链接"
 
