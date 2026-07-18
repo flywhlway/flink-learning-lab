@@ -110,7 +110,7 @@ Plans:
 
 ### Phase 4: p01 日志 AI 平台
 
-**Goal:** 交付日志 AI 生产级项目：无 AI 可跑的特征路径 + 可降级 AI 路径 + 全套工程纪律
+**Goal:** As a 仓库维护者, I want to 用独立 p01 compose profile 一键拉起可降级的结构化日志 AI 平台（默认无 AI 规则路径 + 可选 Async Ollama 旁路）并完成压测/演练/文档包, so that p01 达到与 p03 同等的单项目完成态且主构建零硬依赖外部模型.
 **Mode:** mvp
 **Depends on:** Phase 3（复用 p03 工程样板）
 **Requirements:** LOG-01, LOG-02, LOG-03, LOG-04, LOG-05
@@ -121,7 +121,32 @@ Plans:
   3. 至少一条 AI 路径在启用环境下可观察输出；成本/护栏指标可见
   4. 压测、故障演练、架构/ADR/验证脚本/简历陈述齐全
 
-**Plans:** TBD
+**Plans:** 6 plans
+
+Plans:
+**Wave 0**
+
+- [ ] 04-00-PLAN.md — Wave 0：Nyquist RED（Parse/Rule/Budget 单测 + verify/verify-ai/drill/loadtest 骨架 + p01-init）
+
+**Wave 1** *(blocked on Wave 0)*
+
+- [ ] 04-01-PLAN.md — V1 骨架（LOG-01）：pom/JobConfig/Parse 透传 + up-p01 + package/submit
+
+**Wave 2** *(blocked on Wave 1)*
+
+- [ ] 04-02-PLAN.md — V2 规则路径（LOG-01+02）：Enrich/Rule/CH Sink + gen + verify
+
+**Wave 3** *(blocked on Wave 2)*
+
+- [ ] 04-03-PLAN.md — V3 AI 旁路（LOG-03）：Async Ollama + verify-ai + 降级清单
+
+**Wave 4** *(blocked on Wave 3)*
+
+- [ ] 04-04-PLAN.md — V4 护栏+预算+指标（LOG-04）
+
+**Wave 5** *(blocked on Wave 4)*
+
+- [ ] 04-05-PLAN.md — V5 演练+文档包（LOG-05）：loadtest/drill/ADR/RESUME/15-01/qa_check
 
 ### Phase 5: p02 实时推荐
 
@@ -178,7 +203,7 @@ Plans:
 | 1. p03 告警链路样板 | 4/4 | Complete    | 2026-07-17 |
 | 2. p03 模式库与 Broadcast | 5/5 | Complete    | 2026-07-18 |
 | 3. p03 大盘与演练收官 | 4/4 | Complete    | 2026-07-18 |
-| 4. p01 日志 AI 平台 | 0/TBD | Not started | - |
+| 4. p01 日志 AI 平台 | 0/6 | Planned | - |
 | 5. p02 实时推荐 | 0/TBD | Not started | - |
 | 6. P5 生产化 | 0/TBD | Not started | - |
 | 7. P6 总装 QA | 0/TBD | Not started | - |
