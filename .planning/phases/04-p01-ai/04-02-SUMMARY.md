@@ -75,7 +75,7 @@ Each task was committed atomically:
 3. **Task 2: gen scenarios + verify.sh GREEN** - `96809c2` (feat)
 4. **Task 3: README 八段式骨架** - `c03dfdf` (docs)
 
-**Plan metadata:** （见 final docs commit）
+**Plan metadata:** `2b208d9` (docs: complete V2 rule path plan)
 
 ## Files Created/Modified
 
