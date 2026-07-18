@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 2
+current_plan: 3
 status: executing
-last_updated: "2026-07-18T05:35:56.796Z"
+last_updated: "2026-07-18T06:03:42.100Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 30
-  completed_plans: 25
+  completed_plans: 26
   percent: 57
 ---
 
@@ -26,13 +26,13 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 6 (p5) — EXECUTING
-Plan: 2 of 5
-Current Plan: 2
+Plan: 3 of 5
+Current Plan: 3
 Total Plans in Phase: 5
 Status: Ready to execute
 Last activity: 2026-07-18
 
-Progress: [█████████░] 89%
+Progress: [█████████░] 93%
 
 ## Performance Metrics
 
@@ -77,6 +77,7 @@ Progress: [█████████░] 89%
 | Phase 05 P02 | 13min | 3 tasks | 16 files |
 | Phase 05 P03 | 7min | 3 tasks | 11 files |
 | Phase 6 P01 | 21min | 2 tasks | 9 files |
+| Phase 06 P02 | 26min | 2 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -145,6 +146,9 @@ Progress: [█████████░] 89%
 - [Phase 05]: drill EXIT trap 强制恢复 redis，避免污染后续 loadtest
 - [Phase 6]: PROD-01 部署锁定 compose Flink；权威 baseline 仅 matrix 写入，dry-run 写 baseline.dry-run.md
 - [Phase 6]: 20k/ForSt SKIPPED+原因；热身 45s 并声明相对理想 3 分钟偏差
+- [Phase ?]: Kafka K8S listener 9095（host.docker.internal）；拒绝 hostNetwork
+- [Phase 06]: Kafka K8S listener 9095（host.docker.internal）；拒绝 hostNetwork 因 JM+TM 端口冲突
+- [Phase 06]: p03 chart 自带 flink SA RBAC；BG 演练以 image.tag 触发 TRANSITION
 
 ### Pending Todos
 
@@ -163,7 +167,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T05:35:56.792Z
-Stopped at: Completed 06-01-PLAN.md
+Last session: 2026-07-18T06:03:42.095Z
+Stopped at: Completed 06-02-PLAN.md
 Resume file: 
 None
