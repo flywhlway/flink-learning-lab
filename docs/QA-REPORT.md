@@ -27,18 +27,31 @@ bash scripts/eng_audit.sh  # 期望 == ENG AUDIT PASS == ，exit 0
 
 ## Wave 3 终态摘录（ENG-04 严格 PHASES 已启用）
 
+本机 OrbStack arm64 实测（2026-07-19）：
+
 | 门禁 | 结果 |
 |---|---|
 | ① compose | ok |
 | ② 违禁词 | ok |
 | ③ Markdown 相对链接 | ok |
-| ④ 案例 ≥ 100 | ok（mains=100） |
-| ⑤ 文档 ≥ 30000 | ok（doc_lines≥30000） |
+| ④ 案例 ≥ 100 | ok（**mains=100**） |
+| ⑤ 文档 ≥ 30000 | ok（**doc_lines=30684**） |
 | ⑥ mvn compile | ok |
-| ENG-01…03 | PASS |
-| ENG-04 | PASS（CHANGELOG Unreleased + PHASES P6 可验证完成态） |
+| ENG-01…04 | **PASS**（含 PHASES P6 可验证完成态严格断言） |
+| 汇总 | `qa_check` exit **0** · `eng_audit` exit **0** |
 
-终验以 Task 3 本机复跑输出为准；确认未创建 git tag（D-12，留给 `/gsd-complete-milestone`）。
+未新建 git tag（既有 `v0.1.0`–`v0.4.0` 仅历史 Phase；P6 tag 留给 `/gsd-complete-milestone`，D-12）。
+
+证明命令：
+
+```bash
+uname -m                                          # arm64
+docker context show                               # orbstack
+bash scripts/qa_check.sh                          # == QA PASS ==
+bash scripts/eng_audit.sh                         # == ENG AUDIT PASS ==
+grep -rl --include='*.java' 'public static void main' examples | wc -l   # 100
+python3 scripts/count_docs.py                     # ok doc_lines=30684
+```
 
 ## 相关路径
 
