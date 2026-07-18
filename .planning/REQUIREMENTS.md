@@ -27,7 +27,7 @@
 
 - [x] **RECO-01**: 维护者可用独立 compose profile 一键启动 p02，用户行为流可接入
 - [x] **RECO-02**: 在线特征（Keyed State 或 Redis）+ 召回/打分闭环，结果可在 Kafka/存储中观察
-- [ ] **RECO-03**: 交付压测、故障演练、架构文档、ADR、验证脚本与简历陈述页
+- [x] **RECO-03**: 交付压测、故障演练、架构文档、ADR、验证脚本与简历陈述页
 
 ### PROD · P5 生产化
 
@@ -90,7 +90,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LOG-05 | Phase 4 | Complete |
 | RECO-01 | Phase 5 | Complete |
 | RECO-02 | Phase 5 | Complete |
-| RECO-03 | Phase 5 | Pending |
+| RECO-03 | Phase 5 | Complete |
 | PROD-01 | Phase 6 | Pending |
 | PROD-02 | Phase 6 | Pending |
 | PROD-03 | Phase 6 | Pending |

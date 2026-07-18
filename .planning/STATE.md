@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 current_plan: 4
-status: executing
-last_updated: "2026-07-18T04:22:21.990Z"
+status: verifying
+last_updated: "2026-07-18T04:30:06.439Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 24
-  completed_plans: 22
+  completed_plans: 23
   percent: 57
 ---
 
@@ -29,10 +29,10 @@ Phase: 05 (p02) — EXECUTING
 Plan: 4 of 4
 Current Plan: 4
 Total Plans in Phase: 4
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-07-18
 
-Progress: [██████████] 96%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -74,6 +74,7 @@ Progress: [██████████] 96%
 | Phase 05 P00 | 2min | 3 tasks | 11 files |
 | Phase 05 P01 | 3min | 3 tasks | 10 files |
 | Phase 05 P02 | 13min | 3 tasks | 16 files |
+| Phase 05 P03 | 7min | 3 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -138,6 +139,8 @@ Progress: [██████████] 96%
 - [Phase 05]: TopKScoreFunction feature_source=REDIS|STATE_ONLY；读失败不抛死作业
 - [Phase 05]: CatalogLoader 显式 Class.forName(org.postgresql.Driver) + TopK ensureCatalog 懒重试
 - [Phase 05]: compose PG_HOST_PORT/REDIS_HOST_PORT 可覆盖；本机 .env 用 15432/16379 避让端口冲突
+- [Phase ?]: loadtest 墙钟吞吐用 gen 实际发送量，避免配置 eps 冒充实测
+- [Phase ?]: drill EXIT trap 强制恢复 redis，避免污染后续 loadtest
 
 ### Pending Todos
 
@@ -156,7 +159,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T04:22:21.986Z
+Last session: 2026-07-18T04:29:56.091Z
 Stopped at: Completed 05-02-PLAN.md
 Resume file: 
 None

@@ -10,7 +10,7 @@
 - [x] **Phase 2: p03 模式库与 Broadcast** - ≥3 模式五元组 + 动态选择预编译模式 (completed 2026-07-18)
 - [x] **Phase 3: p03 大盘与演练收官** - Grafana 大盘 + 压测/故障演练 + 完整文档包 (completed 2026-07-18)
 - [x] **Phase 4: p01 日志 AI 平台** - 可降级 AI 路径 + 生产项目纪律全套 (completed 2026-07-18)
-- [ ] **Phase 5: p02 实时推荐** - 特征+打分闭环 + 生产项目纪律全套
+- [x] **Phase 5: p02 实时推荐** - 特征+打分闭环 + 生产项目纪律全套 (completed 2026-07-18)
 - [ ] **Phase 6: P5 生产化** - benchmark / Operator Blue-Green / GitOps / 规范题库看板
 - [ ] **Phase 7: P6 总装 QA** - qa_check 全绿 + 计量达标 + 工程不变量终检
 
@@ -160,13 +160,13 @@ Plans:
   2. 特征与打分结果可在 Kafka/存储中观察
   3. 压测、故障演练、架构/ADR/验证脚本/简历陈述齐全
 
-**Plans:** 3/4 plans executed
+**Plans:** 4/4 plans complete
 
 Plans:
 - [x] 05-00-PLAN.md — Wave 0：jedis SSOT + RED 单测/脚本 + p02-init 钩子
 - [x] 05-01-PLAN.md — V1（RECO-01）：Parse 透传作业 + gen + profile 冒烟
 - [x] 05-02-PLAN.md — V2（RECO-02）：双通道特征 + 规则 Top-K + CH/Kafka 双写 + verify 绿
-- [ ] 05-03-PLAN.md — V3（RECO-03）：Redis 降级演练 + loadtest/baseline + 文档包/15-02
+- [x] 05-03-PLAN.md — V3（RECO-03）：Redis 降级演练 + loadtest/baseline + 文档包/15-02
 
 ### Phase 6: P5 生产化
 
@@ -210,7 +210,7 @@ Plans:
 | 2. p03 模式库与 Broadcast | 5/5 | Complete    | 2026-07-18 |
 | 3. p03 大盘与演练收官 | 4/4 | Complete    | 2026-07-18 |
 | 4. p01 日志 AI 平台 | 6/6 | Complete   | 2026-07-18 |
-| 5. p02 实时推荐 | 3/4 | In Progress|  |
+| 5. p02 实时推荐 | 4/4 | Complete   | 2026-07-18 |
 | 6. P5 生产化 | 0/TBD | Not started | - |
 | 7. P6 总装 QA | 0/TBD | Not started | - |
 
