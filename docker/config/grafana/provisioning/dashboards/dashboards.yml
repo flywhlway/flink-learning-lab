@@ -1,4 +1,4 @@
-# p03 Grafana file provider → 挂载的 dashboard JSON 目录（D-03）
+# Grafana file providers：p03 项目大盘 + 仓库级 monitoring/ 三块看板（PROD-04 / D-10）
 apiVersion: 1
 providers:
   - name: p03-vehicle
@@ -10,4 +10,14 @@ providers:
     allowUiUpdates: false
     options:
       path: /var/lib/grafana/dashboards/p03
+      foldersFromFilesStructure: false
+  - name: flinklab-repo
+    orgId: 1
+    folder: flinklab
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: false
+    options:
+      path: /var/lib/grafana/dashboards/repo
       foldersFromFilesStructure: false

@@ -211,6 +211,8 @@ services:
       - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
       # p03 大盘 JSON 落仓于项目目录；不改 make up profile，空目录时 Grafana 仅无面板
       - ../projects/p03-vehicle-monitoring/monitoring/dashboards:/var/lib/grafana/dashboards/p03:ro
+      # 仓库级三块看板（platform / job / ai）→ provider flinklab-repo（PROD-04 / D-10）
+      - ../monitoring:/var/lib/grafana/dashboards/repo:ro
       - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
