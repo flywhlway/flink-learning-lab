@@ -35,7 +35,7 @@
 | 02 | [Streaming Event Bus:Agent 的神经系统](./chapters/02-event-bus.md) | [e12-02](../examples/e12-02-event-bus/README.md) | ✅ |
 | 03 | [Streaming Inference:ML_PREDICT 深解](./chapters/03-streaming-inference.md) | [e12-03](../examples/e12-03-streaming-inference/README.md) SQL 脚本(Ollama qwen3:8b) | ✅ |
 | 04 | [Streaming Embedding 与 Vector](./chapters/04-streaming-embedding-vector.md) | [e12-04](../examples/e12-04-streaming-inference-vector/README.md) SQL 脚本(Milvus) | ✅ |
-| 05 | [Streaming RAG:新鲜度敏感检索管线](./chapters/05-streaming-rag.md) | e12-04/sql/05-retraction.sql(共享 e12-04 管道) | ✅ |
+| 05 | [Streaming RAG:新鲜度敏感检索管线](./chapters/05-streaming-rag.md) | [e12-05](../examples/e12-05-streaming-rag-lite/README.md) 零依赖片段索引(+ e12-04 SQL 可选) | ✅ |
 | 06 | [Streaming Feature:实时特征工程](./chapters/06-streaming-feature.md) | [e12-06](../examples/e12-06-streaming-feature/README.md) | ✅ |
 
 ### 第 II 部 · Agent 运行时(Flink Agents 精讲)
@@ -44,26 +44,26 @@
 |---|---|---|---|
 | 07 | [Streaming Agent 第一课:架构与 Java 上手](./chapters/07-agent-quickstart.md) | [e12-07](../examples/e12-07-agent-quickstart/README.md)(standalone·Preview) | ✅ |
 | 08 | [Streaming Memory:三层记忆模型](./chapters/08-streaming-memory.md) | [e12-08](../examples/e12-08-streaming-memory/README.md)(standalone·Preview) | ✅ |
-| 09 | [Streaming Tool Call:Durable Execution 与 Reconciler](./chapters/09-streaming-tool-call.md) | 代码示意(降级=幂等键,见章内说明) | ✅ |
+| 09 | [Streaming Tool Call:Durable Execution 与 Reconciler](./chapters/09-streaming-tool-call.md) | [e12-09](../examples/e12-09-streaming-tool-call/README.md) 幂等键+副作用侧输出 | ✅ |
 | 10 | [Streaming MCP:事件驱动场景接入](./chapters/10-streaming-mcp.md) | 代码示意(无独立 Demo 理由见章内第 5 节) | ✅ |
-| 11 | [Streaming Workflow:编排边界](./chapters/11-streaming-workflow.md) | YAML/代码示意 | ✅ |
-| 12 | [Streaming Multi-Agent:协作拓扑](./chapters/12-streaming-multi-agent.md) | 架构模式(第 7 章骨架的多实例组合) | ✅ |
-| 13 | [Flink × LangGraph:何时外呼](./chapters/13-flink-langgraph.md) | 调用骨架(复用 e11 + 用户既有 FastAPI/LangGraph 经验) | ✅ |
-| 14 | [Streaming Knowledge / Graph](./chapters/14-streaming-knowledge-graph.md) | 方法论(组合 03/04/e07 已验证组件) | ✅ |
+| 11 | [Streaming Workflow:编排边界](./chapters/11-streaming-workflow.md) | [e12-11](../examples/e12-11-streaming-workflow/README.md) FSM ProcessFunction | ✅ |
+| 12 | [Streaming Multi-Agent:协作拓扑](./chapters/12-streaming-multi-agent.md) | [e12-12](../examples/e12-12-multi-agent-topology/README.md) 双流 connect | ✅ |
+| 13 | [Flink × LangGraph:何时外呼](./chapters/13-flink-langgraph.md) | [e12-13](../examples/e12-13-langgraph-mock/README.md) AsyncIO Mock+超时降级 | ✅ |
+| 14 | [Streaming Knowledge / Graph](./chapters/14-streaming-knowledge-graph.md) | [e12-14](../examples/e12-14-knowledge-graph-events/README.md) 三元组 MapState | ✅ |
 
 ### 第 III 部 · 生产化(可观测、成本、质量)
 
 | 章 | 主题 | Demo | 状态 |
 |---|---|---|---|
 | 15 | [Streaming Observability](./chapters/15-streaming-observability.md) | [e12-15](../examples/e12-15-observability/README.md) | ✅ |
-| 16 | [Streaming Trace:全链路追踪](./chapters/16-streaming-trace.md) | 代码骨架(依赖企业既有 APM/OTel 体系) | ✅ |
+| 16 | [Streaming Trace:全链路追踪](./chapters/16-streaming-trace.md) | [e12-16](../examples/e12-16-trace-propagation/README.md) traceId 传播 | ✅ |
 | 17 | [Streaming Guardrail:流式护栏](./chapters/17-streaming-guardrail.md) | [e12-17](../examples/e12-17-streaming-guardrail/README.md) | ✅ |
 | 18 | [Streaming Cost Control 与 Token Usage](./chapters/18-streaming-cost-control.md) | [e12-18](../examples/e12-18-streaming-cost-control/README.md) | ✅ |
-| 19 | [Streaming AI Gateway 与 Model Routing](./chapters/19-streaming-ai-gateway.md) | 架构模式(对应用户 AITS 自建网关) | ✅ |
-| 20 | [Streaming Embedding Cache:语义缓存](./chapters/20-streaming-embedding-cache.md) | 代码骨架(e11-C3 两级缓存扩展) | ✅ |
-| 21 | [Streaming Evaluation 与 Feedback](./chapters/21-streaming-evaluation.md) | 方法论(组合 e05-C5/e02/e07 已验证组件) | ✅ |
+| 19 | [Streaming AI Gateway 与 Model Routing](./chapters/19-streaming-ai-gateway.md) | [e12-19](../examples/e12-19-ai-gateway-route/README.md) Broadcast 路由 | ✅ |
+| 20 | [Streaming Embedding Cache:语义缓存](./chapters/20-streaming-embedding-cache.md) | [e12-20](../examples/e12-20-embedding-cache/README.md) LRU MapState | ✅ |
+| 21 | [Streaming Evaluation 与 Feedback](./chapters/21-streaming-evaluation.md) | [e12-21](../examples/e12-21-streaming-evaluation/README.md) 窗口评测指标 | ✅ |
 | 22 | [Streaming Prompt:版本化与灰度](./chapters/22-streaming-prompt.md) | [e12-22](../examples/e12-22-streaming-prompt/README.md) | ✅ |
-| 23 | [Streaming Online Learning 与数据管线](./chapters/23-streaming-online-learning.md) | 方法论(Flink×Ray 分工,docs/11-02 具体化) | ✅ |
+| 23 | [Streaming Online Learning 与数据管线](./chapters/23-streaming-online-learning.md) | [e12-23](../examples/e12-23-online-learning-sample/README.md) 样本侧输出 | ✅ |
 | 24 | [架构收官:参考架构](./chapters/24-reference-architecture.md) | 全景 Mermaid + AIDO/AITS 映射表 + 四阶段落地路线 | ✅ |
 
 ### 参考实现底座(每章共用)
@@ -83,7 +83,7 @@ flowchart LR
 ## 3. 交付状态(Phase 3 · v0.4.0)
 
 - ✅ 24 章全部成文(chapters/ 目录,含每章八段式:问题/架构/代码/踩坑/最佳实践/面试题/参考)
-- ✅ 零依赖 Demo × 7(e12-01/02/06/15/17/18/22,进主 Maven 构建,本地 `mvn -Plocal` 可直接跑)
+- ✅ 零依赖 Demo × 18(e12-01/02/05/06/09/11–14/15/16/17/18/19/20/21/22/23,进主 Maven 构建;Phase 7 补齐编号缺口)
 - ✅ SQL 脚本 Demo × 2(e12-03/04,需本机 Ollama + Milvus profile,每份脚本均注明版本演进风险与降级路径)
 - ✅ Agents Preview Demo × 2(e12-07/08,**standalone 独立 pom 不进主构建**,隔离 Preview 依赖风险)
 - ✅ 第 24 章参考架构(全景 Mermaid、AIDO/AITS 映射表、可摘录的企业汇报论点、四阶段落地路线)

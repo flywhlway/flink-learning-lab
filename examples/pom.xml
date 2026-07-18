@@ -29,6 +29,17 @@
     <module>e12-17-streaming-guardrail</module>
     <module>e12-18-streaming-cost-control</module>
     <module>e12-22-streaming-prompt</module>
+    <module>e12-05-streaming-rag-lite</module>
+    <module>e12-09-streaming-tool-call</module>
+    <module>e12-11-streaming-workflow</module>
+    <module>e12-12-multi-agent-topology</module>
+    <module>e12-13-langgraph-mock</module>
+    <module>e12-14-knowledge-graph-events</module>
+    <module>e12-16-trace-propagation</module>
+    <module>e12-19-ai-gateway-route</module>
+    <module>e12-20-embedding-cache</module>
+    <module>e12-21-streaming-evaluation</module>
+    <module>e12-23-online-learning-sample</module>
   </modules>
 
   <properties>

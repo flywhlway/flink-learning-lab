@@ -33,5 +33,16 @@
 | [e12-17](./e12-17-streaming-guardrail/README.md) | 流式护栏 Broadcast 热更(ai/17) | 1 | ✅ Phase 3 |
 | [e12-18](./e12-18-streaming-cost-control/README.md) | Token 计量 + 预算熔断(ai/18) | 1 | ✅ Phase 3 |
 | [e12-22](./e12-22-streaming-prompt/README.md) | Prompt 版本化确定性灰度(ai/22) | 1 | ✅ Phase 3 |
+| [e12-05](./e12-05-streaming-rag-lite/README.md) | Streaming RAG Lite 片段索引(ai/05,零依赖) | 1 | ✅ Phase 7 |
+| [e12-09](./e12-09-streaming-tool-call/README.md) | Tool Call 幂等键+副作用侧输出(ai/09) | 1 | ✅ Phase 7 |
+| [e12-11](./e12-11-streaming-workflow/README.md) | Workflow FSM ProcessFunction(ai/11) | 1 | ✅ Phase 7 |
+| [e12-12](./e12-12-multi-agent-topology/README.md) | Multi-Agent 双流 connect(ai/12) | 1 | ✅ Phase 7 |
+| [e12-13](./e12-13-langgraph-mock/README.md) | LangGraph Mock AsyncIO 降级(ai/13) | 1 | ✅ Phase 7 |
+| [e12-14](./e12-14-knowledge-graph-events/README.md) | KG 三元组 MapState(ai/14) | 1 | ✅ Phase 7 |
+| [e12-16](./e12-16-trace-propagation/README.md) | TraceId 跨算子传播(ai/16) | 1 | ✅ Phase 7 |
+| [e12-19](./e12-19-ai-gateway-route/README.md) | AI Gateway Broadcast 路由(ai/19) | 1 | ✅ Phase 7 |
+| [e12-20](./e12-20-embedding-cache/README.md) | Embedding Cache LRU(ai/20) | 1 | ✅ Phase 7 |
+| [e12-21](./e12-21-streaming-evaluation/README.md) | Streaming Evaluation 窗口指标(ai/21) | 1 | ✅ Phase 7 |
+| [e12-23](./e12-23-online-learning-sample/README.md) | Online Learning 样本侧输出(ai/23) | 1 | ✅ Phase 7 |
 
 > 案例总数规划 ≥100,分布与验收口径见 ../PHASES.md。
