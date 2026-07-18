@@ -26,14 +26,21 @@ HITS=$(grep -rn --include='*.md' --include='*.java' --include='*.py' \
       | grep -v -E '(\./\.planning/|PHASES\.md|CLAUDE\.md|AGENTS\.md|scripts/README\.md|scripts/qa_check\.sh|docs/README\.md)' || true)
 if [ -n "$HITS" ]; then bad "违禁词:"; printf '%s\n' "$HITS"; else ok "违禁词扫描"; fi
 
-# ③ Markdown 相对链接存在性(锚点忽略,外链忽略；排除 .planning 规划稿；仅检查路径存在)
+# ③ Markdown 相对链接存在性(锚点忽略,外链忽略；排除 .planning；必须落在仓库根内，防 ../ 逃逸假绿)
 LINKFAIL=0
+ROOT="$(pwd -P)"
 while IFS=: read -r f link; do
   tgt="${link%%#*}"
   [ -z "$tgt" ] && continue
   case "$tgt" in http*|mailto*) continue ;; esac
   case "$f" in ./.planning/*|.planning/*) continue ;; esac
-  if [ ! -e "$(dirname "$f")/$tgt" ]; then
+  cand="$(cd "$(dirname "$f")" && python3 -c 'import os,sys; print(os.path.realpath(sys.argv[1]))' "$tgt" 2>/dev/null)" \
+    || { bad "断链 $f → $link"; LINKFAIL=1; continue; }
+  case "$cand" in
+    "$ROOT"|"$ROOT"/*) ;;
+    *) bad "断链(越界) $f → $link"; LINKFAIL=1; continue ;;
+  esac
+  if [ ! -e "$cand" ]; then
     bad "断链 $f → $link"; LINKFAIL=1
   fi
 done < <(grep -rno --include='*.md' -E '\]\(([^)]+)\)' . \
@@ -63,11 +70,11 @@ else
   fi
 fi
 
-# ENG-01…04 终检（独立脚本；存在则调用，D-10）
+# ENG-01…04 终检（独立脚本硬依赖，D-10；缺失视为门禁失败，禁止 soft-skip 假绿）
 if [ -f scripts/eng_audit.sh ]; then
   bash scripts/eng_audit.sh || bad "eng_audit"
 else
-  note "warn  scripts/eng_audit.sh 不存在，跳过 ENG 终检"
+  bad "scripts/eng_audit.sh 不存在（ENG 终检为硬门禁，禁止跳过）"
 fi
 
 if [ "$FAIL" -eq 0 ]; then note "== QA PASS =="; else note "== QA FAIL =="; exit 1; fi
