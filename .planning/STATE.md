@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 4
+current_plan: 5
 status: executing
-last_updated: "2026-07-18T03:05:12.118Z"
+last_updated: "2026-07-18T03:11:05.308Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 19
-  completed_plans: 16
+  completed_plans: 17
   percent: 43
 ---
 
@@ -26,13 +26,13 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 4
-Plan: 4 of 6
-Current Plan: 4
+Plan: 5 of 6
+Current Plan: 5
 Total Plans in Phase: 6
 Status: Ready to execute
 Last activity: 2026-07-18
 
-Progress: [████████░░] 84%
+Progress: [█████████░] 89%
 
 ## Performance Metrics
 
@@ -68,6 +68,7 @@ Progress: [████████░░] 84%
 | Phase 04 P00 | 2min | 3 tasks | 11 files |
 | Phase 04 P01 | 3min | 3 tasks | 9 files |
 | Phase 04 P02 | 4min | 3 tasks | 10 files |
+| Phase 04 P03 | 5min | 3 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -112,6 +113,9 @@ Progress: [████████░░] 84%
 - [Phase 04]: featureJson 用无引号紧凑格式，避开 Sink 拒双引号与合法 JSON 冲突
 - [Phase 04]: RuleTagger.tag(LogEvent) 供单测；tag(LogResult) 叠加 ERROR_BURST 阈值 5
 - [Phase 04]: 本切片不接 Async Ollama；LogAiJob 整图 Parse→Enrich→Rule→CH
+- [Phase 04]: 默认模型名保留 qwen3:8b；Makefile/submit-ai 默认 AI_MODEL=qwen3.5:9b-mlx 对齐本机 ollama list
+- [Phase 04]: submit-ai 使用独立 group-id=p01-log-ai-verify，避免与默认规则作业争抢消费组
+- [Phase 04]: 护栏/预算/指标留给 04-04；本切片仅 Async 旁路 + 双轨验收 + 降级清单
 
 ### Pending Todos
 
@@ -130,6 +134,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T03:05:12.113Z
-Stopped at: Completed 04-02-PLAN.md
+Last session: 2026-07-18T03:11:05.303Z
+Stopped at: Completed 04-03-PLAN.md
 Resume file: 
+None
