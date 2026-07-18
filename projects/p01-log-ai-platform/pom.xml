@@ -84,7 +84,7 @@
         <version>3.13.0</version>
         <configuration>
           <testExcludes>
-            <testExclude>**/rule/RuleTaggerTest.java</testExclude>
+            <!-- RuleTagger 由 04-02 交付；BudgetGate 仍排除至 04-03+ -->
             <testExclude>**/cost/BudgetGateTest.java</testExclude>
           </testExcludes>
         </configuration>
