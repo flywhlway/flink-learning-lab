@@ -34,7 +34,7 @@
 - [x] **PROD-01**: benchmark 全矩阵可运行，并产出 baseline.md
 - [x] **PROD-02**: Flink Kubernetes Operator 1.15 可部署，OrbStack K8s 上完成可观察的 Blue/Green 演练
 - [x] **PROD-03**: CI/CD 与单一 GitOps 路径落地并可按文档复现
-- [ ] **PROD-04**: best-practice 完整规范、interview ≥150 题、monitoring 看板 JSON 可导入
+- [x] **PROD-04**: best-practice 完整规范、interview ≥150 题、monitoring 看板 JSON 可导入
 
 ### QA · P6 总装
 
@@ -94,7 +94,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROD-01 | Phase 6 | Complete |
 | PROD-02 | Phase 6 | Complete |
 | PROD-03 | Phase 6 | Complete |
-| PROD-04 | Phase 6 | Pending |
+| PROD-04 | Phase 6 | Complete |
 | QA-01 | Phase 7 | Pending |
 | QA-02 | Phase 7 | Pending |
 | ENG-01 | Phase 7 | Pending |

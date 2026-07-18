@@ -11,7 +11,7 @@
 - [x] **Phase 3: p03 大盘与演练收官** - Grafana 大盘 + 压测/故障演练 + 完整文档包 (completed 2026-07-18)
 - [x] **Phase 4: p01 日志 AI 平台** - 可降级 AI 路径 + 生产项目纪律全套 (completed 2026-07-18)
 - [x] **Phase 5: p02 实时推荐** - 特征+打分闭环 + 生产项目纪律全套 (completed 2026-07-18)
-- [ ] **Phase 6: P5 生产化** - benchmark / Operator Blue-Green / GitOps / 规范题库看板
+- [x] **Phase 6: P5 生产化** - benchmark / Operator Blue-Green / GitOps / 规范题库看板 (completed 2026-07-18)
 - [ ] **Phase 7: P6 总装 QA** - qa_check 全绿 + 计量达标 + 工程不变量终检
 
 ## Phase Details
@@ -181,14 +181,14 @@ Plans:
   3. 按文档可复现单一 GitOps/CI-CD 路径
   4. best-practice 完整、interview ≥150、monitoring 看板 JSON 可导入
 
-**Plans:** 4/5 plans executed
+**Plans:** 5/5 plans complete
 
 Plans:
 - [x] 06-00-PLAN.md — Wave 0：SSOT/docs 13–14 登记 + Helm/K8s 门禁 + PROD-01–04 RED harness
 - [x] 06-01-PLAN.md — V1（PROD-01）：裁剪压测矩阵 + OrbStack `benchmark/baseline.md` + 模块 13
 - [x] 06-02-PLAN.md — V2（PROD-02）：Operator 1.15 + p03 FlinkBlueGreenDeployment 时间线演练
 - [x] 06-03-PLAN.md — V3（PROD-03）：Argo CD sync + GitHub Actions + gitops-cicd 可复现清单
-- [ ] 06-04-PLAN.md — V4（PROD-04）：三块 Grafana JSON + interview≥150 + best-practice + 模块 14/收尾
+- [x] 06-04-PLAN.md — V4（PROD-04）：三块 Grafana JSON + interview≥150 + best-practice + 模块 14/收尾
 
 ### Phase 7: P6 总装 QA
 
@@ -218,7 +218,7 @@ Plans:
 | 3. p03 大盘与演练收官 | 4/4 | Complete    | 2026-07-18 |
 | 4. p01 日志 AI 平台 | 6/6 | Complete   | 2026-07-18 |
 | 5. p02 实时推荐 | 4/4 | Complete    | 2026-07-18 |
-| 6. P5 生产化 | 4/5 | In Progress|  |
+| 6. P5 生产化 | 5/5 | Complete   | 2026-07-18 |
 | 7. P6 总装 QA | 0/TBD | Not started | - |
 
 ## Coverage Validation
