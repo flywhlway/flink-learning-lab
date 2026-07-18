@@ -121,12 +121,12 @@ Plans:
   3. 至少一条 AI 路径在启用环境下可观察输出；成本/护栏指标可见
   4. 压测、故障演练、架构/ADR/验证脚本/简历陈述齐全
 
-**Plans:** 6 plans
+**Plans:** 1/6 plans executed
 
 Plans:
 **Wave 0**
 
-- [ ] 04-00-PLAN.md — Wave 0：Nyquist RED（Parse/Rule/Budget 单测 + verify/verify-ai/drill/loadtest 骨架 + p01-init）
+- [x] 04-00-PLAN.md — Wave 0：Nyquist RED（Parse/Rule/Budget 单测 + verify/verify-ai/drill/loadtest 骨架 + p01-init）
 
 **Wave 1** *(blocked on Wave 0)*
 
@@ -203,7 +203,7 @@ Plans:
 | 1. p03 告警链路样板 | 4/4 | Complete    | 2026-07-17 |
 | 2. p03 模式库与 Broadcast | 5/5 | Complete    | 2026-07-18 |
 | 3. p03 大盘与演练收官 | 4/4 | Complete    | 2026-07-18 |
-| 4. p01 日志 AI 平台 | 0/6 | Planned | - |
+| 4. p01 日志 AI 平台 | 1/6 | In Progress|  |
 | 5. p02 实时推荐 | 0/TBD | Not started | - |
 | 6. P5 生产化 | 0/TBD | Not started | - |
 | 7. P6 总装 QA | 0/TBD | Not started | - |
