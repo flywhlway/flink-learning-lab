@@ -9,6 +9,7 @@ p01 结构化日志可判定造数（D-09 / D-13）。
 用法:
     uv run scripts/gen_log_events.py --scenario rule-auth-fail
     uv run scripts/gen_log_events.py --scenario rule-error-burst
+    uv run scripts/gen_log_events.py --scenario ai-risk-high
     uv run scripts/gen_log_events.py --rate 100 --duration 30
     make gen
 
@@ -28,6 +29,7 @@ from confluent_kafka import Producer
 SCENARIOS = (
     "rule-auth-fail",
     "rule-error-burst",
+    "ai-risk-high",
 )
 MAX_RATE = 5000
 MAX_DURATION = 600
@@ -41,7 +43,7 @@ def build_args() -> argparse.Namespace:
         "--scenario",
         choices=list(SCENARIOS),
         default=None,
-        help="rule-auth-fail（AUTH_FAIL）/ rule-error-burst（ERROR_BURST）",
+        help="rule-auth-fail / rule-error-burst / ai-risk-high（verify-ai 高危文案）",
     )
     p.add_argument(
         "--rate",
@@ -156,6 +158,49 @@ def scenario_rule_error_burst(producer: Producer, topic: str, service: str) -> i
     return n
 
 
+def scenario_ai_risk_high(producer: Producer, topic: str, service: str) -> int:
+    """明确高危文案，便于 Ollama 风险分级落到 HIGH（verify-ai / D-06）。"""
+    base = int(time.time() * 1000)
+    svc = "security-svc" if service == "auth-svc" else service
+    events = [
+        make_event(
+            svc,
+            "ERROR",
+            "CRITICAL security breach: unauthorized root privilege escalation detected, "
+            "dumping credentials and exfiltrating customer PII to external C2",
+            base,
+            "tr-ai-risk-1",
+        ),
+        make_event(
+            svc,
+            "ERROR",
+            "CRITICAL ransomware encryption started on production database; "
+            "backdoor installed, data destruction imminent",
+            base + 1_000,
+            "tr-ai-risk-2",
+        ),
+        make_event(
+            svc,
+            "ERROR",
+            "CRITICAL: remote code execution via injection; attacker gained admin shell",
+            base + 2_000,
+            "tr-ai-risk-3",
+        ),
+        # 尾事件推进 watermark（ooo=5s）
+        make_event(
+            "billing-svc",
+            "INFO",
+            "heartbeat ping",
+            base + 12_000,
+            "tr-wm-tail",
+        ),
+    ]
+    for ev in events:
+        emit(producer, topic, ev)
+    producer.flush()
+    return len(events)
+
+
 def run_rate(producer: Producer, topic: str, service: str, rate: int, duration: int) -> int:
     """压测钩子：恒定速率 INFO 事件（后续 loadtest 复用）。"""
     if rate < 1 or rate > MAX_RATE:
@@ -192,7 +237,7 @@ def main() -> int:
         return 1
     if args.scenario is None and (args.rate is None or args.duration is None):
         print(
-            "FAIL: 请指定 --scenario rule-auth-fail|rule-error-burst "
+            "FAIL: 请指定 --scenario rule-auth-fail|rule-error-burst|ai-risk-high "
             "或同时指定 --rate 与 --duration",
             file=sys.stderr,
         )
@@ -212,6 +257,10 @@ def main() -> int:
     if args.scenario == "rule-error-burst":
         n = scenario_rule_error_burst(producer, args.topic, args.service)
         print(f"ok scenario=rule-error-burst events={n} topic={args.topic}")
+        return 0
+    if args.scenario == "ai-risk-high":
+        n = scenario_ai_risk_high(producer, args.topic, args.service)
+        print(f"ok scenario=ai-risk-high events={n} topic={args.topic}")
         return 0
     n = run_rate(producer, args.topic, args.service, args.rate, args.duration)
     print(f"ok rate={args.rate} duration={args.duration} events={n} topic={args.topic}")
