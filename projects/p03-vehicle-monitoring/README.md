@@ -1,7 +1,7 @@
 # p03 · 车联网监控告警链路样板
 
-> 对应教材:[docs/10-cep](../../docs/10-cep/README.md) · 企业实战模块 15 · GSD Phase 1–3（VEH-01–VEH-06）
-> 模式五元组评审见 [docs/PATTERN-LIBRARY.md](docs/PATTERN-LIBRARY.md)。Grafana 双 DS 大盘、压测 baseline 与 watermark 演练见下文；ADR/简历页属同里程碑后续 plan。
+> 对应教材:[docs/10-cep](../../docs/10-cep/README.md) · 企业实战模块 15 · GSD Phase 1–3（VEH-01–VEH-07）
+> 模式五元组评审见 [docs/PATTERN-LIBRARY.md](docs/PATTERN-LIBRARY.md)。架构总图 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)；CEP Broadcast ADR [docs/adr/0001-cep-broadcast-precompiled.md](docs/adr/0001-cep-broadcast-precompiled.md)。
 
 ## 1. 背景
 
@@ -37,7 +37,7 @@
               ClickHouse 业务面板 │ Prometheus Flink 健康
 ```
 
-开源 Flink CEP 的 Pattern 在编译期固定；运行期动态化路线是 **静态三 CEP + Broadcast 选择预编译激活集**，不引入商业动态规则引擎、不在运行时编译 Pattern。详见 [docs/PATTERN-LIBRARY.md](docs/PATTERN-LIBRARY.md)。窗口聚合与 CEP **解耦**（D-02）：大盘吞吐走旁路作业，不污染 Gate 语义。
+开源 Flink CEP 的 Pattern 在编译期固定；运行期动态化路线是 **静态三 CEP + Broadcast 选择预编译激活集**，不引入商业动态规则引擎、不在运行时编译 Pattern。决策见 [docs/adr/0001-cep-broadcast-precompiled.md](docs/adr/0001-cep-broadcast-precompiled.md)；五元组见 [docs/PATTERN-LIBRARY.md](docs/PATTERN-LIBRARY.md)。窗口聚合与 CEP **解耦**（D-02）：大盘吞吐走旁路作业，不污染 Gate 语义。告警 + 窗口大盘 + 演练总图见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
 Compose 隔离：`profiles: ["p03"]` 的 `p03-init` 幂等创建 topic + `vehicle_alerts` / `vehicle_window_metrics` DDL；不写入 default `init.sh`。Grafana 大盘 JSON 挂载不绑 `--profile p03`。
 
@@ -61,6 +61,8 @@ Compose 隔离：`profiles: ["p03"]` 的 `p03-init` 幂等创建 topic + `vehicl
 | `scripts/loadtest.sh` | 项目级压测 → [`docs/baseline.md`](docs/baseline.md)（Prometheus + CH） |
 | `scripts/drill_watermark_stall.sh` | 冻结 eventTime HEARTBEAT 停滞 → 恢复后 MATCH 断言 |
 | `docs/PATTERN-LIBRARY.md` | 三模式五元组评审页 |
+| `docs/ARCHITECTURE.md` | 告警 + 窗口大盘 + 演练架构短文 |
+| `docs/adr/0001-cep-broadcast-precompiled.md` | CEP 预编译 + Broadcast 激活集 ADR |
 | `docs/ANOMALY-THRESHOLDS.md` | 异常阈值条文（演示默认 / 非生产 SLA） |
 | `docs/baseline.md` | OrbStack arm64 实测压测数字（由 `make loadtest` 生成） |
 
@@ -239,10 +241,11 @@ make drill-watermark
 
 **参考**
 
+- 架构 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)；ADR [docs/adr/0001-cep-broadcast-precompiled.md](docs/adr/0001-cep-broadcast-precompiled.md)
 - 本项目模式库 [docs/PATTERN-LIBRARY.md](docs/PATTERN-LIBRARY.md)
 - 异常阈值 [docs/ANOMALY-THRESHOLDS.md](docs/ANOMALY-THRESHOLDS.md)；大盘 JSON `monitoring/dashboards/p03-vehicle-overview.json`
 - 教材 [docs/10-cep](../../docs/10-cep/README.md)；时间窗口 [docs/02-time-window](../../docs/02-time-window/README.md)；值班指标 [monitoring/README.md](../../monitoring/README.md)
 - 案例 [examples/e10-cep](../../examples/e10-cep/README.md)（C1/C3/C5）；e01 窗口聚合
 - Flink 2.2 CEP Pattern API / Broadcast State / TimedOutPartialMatchHandler（官方文档）
 - 本仓库 `docker/Makefile`（`up-p03` / `submit-p03` / `submit-p03-window`）、`sql/clickhouse_window_metrics.sql`
-- ADR / 简历陈述页延同里程碑 VEH-07 plan；模块 15 登记见 [docs/README.md](../../docs/README.md)
+- 模块 15 登记见 [docs/README.md](../../docs/README.md)
