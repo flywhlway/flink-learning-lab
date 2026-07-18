@@ -342,6 +342,43 @@ services:
         echo
         echo "==> p03-init: 完成（topics + flinklab.vehicle_alerts + flinklab.vehicle_window_metrics）"
 
+  # ─────────────────────────── P4 · p01 日志 AI 平台(profile=p01,按需启动)───────────────────────────
+  # 用法: make up-p01  或  docker compose --profile p01 up -d p01-init
+  # 说明: 一次性创建 logs.events + 执行 log_results DDL；禁止写入 default init.sh，保证 make up 不被拖入。
+  #       不绑 milvus（Milvus 仍走 --profile ai）。
+  p01-init:
+    image: ${KAFKA_IMAGE}
+    container_name: fll-p01-init
+    profiles: ["p01"]
+    restart: "no"
+    environment:
+      CH_USER: ${CH_USER}
+      CH_PASSWORD: ${CH_PASSWORD}
+    volumes:
+      - ../projects/p01-log-ai-platform/sql/clickhouse_log_results.sql:/ddl/clickhouse_log_results.sql:ro
+    depends_on:
+      kafka:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -euo pipefail
+        echo "==> p01-init: 创建 Kafka topic logs.events"
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists \
+          --topic logs.events --partitions 4 --replication-factor 1
+        echo "==> p01-init: 等待 ClickHouse HTTP"
+        for i in $$(seq 1 30); do
+          if wget -qO- "http://clickhouse:8123/ping" >/dev/null 2>&1; then break; fi
+          sleep 1
+        done
+        echo "==> p01-init: 执行 ClickHouse DDL（单语句 POST；CH HTTP 禁多语句）"
+        wget -qO- --post-file=/ddl/clickhouse_log_results.sql \
+          "http://clickhouse:8123/?user=$${CH_USER}&password=$${CH_PASSWORD}"
+        echo
+        echo "==> p01-init: 完成（logs.events + flinklab.log_results）"
+
 volumes:
   kafka-data:
   pg-data:
