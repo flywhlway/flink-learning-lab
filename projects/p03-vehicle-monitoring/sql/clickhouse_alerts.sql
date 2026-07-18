@@ -1,4 +1,5 @@
 -- p03 车联网告警落库表（由 p03-init profile 幂等执行，不进 default init.sh）
+-- 注意：ClickHouse HTTP 默认禁多语句；CREATE 与 ALTER 由 p03-init 分两次 POST。
 CREATE TABLE IF NOT EXISTS flinklab.vehicle_alerts
 (
     vin            String,
@@ -11,8 +12,4 @@ CREATE TABLE IF NOT EXISTS flinklab.vehicle_alerts
     ingest_time    DateTime64(3) DEFAULT now64(3)
 )
 ENGINE = MergeTree
-ORDER BY (event_time, vin);
-
--- 兼容已有表：幂等加列（ClickHouse 24.x ADD COLUMN IF NOT EXISTS）
-ALTER TABLE flinklab.vehicle_alerts
-    ADD COLUMN IF NOT EXISTS pattern_id String DEFAULT '';
+ORDER BY (event_time, vin)

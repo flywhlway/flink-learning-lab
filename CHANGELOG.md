@@ -5,12 +5,15 @@
 ## [Unreleased]
 
 ### Added
+- **projects/p03-vehicle-monitoring Phase 2 模式库 + Broadcast**：静态三 CEP（`HARSH_THEN_FAULT` / `TRIPLE_HARSH` / `DTC_PAIR`）+ `vehicle.pattern.control` 控制面；出口门控按 `activePatterns` 过滤；CH `pattern_id` 列
+- 造数三 scenario（`match-harsh-fault` / `match-triple-harsh` / `match-dtc-pair`，`match` 别名）与 `--publish-control`；Makefile `verify-switch`（TRUNCATE→control→gen→`PATTERN_ID` verify）
+- 五元组文档 `docs/PATTERN-LIBRARY.md`；八段式 README 交叉引用与切换剧本；docs 模块 15-03 登记 Phase 2
 - **projects/p03-vehicle-monitoring Phase 1 告警链路样板**：独立 compose profile `p03`（topic + `vehicle_alerts` DDL）、CEP `HARSH_ACCEL→DTC` within(30s) + TIMEOUT Side Output、告警双写 Kafka/ClickHouse
 - 造数 `scripts/gen_vehicle_events.py`（可判定 match 序列 + 尾心跳推进 watermark）与 `scripts/verify.sh`（ClickHouse MATCH count 为唯一权威出口；Kafka 仅诊断）
-- 八段式项目 README；docs 模块 15 登记 Phase 1 占位（完整 ADR 延 Phase 3）
 
 ### Fixed
 - docker Flink `FLINK_PROPERTIES`：MinIO S3a 固定 `SimpleAWSCredentialsProvider`，避免 InstanceProfile 探测导致作业长时间 `INITIALIZING`；去掉错误引号导致的 metrics port 解析失败
+- `p03-init` ClickHouse DDL：CREATE 与 ALTER 分两次 HTTP POST（CH 24.8 HTTP 禁多语句，且无 `multiquery` 设置）
 
 ## [v0.4.0-phase3] - 2026-07-06
 

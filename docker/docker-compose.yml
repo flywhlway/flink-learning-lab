@@ -302,6 +302,7 @@ services:
       CH_PASSWORD: ${CH_PASSWORD}
     volumes:
       - ../projects/p03-vehicle-monitoring/sql/clickhouse_alerts.sql:/ddl/clickhouse_alerts.sql:ro
+      - ../projects/p03-vehicle-monitoring/sql/clickhouse_alerts_alter.sql:/ddl/clickhouse_alerts_alter.sql:ro
     depends_on:
       kafka:
         condition: service_healthy
@@ -323,8 +324,11 @@ services:
           if wget -qO- "http://clickhouse:8123/ping" >/dev/null 2>&1; then break; fi
           sleep 1
         done
-        echo "==> p03-init: 执行 ClickHouse DDL"
+        echo "==> p03-init: 执行 ClickHouse DDL（CREATE 与 ALTER 分 POST；CH HTTP 禁多语句）"
         wget -qO- --post-file=/ddl/clickhouse_alerts.sql \
+          "http://clickhouse:8123/?user=$${CH_USER}&password=$${CH_PASSWORD}"
+        echo
+        wget -qO- --post-file=/ddl/clickhouse_alerts_alter.sql \
           "http://clickhouse:8123/?user=$${CH_USER}&password=$${CH_PASSWORD}"
         echo
         echo "==> p03-init: 完成（vehicle.events / vehicle.alerts / vehicle.pattern.control + flinklab.vehicle_alerts）"
