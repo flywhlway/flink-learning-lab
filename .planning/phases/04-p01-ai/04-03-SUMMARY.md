@@ -74,7 +74,7 @@ Each task was committed atomically:
 2. **Task 2: verify-ai + ai-risk-high + Makefile** - `c7db94e` (feat)
 3. **Task 3: DEGRADE-CHECKLIST + README** - `3abaa5f` (docs)
 
-**Plan metadata:** （本 SUMMARY 提交后填写）
+**Plan metadata:** `7b9c3a6` (docs: complete V3 AI bypass plan)
 
 ## Files Created/Modified
 
