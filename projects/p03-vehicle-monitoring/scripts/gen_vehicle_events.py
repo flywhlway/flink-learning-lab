@@ -379,12 +379,18 @@ def run_frozen_mode(
     rate: int,
     duration: int,
     freeze_at: int | None,
+    vin_count: int = 1,
 ) -> int:
-    """冻结 eventTime=T0 的 HEARTBEAT 涓流：源不 idle，但 watermark 卡在 T0-ooo。"""
+    """冻结 eventTime=T0 的 HEARTBEAT 涓流：源不 idle，但 watermark 卡在 T0-ooo。
+
+    vin_count>1 时轮换 key，尽量覆盖多 Kafka 分区，避免仅靠空闲分区演示停滞。
+    """
     if rate < 1 or rate > MAX_RATE:
         raise SystemExit(f"FAIL: --rate 须在 1..{MAX_RATE}，got={rate}")
     if duration < 1 or duration > MAX_DURATION:
         raise SystemExit(f"FAIL: --duration 须在 1..{MAX_DURATION}，got={duration}")
+    if vin_count < 1:
+        raise SystemExit("FAIL: --vin-count 须 ≥1")
 
     t0 = freeze_at if freeze_at is not None else int(time.time() * 1000)
     running = True
@@ -401,15 +407,16 @@ def run_frozen_mode(
     tick = time.monotonic()
     print(
         f"frozen-mode → {topic} rate={rate} duration={duration}s "
-        f"vin={vin} frozen_eventTime={t0}"
+        f"vin={vin} vin_count={vin_count} frozen_eventTime={t0}"
     )
     while running and time.monotonic() < deadline:
         batch_deadline = tick + 1.0
-        for _ in range(rate):
+        for i in range(rate):
             if time.monotonic() >= deadline or not running:
                 break
+            key = vin if vin_count == 1 else f"{vin}-{i % vin_count:04d}"
             event = {
-                "vin": vin,
+                "vin": key,
                 "signalType": "HEARTBEAT",
                 "value": 1.0,
                 "eventTime": t0,
@@ -518,6 +525,7 @@ def main() -> None:
             rate,
             args.duration,
             args.freeze_at,
+            args.vin_count,
         )
 
     if args.rate is not None and not args.frozen_event_time:

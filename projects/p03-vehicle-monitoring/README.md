@@ -197,8 +197,9 @@ make drill-watermark
 预期：
 
 - `make loadtest` 生成 [`docs/baseline.md`](docs/baseline.md)（环境 / 负载 / 指标 / 结论），数字来自本次 OrbStack 运行。
-- `make drill-watermark` stall 阶段 CH MATCH 不增且 Prometheus `currentEmitEventTimeLag` 上升；recover 后 `PATTERN_ID=HARSH_THEN_FAULT` 的 `verify.sh` 为绿。
+- `make drill-watermark` stall 阶段：CH MATCH 不增；CEP `currentInputWatermark` 停滞且墙钟推算 lag 上升（Source `currentEmitEventTimeLag` 仅诊断）；recover 后 `PATTERN_ID=HARSH_THEN_FAULT` 的 `verify.sh` 为绿。
 - 副证（human-check）：stall 期间 Flink UI → 作业 → Timestamps/Watermarks 列停滞（REST `/watermarks` 可能为空，勿作唯一断言）。时间语义见 [docs/02-time-window](../../docs/02-time-window/README.md)。
+- 若刚跑完大流量压测，Kafka 仍有 advancing backlog 时冻结演示会失效：将 consumer group reset 到 latest 后重提作业，再跑演练。
 
 造数速率模式：`uv run scripts/gen_vehicle_events.py --rate 100 --duration 60`（`--eps` 为别名）；冻结心跳：`--frozen-event-time --duration 50 --rate 2 --vin VIN-STALL-001`。
 
