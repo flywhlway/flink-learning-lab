@@ -72,7 +72,7 @@ match: truncate-results
 drill-redis:
 	bash scripts/drill_redis_degrade.sh
 
-# RECO-03：项目级压测 → docs/baseline.md（OrbStack 实测；可用 RATE/WARMUP_SEC/DURATION_SEC 覆盖）
+# RECO-03 / D-11：项目级压测 → docs/baseline.md（OrbStack 实测；可用 RATE/WARMUP_SEC/DURATION_SEC 覆盖）
 RATE ?= 100
 WARMUP_SEC ?= 30
 DURATION_SEC ?= 90
