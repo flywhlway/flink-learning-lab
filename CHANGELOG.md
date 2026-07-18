@@ -5,6 +5,9 @@
 ## [Unreleased]
 
 ### Added
+- **projects/p01-log-ai-platform Phase 4 单项目完成态（LOG-01–05）**：独立 compose profile `p01`；Kafka `logs.events` → Parse/Enrich/Rule →（可选）BudgetGate + Async Ollama 风险分级 → Guardrail → CH `log_results`；默认 `--ai.enabled=false` 零外部模型；验收双轨 `make verify` / `make verify-ai`
+- 演练：`make loadtest` → `docs/baseline.md`（OrbStack arm64 实测）；`make drill-degrade`（AI off + 不可达 endpoint 后 verify 仍绿）
+- 文档包：`docs/ARCHITECTURE.md`、`docs/adr/0001-ai-path-degradable.md`、`docs/RESUME.md`、`docs/DEGRADE-CHECKLIST.md`；docs 模块 15-01 回填完成态
 - **projects/p03-vehicle-monitoring Phase 3 大盘与演练收官（VEH-05/06/07）**：旁路 `VehicleWindowMetricsJob` → CH `vehicle_window_metrics`；Grafana 双 DS 大盘 `p03-vehicle-overview`（`make verify-dashboard`）；`make loadtest` → `docs/baseline.md`；`make drill-watermark` 冻结 HEARTBEAT 停滞→恢复
 - 文档包：`docs/ARCHITECTURE.md`、`docs/adr/0001-cep-broadcast-precompiled.md`、`docs/RESUME.md`；docs 模块 15-03 回填完成态
 - **projects/p03-vehicle-monitoring Phase 2 模式库 + Broadcast**：静态三 CEP（`HARSH_THEN_FAULT` / `TRIPLE_HARSH` / `DTC_PAIR`）+ `vehicle.pattern.control` 控制面；出口门控按 `activePatterns` 过滤；CH `pattern_id` 列
