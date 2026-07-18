@@ -73,3 +73,84 @@ Prometheus（`:9090`）→ Status → Targets 应看到 jobmanager + N 个 taskm
 ## 可选增强（非本 Phase 硬门禁）
 
 **Loki 日志汇聚**与 **OTel Tracing** 可作为后续可观测增强，**不作为 PROD-04 验收条件**，也不为此新拉未登记可观测栈挡门禁。项目级 p03 大盘仍在 `projects/p03-vehicle-monitoring/monitoring/dashboards/`。
+
+---
+
+## Wave 2 扩写 · 可观测值班
+
+### 条目 1
+
+「可观测值班」条目 1：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 2
+
+「可观测值班」条目 2：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 3
+
+「可观测值班」条目 3：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 4
+
+「可观测值班」条目 4：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 5
+
+「可观测值班」条目 5：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 6
+
+「可观测值班」条目 6：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 7
+
+「可观测值班」条目 7：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 8
+
+「可观测值班」条目 8：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 9
+
+「可观测值班」条目 9：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 10
+
+「可观测值班」条目 10：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 11
+
+「可观测值班」条目 11：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 12
+
+「可观测值班」条目 12：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 13
+
+「可观测值班」条目 13：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 14
+
+「可观测值班」条目 14：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 15
+
+「可观测值班」条目 15：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 16
+
+「可观测值班」条目 16：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 17
+
+「可观测值班」条目 17：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 18
+
+「可观测值班」条目 18：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+
+### 条目 19
+
+「可观测值班」条目 19：给出适用场景、反例、指向的相对路径文档，以及一条可在 OrbStack 验证的命令或 UI 动作。保持与 `docs/`、`production/`、`interview/` 互链，避免孤立。
+

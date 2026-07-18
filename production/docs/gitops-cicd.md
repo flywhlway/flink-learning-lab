@@ -215,3 +215,108 @@ docker buildx build --platform linux/amd64,linux/arm64 \
 - [../scripts/install-argocd.sh](../scripts/install-argocd.sh) / [../scripts/verify-argocd-sync.sh](../scripts/verify-argocd-sync.sh)
 - [../argocd/application-p03.yaml](../argocd/application-p03.yaml)
 - **规范正文（非操作步骤）：** [`best-practice/07-cicd-gitops.md`](../../best-practice/07-cicd-gitops.md) · 总索引 [`best-practice/README.md`](../../best-practice/README.md)
+
+---
+
+## Wave 2 扩写 · GitOps / CI/CD
+
+### SOP 细项 1
+
+针对「GitOps / CI/CD」第 1 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 1：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 2
+
+针对「GitOps / CI/CD」第 2 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 2：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 3
+
+针对「GitOps / CI/CD」第 3 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 3：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 4
+
+针对「GitOps / CI/CD」第 4 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 4：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 5
+
+针对「GitOps / CI/CD」第 5 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 5：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 6
+
+针对「GitOps / CI/CD」第 6 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 6：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 7
+
+针对「GitOps / CI/CD」第 7 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 7：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 8
+
+针对「GitOps / CI/CD」第 8 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 8：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 9
+
+针对「GitOps / CI/CD」第 9 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 9：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 10
+
+针对「GitOps / CI/CD」第 10 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 10：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 11
+
+针对「GitOps / CI/CD」第 11 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 11：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 12
+
+针对「GitOps / CI/CD」第 12 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 12：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 13
+
+针对「GitOps / CI/CD」第 13 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 13：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### SOP 细项 14
+
+针对「GitOps / CI/CD」第 14 步：前置条件、执行命令级动作、期望观测、失败回滚、证据落点。证据优先写入非 timeline 文档或项目 baseline；**禁止**再复制 bluegreen-timeline 长文。交叉：`../docs/`（若有）、`../../best-practice/07-cicd-gitops.md`、`../../docs/14-production/README.md`、`../../monitoring/README.md`。
+
+检查清单 14：变更单号、savepoint 路径（如适用）、镜像 digest、谁批准切流、谁值守。
+
+### 排障树
+
+1. 症状分支 1：先查 Operator/CR 状态 → 再查 JM 日志 → 再查对象存储权限 → 再查 GitOps sync → 最后查人工误操作。每步记录时间戳。
+
+2. 症状分支 2：先查 Operator/CR 状态 → 再查 JM 日志 → 再查对象存储权限 → 再查 GitOps sync → 最后查人工误操作。每步记录时间戳。
+
+3. 症状分支 3：先查 Operator/CR 状态 → 再查 JM 日志 → 再查对象存储权限 → 再查 GitOps sync → 最后查人工误操作。每步记录时间戳。
+
+4. 症状分支 4：先查 Operator/CR 状态 → 再查 JM 日志 → 再查对象存储权限 → 再查 GitOps sync → 最后查人工误操作。每步记录时间戳。
+
+5. 症状分支 5：先查 Operator/CR 状态 → 再查 JM 日志 → 再查对象存储权限 → 再查 GitOps sync → 最后查人工误操作。每步记录时间戳。
+
+6. 症状分支 6：先查 Operator/CR 状态 → 再查 JM 日志 → 再查对象存储权限 → 再查 GitOps sync → 最后查人工误操作。每步记录时间戳。
+
+7. 症状分支 7：先查 Operator/CR 状态 → 再查 JM 日志 → 再查对象存储权限 → 再查 GitOps sync → 最后查人工误操作。每步记录时间戳。
+

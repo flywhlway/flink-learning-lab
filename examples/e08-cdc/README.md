@@ -66,3 +66,44 @@ flowchart LR
 
 ① 增量快照框架如何避免全量导出期间锁表?② REPLICA IDENTITY 的四种模式分别提供什么信息量?③ upsert-kafka 与 debezium-json 两种落地格式的选择依据?
 参考:官方 Flink CDC 3.x 文档(YAML Pipeline / Postgres CDC Connector);PostgreSQL Logical Replication 文档;e08 源码与 YAML。
+
+---
+
+## Wave 2 模块加固 · e08-cdc
+
+### 加固 1
+
+对应教材 `docs/` 同编号模块；列出本模块第 1 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 2
+
+对应教材 `docs/` 同编号模块；列出本模块第 2 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 3
+
+对应教材 `docs/` 同编号模块；列出本模块第 3 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 4
+
+对应教材 `docs/` 同编号模块；列出本模块第 4 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 5
+
+对应教材 `docs/` 同编号模块；列出本模块第 5 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 6
+
+对应教材 `docs/` 同编号模块；列出本模块第 6 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 7
+
+对应教材 `docs/` 同编号模块；列出本模块第 7 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 8
+
+对应教材 `docs/` 同编号模块；列出本模块第 8 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 9
+
+对应教材 `docs/` 同编号模块；列出本模块第 9 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+

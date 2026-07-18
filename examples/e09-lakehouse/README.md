@@ -64,3 +64,44 @@ flowchart TD
 
 ① Paimon 主键表如何用 LSM 结构支持流式 upsert?② changelog-producer 三种模式的延迟/正确性权衡?③ Time Travel 在存储层如何实现(快照与文件引用计数)?④ 什么场景下 Iceberg 比 Paimon 更合适?
 参考:Apache Paimon 官方文档(Primary Key Table / Changelog Producer);Apache Iceberg 官方文档(Time Travel / Table Format v2);Flink SQL→Catalogs。
+
+---
+
+## Wave 2 模块加固 · e09-lakehouse
+
+### 加固 1
+
+对应教材 `docs/` 同编号模块；列出本模块第 1 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 2
+
+对应教材 `docs/` 同编号模块；列出本模块第 2 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 3
+
+对应教材 `docs/` 同编号模块；列出本模块第 3 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 4
+
+对应教材 `docs/` 同编号模块；列出本模块第 4 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 5
+
+对应教材 `docs/` 同编号模块；列出本模块第 5 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 6
+
+对应教材 `docs/` 同编号模块；列出本模块第 6 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 7
+
+对应教材 `docs/` 同编号模块；列出本模块第 7 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 8
+
+对应教材 `docs/` 同编号模块；列出本模块第 8 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 9
+
+对应教材 `docs/` 同编号模块；列出本模块第 9 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+

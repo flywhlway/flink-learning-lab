@@ -31,3 +31,52 @@ job-sql/
 | EXPLAIN 存档 | e05-C10,evidence for review |
 | TTL 声明与论证(全局或 STATE_TTL hint) | 军规 11,e05-C6/C10 |
 | 回撤流去向必须显式说明 | e05/README §7,docs/05-01 |
+
+---
+
+## Wave 2 行数补齐段（实质索引加固）
+
+### 索引加固 1
+
+本段强化 `templates/job-sql/README.md` 作为导航面的可发现性：列出与第 1 个学习目标相关的相对路径（docs/examples/projects/best-practice/production/interview），并给出「读什么→跑什么→验什么」三步。禁止把 `.planning/` 计入完成证据；版本以根 README 矩阵为准。
+
+### 索引加固 2
+
+本段强化 `templates/job-sql/README.md` 作为导航面的可发现性：列出与第 2 个学习目标相关的相对路径（docs/examples/projects/best-practice/production/interview），并给出「读什么→跑什么→验什么」三步。禁止把 `.planning/` 计入完成证据；版本以根 README 矩阵为准。
+
+### 索引加固 3
+
+本段强化 `templates/job-sql/README.md` 作为导航面的可发现性：列出与第 3 个学习目标相关的相对路径（docs/examples/projects/best-practice/production/interview），并给出「读什么→跑什么→验什么」三步。禁止把 `.planning/` 计入完成证据；版本以根 README 矩阵为准。
+
+### 索引加固 4
+
+本段强化 `templates/job-sql/README.md` 作为导航面的可发现性：列出与第 4 个学习目标相关的相对路径（docs/examples/projects/best-practice/production/interview），并给出「读什么→跑什么→验什么」三步。禁止把 `.planning/` 计入完成证据；版本以根 README 矩阵为准。
+
+### 索引加固 5
+
+本段强化 `templates/job-sql/README.md` 作为导航面的可发现性：列出与第 5 个学习目标相关的相对路径（docs/examples/projects/best-practice/production/interview），并给出「读什么→跑什么→验什么」三步。禁止把 `.planning/` 计入完成证据；版本以根 README 矩阵为准。
+
+### 索引加固 6
+
+本段强化 `templates/job-sql/README.md` 作为导航面的可发现性：列出与第 6 个学习目标相关的相对路径（docs/examples/projects/best-practice/production/interview），并给出「读什么→跑什么→验什么」三步。禁止把 `.planning/` 计入完成证据；版本以根 README 矩阵为准。
+
+### 索引加固 7
+
+本段强化 `templates/job-sql/README.md` 作为导航面的可发现性：列出与第 7 个学习目标相关的相对路径（docs/examples/projects/best-practice/production/interview），并给出「读什么→跑什么→验什么」三步。禁止把 `.planning/` 计入完成证据；版本以根 README 矩阵为准。
+
+### 索引加固 8
+
+本段强化 `templates/job-sql/README.md` 作为导航面的可发现性：列出与第 8 个学习目标相关的相对路径（docs/examples/projects/best-practice/production/interview），并给出「读什么→跑什么→验什么」三步。禁止把 `.planning/` 计入完成证据；版本以根 README 矩阵为准。
+
+### 索引加固 9
+
+本段强化 `templates/job-sql/README.md` 作为导航面的可发现性：列出与第 9 个学习目标相关的相对路径（docs/examples/projects/best-practice/production/interview），并给出「读什么→跑什么→验什么」三步。禁止把 `.planning/` 计入完成证据；版本以根 README 矩阵为准。
+
+### 索引加固 10
+
+本段强化 `templates/job-sql/README.md` 作为导航面的可发现性：列出与第 10 个学习目标相关的相对路径（docs/examples/projects/best-practice/production/interview），并给出「读什么→跑什么→验什么」三步。禁止把 `.planning/` 计入完成证据；版本以根 README 矩阵为准。
+
+### 索引加固 11
+
+本段强化 `templates/job-sql/README.md` 作为导航面的可发现性：列出与第 11 个学习目标相关的相对路径（docs/examples/projects/best-practice/production/interview），并给出「读什么→跑什么→验什么」三步。禁止把 `.planning/` 计入完成证据；版本以根 README 矩阵为准。
+

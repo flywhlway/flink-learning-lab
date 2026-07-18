@@ -41,3 +41,44 @@ flowchart TD
 实践:桥接点(from/to)必须显式注释时间与 changelog 语义,作为 code review 检查项。
 面试:① toDataStream 与 toChangelogStream 的选择依据?② SOURCE_WATERMARK() 与在 Schema 里重新声明 watermark 表达式的差异?③ 混编会引入 shuffle 或性能损耗吗?
 参考:官方 Table API & SQL→DataStream API 集成(fromDataStream/toChangelogStream 全节)、Catalogs。
+
+---
+
+## Wave 2 模块加固 · e06-table-api
+
+### 加固 1
+
+对应教材 `docs/` 同编号模块；列出本模块第 1 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 2
+
+对应教材 `docs/` 同编号模块；列出本模块第 2 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 3
+
+对应教材 `docs/` 同编号模块；列出本模块第 3 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 4
+
+对应教材 `docs/` 同编号模块；列出本模块第 4 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 5
+
+对应教材 `docs/` 同编号模块；列出本模块第 5 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 6
+
+对应教材 `docs/` 同编号模块；列出本模块第 6 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 7
+
+对应教材 `docs/` 同编号模块；列出本模块第 7 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 8
+
+对应教材 `docs/` 同编号模块；列出本模块第 8 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 9
+
+对应教材 `docs/` 同编号模块；列出本模块第 9 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+

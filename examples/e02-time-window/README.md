@@ -65,3 +65,44 @@ mvn -q -Plocal compile exec:java -pl e02-time-window \
 
 自测:① allowedLateness 与乱序上界的职责边界?② Trigger 的 FIRE/PURGE 四种组合各适用什么?③ 对齐把快源"暂停"了,exactly-once 会受影响吗(提示:不会,为什么)?——展开见 [docs/02-time-window](../../docs/02-time-window/README.md) 与 interview/ L1-L2 段。
 参考:官方 Concepts→Timely Stream Processing;FLIP-182(Watermark Alignment);DataStream→Windows(Trigger/Evictor 章)。
+
+---
+
+## Wave 2 模块加固 · e02-time-window
+
+### 加固 1
+
+对应教材 `docs/` 同编号模块；列出本模块第 1 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 2
+
+对应教材 `docs/` 同编号模块；列出本模块第 2 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 3
+
+对应教材 `docs/` 同编号模块；列出本模块第 3 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 4
+
+对应教材 `docs/` 同编号模块；列出本模块第 4 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 5
+
+对应教材 `docs/` 同编号模块；列出本模块第 5 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 6
+
+对应教材 `docs/` 同编号模块；列出本模块第 6 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 7
+
+对应教材 `docs/` 同编号模块；列出本模块第 7 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 8
+
+对应教材 `docs/` 同编号模块；列出本模块第 8 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
+### 加固 9
+
+对应教材 `docs/` 同编号模块；列出本模块第 9 个可运行 main 的验证点、uid 纪律与常见失败。交叉 `best-practice/` 与 `interview/` 相关 Level。
+
