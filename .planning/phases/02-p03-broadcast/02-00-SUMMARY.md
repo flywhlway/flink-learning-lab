@@ -71,7 +71,7 @@ Each task was committed atomically:
 1. **Task 1: RED 夹具 — Registry within + 两新模式单测** - `5b5c9a0` (test)
 2. **Task 2: RED 夹具 — Gate 单测 + verify PATTERN_ID** - `8a49381` (test)
 
-**Plan metadata:** （见 final docs commit）
+**Plan metadata:** `4aa1822` (docs: complete Wave 0 RED fixtures plan)
 
 _Note: TDD Wave 0 仅 RED 提交；GREEN 在 02-01 / 02-02_
 
