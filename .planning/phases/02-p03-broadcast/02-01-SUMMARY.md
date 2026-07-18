@@ -75,7 +75,7 @@ Each task was committed atomically:
 1. **Task 1: 三工厂 + PatternRegistry 使 within 单测 GREEN** - `e67b099` (feat)
 2. **Task 2: PATTERN-LIBRARY.md 五元组与评审清单** - `5201017` (docs)
 
-**Plan metadata:** _(见下方 final docs commit)_
+**Plan metadata:** `8c883c7` (docs: complete pattern library plan)
 
 _Note: TDD Wave 0 RED 在 02-00；本计划为 GREEN 实现_
 
