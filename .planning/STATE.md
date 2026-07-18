@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-18T01:08:24.379Z"
+last_updated: "2026-07-18T01:12:51.211Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 9
-  completed_plans: 7
+  completed_plans: 8
   percent: 14
 ---
 
@@ -25,11 +25,11 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 2
-Plan: 3 of 5
+Plan: 4 of 5
 Status: Ready to execute
 Last activity: 2026-07-18
 
-Progress: [████████░░] 78%
+Progress: [█████████░] 89%
 
 ## Performance Metrics
 
@@ -58,6 +58,7 @@ Progress: [████████░░] 78%
 | Phase 02-p03 P00 | 2min | 2 tasks | 5 files |
 | Phase 02 P01 | 2min | 2 tasks | 6 files |
 | Phase 02 P02 | 1min | 1 tasks | 4 files |
+| Phase 02 P02b | 2min | 2 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -86,6 +87,8 @@ Progress: [████████░░] 78%
 - [Phase 02]: Gate 采用非 keyed BroadcastProcessFunction（RESEARCH A1 / RESOLVED Q1）
 - [Phase 02]: AlertEvent 仅增加 patternId 最小字段；Handler/DDL/作业接线留给 02-02b
 - [Phase 02]: 原始 activePatterns.size()>3 整条跳过；未知 ID 求交过滤
+- [Phase 02]: HarshThenFaultHandler 继承 AlertPatternHandler，三 Handler 共享 TIMEOUT_TAG
+- [Phase 02]: ParsePatternControlJson 随作业接线落地；Sink patternId 白名单+拒注入字符
 
 ### Pending Todos
 
@@ -104,6 +107,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T01:08:24.373Z
-Stopped at: Completed 02-02-PLAN.md
+Last session: 2026-07-18T01:12:51.206Z
+Stopped at: Completed 02-02b-PLAN.md
 Resume file: None
