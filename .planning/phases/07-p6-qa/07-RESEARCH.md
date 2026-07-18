@@ -498,18 +498,21 @@ find . -name '*.md' -not -path './.planning/*' -not -path './.git/*' -print0 \
 | A4 | interview 加厚至 ~30 行/题不违反「已有完整答案」质量观 | 文档表 | 若认为已够厚，则 docs/ai 需承担更多行数 |
 | A5 | 新 Demo 不登记新 Maven 坐标即可完成 | Standard Stack | 若某 Demo 强依赖新连接器，必须先改矩阵（ENG-01） |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **ENG 并入 qa_check 还是独立？**
+1. **ENG 并入 qa_check 还是独立？** (RESOLVED)
    - What we know: D-10 允许二者；独立更易单测与 Wave 1 骨架。
    - Recommendation: **独立 `eng_audit.sh` + qa_check 调用**（Discretion 默认）。
+   - RESOLVED: 采用独立 `scripts/eng_audit.sh`，由 `qa_check.sh` 末尾调用（见 07-00-PLAN）。
 
-2. **是否产出 `docs/QA-REPORT.md`？**
+2. **是否产出 `docs/QA-REPORT.md`？** (RESOLVED)
    - Recommendation: **可选**；若做，用一次 `qa_check`/`eng_audit` 输出粘贴 + 计量表；不挡门禁。
+   - RESOLVED: 可选；07-03 Discretion 允许生成，须先在 `docs/README.md` 登记；不挡门禁。
 
-3. **e12-03/04 是否补 Java 降级作业？**
+3. **e12-03/04 是否补 Java 降级作业？** (RESOLVED)
    - What we know: SQL 不计 main；章内已写 AsyncIO 降级。
    - Recommendation: **各加 1 个 mock 降级 Job 进主构建**可同时抬 mains 与学习路径；非必须若 e12 缺口批已满 33。
+   - RESOLVED: 非必须；07-01 以 e12 缺口批 + e0x 回填凑满 ≥100；e12-03/04 Java 降级仅在缺口不足时再补。
 
 ## Environment Availability
 
