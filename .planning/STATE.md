@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 3
+current_plan: 4
 status: executing
-last_updated: "2026-07-18T04:08:03.711Z"
+last_updated: "2026-07-18T04:22:21.990Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 24
-  completed_plans: 21
+  completed_plans: 22
   percent: 57
 ---
 
@@ -26,13 +26,13 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 05 (p02) — EXECUTING
-Plan: 3 of 4
-Current Plan: 3
+Plan: 4 of 4
+Current Plan: 4
 Total Plans in Phase: 4
 Status: Ready to execute
 Last activity: 2026-07-18
 
-Progress: [█████████░] 91%
+Progress: [██████████] 96%
 
 ## Performance Metrics
 
@@ -73,6 +73,7 @@ Progress: [█████████░] 91%
 | Phase 04 P05 | 6min | 3 tasks | 12 files |
 | Phase 05 P00 | 2min | 3 tasks | 11 files |
 | Phase 05 P01 | 3min | 3 tasks | 10 files |
+| Phase 05 P02 | 13min | 3 tasks | 16 files |
 
 ## Accumulated Context
 
@@ -133,6 +134,10 @@ Progress: [█████████░] 91%
 - [Phase 05]: BehaviorEvent 字段名对齐 Wave 0 单测 eventTime（非 plan 文案 eventTimeMs）
 - [Phase 05]: RealtimeRecoJob 05-01 仅 print 透传，不接 CH/Kafka results
 - [Phase 05]: pom testExclude RuleScorerTest 直至 05-02，避免挡住 Parse GREEN
+- [Phase 05]: Redis 写语义文档锁定 at-least-once；写失败 catch+metric，主流 FeatureSnapshot 继续
+- [Phase 05]: TopKScoreFunction feature_source=REDIS|STATE_ONLY；读失败不抛死作业
+- [Phase 05]: CatalogLoader 显式 Class.forName(org.postgresql.Driver) + TopK ensureCatalog 懒重试
+- [Phase 05]: compose PG_HOST_PORT/REDIS_HOST_PORT 可覆盖；本机 .env 用 15432/16379 避让端口冲突
 
 ### Pending Todos
 
@@ -151,7 +156,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T04:08:03.706Z
-Stopped at: Completed 05-01-PLAN.md
+Last session: 2026-07-18T04:22:21.986Z
+Stopped at: Completed 05-02-PLAN.md
 Resume file: 
 None
