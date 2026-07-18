@@ -45,7 +45,7 @@ Plans:
 
 ### Phase 2: p03 模式库与 Broadcast
 
-**Goal:** 将单模式告警升级为可评审的模式库，并支持 Broadcast 动态切换预编译模式
+**Goal:** As a 仓库维护者, I want to 维护恰好 3 条可评审 CEP 模式库并通过 Kafka Broadcast 控制消息切换预编译激活集、在 ClickHouse 按 pattern_id 断言匹配变化, so that 无 within 不得合入且不必重启作业即可演示开源 CEP 动态化路线.
 **Mode:** mvp
 **Depends on:** Phase 1
 **Requirements:** VEH-03, VEH-04
@@ -55,7 +55,23 @@ Plans:
   2. 维护者可通过 Broadcast 配置切换模式集并观察到匹配行为变化
   3. 无 within 的模式无法通过项目自检/评审清单
 
-**Plans:** TBD
+**Plans:** 4 plans
+Plans:
+**Wave 0**
+
+- [ ] 02-00-PLAN.md — Wave 0：Nyquist RED 夹具（Registry within / 新模式 / Gate / verify PATTERN_ID）
+
+**Wave 1** *(blocked on Wave 0)*
+
+- [ ] 02-01-PLAN.md — VEH-03：三工厂 + PatternRegistry + PATTERN-LIBRARY 五元组
+
+**Wave 2** *(blocked on Wave 1)*
+
+- [ ] 02-02-PLAN.md — VEH-04：Broadcast 门控 + 三 CEP 作业接线 + pattern_id DDL/topic
+
+**Wave 3** *(blocked on Wave 2)*
+
+- [ ] 02-03-PLAN.md — VEH-03/04：造数切换 e2e + README/qa_check + 人工验收
 
 ### Phase 3: p03 大盘与演练收官
 
@@ -139,7 +155,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. p03 告警链路样板 | 4/4 | Complete    | 2026-07-17 |
-| 2. p03 模式库与 Broadcast | 0/TBD | Not started | - |
+| 2. p03 模式库与 Broadcast | 0/4 | Planned | - |
 | 3. p03 大盘与演练收官 | 0/TBD | Not started | - |
 | 4. p01 日志 AI 平台 | 0/TBD | Not started | - |
 | 5. p02 实时推荐 | 0/TBD | Not started | - |
