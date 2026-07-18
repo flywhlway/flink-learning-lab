@@ -146,7 +146,6 @@ Progress: [█████████░] 93%
 - [Phase 05]: drill EXIT trap 强制恢复 redis，避免污染后续 loadtest
 - [Phase 6]: PROD-01 部署锁定 compose Flink；权威 baseline 仅 matrix 写入，dry-run 写 baseline.dry-run.md
 - [Phase 6]: 20k/ForSt SKIPPED+原因；热身 45s 并声明相对理想 3 分钟偏差
-- [Phase ?]: Kafka K8S listener 9095（host.docker.internal）；拒绝 hostNetwork
 - [Phase 06]: Kafka K8S listener 9095（host.docker.internal）；拒绝 hostNetwork 因 JM+TM 端口冲突
 - [Phase 06]: p03 chart 自带 flink SA RBAC；BG 演练以 image.tag 触发 TRANSITION
 
