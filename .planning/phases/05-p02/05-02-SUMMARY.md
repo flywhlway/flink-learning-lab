@@ -86,7 +86,7 @@ Each task was committed atomically:
 3. **Task 2: CatalogLoader + RuleScorer Top-K GREEN** - `54ee8f9` (feat)
 4. **Task 3: 双写接线 + make match 绿** - `7119133` (feat)
 
-**Plan metadata:** （docs close-out 提交见下）
+**Plan metadata:** `b651b7b` (docs: complete RECO-02 dual-channel features plan)
 
 ## Files Created/Modified
 
