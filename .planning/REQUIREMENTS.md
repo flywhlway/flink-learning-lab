@@ -11,9 +11,9 @@
 - [x] **VEH-02**: 维护者可复现告警链路（事件→Kafka→CEP→Side Output→ClickHouse/通知），验证脚本对可观察输出做断言
 - [x] **VEH-03**: 模式库至少 3 条模式，每条登记 within/连接语义/skip/状态上界五元组
 - [x] **VEH-04**: 作业支持通过 Broadcast 动态选择预编译模式集
-- [ ] **VEH-05**: 维护者可复现监控大盘（窗口聚合指标 + Grafana + 异常检测规则）
-- [ ] **VEH-06**: 压测脚本与故障演练（含 watermark 停滞）可执行，并记录 baseline 数字
-- [ ] **VEH-07**: 交付架构文档、至少 1 篇 ADR、验证脚本与简历陈述页
+- [x] **VEH-05**: 维护者可复现监控大盘（窗口聚合指标 + Grafana + 异常检测规则）
+- [x] **VEH-06**: 压测脚本与故障演练（含 watermark 停滞）可执行，并记录 baseline 数字
+- [x] **VEH-07**: 交付架构文档、至少 1 篇 ADR、验证脚本与简历陈述页
 
 ### LOG · p01 日志 AI 平台
 
@@ -80,9 +80,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VEH-02 | Phase 1 | Complete |
 | VEH-03 | Phase 2 | Complete |
 | VEH-04 | Phase 2 | Complete |
-| VEH-05 | Phase 3 | Pending |
-| VEH-06 | Phase 3 | Pending |
-| VEH-07 | Phase 3 | Pending |
+| VEH-05 | Phase 3 | Complete |
+| VEH-06 | Phase 3 | Complete |
+| VEH-07 | Phase 3 | Complete |
 | LOG-01 | Phase 4 | Pending |
 | LOG-02 | Phase 4 | Pending |
 | LOG-03 | Phase 4 | Pending |

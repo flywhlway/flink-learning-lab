@@ -8,7 +8,7 @@
 
 - [x] **Phase 1: p03 告警链路样板** - compose profile + 事件→CEP→告警落库可复现 (completed 2026-07-17)
 - [x] **Phase 2: p03 模式库与 Broadcast** - ≥3 模式五元组 + 动态选择预编译模式 (completed 2026-07-18)
-- [ ] **Phase 3: p03 大盘与演练收官** - Grafana 大盘 + 压测/故障演练 + 完整文档包
+- [x] **Phase 3: p03 大盘与演练收官** - Grafana 大盘 + 压测/故障演练 + 完整文档包 (completed 2026-07-18)
 - [ ] **Phase 4: p01 日志 AI 平台** - 可降级 AI 路径 + 生产项目纪律全套
 - [ ] **Phase 5: p02 实时推荐** - 特征+打分闭环 + 生产项目纪律全套
 - [ ] **Phase 6: P5 生产化** - benchmark / Operator Blue-Green / GitOps / 规范题库看板
@@ -89,24 +89,24 @@ Plans:
   2. 压测与故障演练（含 watermark 停滞）可按剧本执行并留下 baseline 数字
   3. 架构文档、ADR、验证脚本与简历陈述页齐全且可按路径打开
 
-**Plans:** 4 plans
+**Plans:** 4/4 plans complete
 
 Plans:
 **Wave 0**
 
-- [ ] 03-00-PLAN.md — Wave 0：Nyquist RED（verify_dashboard/loadtest/drill 骨架 + EventCountAggTest + DDL/Grafana 钩子）
+- [x] 03-00-PLAN.md — Wave 0：Nyquist RED（verify_dashboard/loadtest/drill 骨架 + EventCountAggTest + DDL/Grafana 钩子）
 
 **Wave 1** *(blocked on Wave 0)*
 
-- [ ] 03-01-PLAN.md — VEH-05：窗口作业→CH→Grafana 双 DS 大盘 + 异常阈值 + verify_dashboard
+- [x] 03-01-PLAN.md — VEH-05：窗口作业→CH→Grafana 双 DS 大盘 + 异常阈值 + verify_dashboard
 
 **Wave 2** *(blocked on Wave 1)*
 
-- [ ] 03-02-PLAN.md — VEH-06：gen --rate/--duration + loadtest→baseline + watermark 停滞演练
+- [x] 03-02-PLAN.md — VEH-06：gen --rate/--duration + loadtest→baseline + watermark 停滞演练
 
 **Wave 3** *(blocked on Wave 2)*
 
-- [ ] 03-03-PLAN.md — VEH-07：ARCHITECTURE + ADR + RESUME + 15-03/CHANGELOG/PHASES + qa_check
+- [x] 03-03-PLAN.md — VEH-07：ARCHITECTURE + ADR + RESUME + 15-03/CHANGELOG/PHASES + qa_check
 
 ### Phase 4: p01 日志 AI 平台
 
@@ -177,7 +177,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. p03 告警链路样板 | 4/4 | Complete    | 2026-07-17 |
 | 2. p03 模式库与 Broadcast | 5/5 | Complete    | 2026-07-18 |
-| 3. p03 大盘与演练收官 | 0/4 | Not started | - |
+| 3. p03 大盘与演练收官 | 4/4 | Complete    | 2026-07-18 |
 | 4. p01 日志 AI 平台 | 0/TBD | Not started | - |
 | 5. p02 实时推荐 | 0/TBD | Not started | - |
 | 6. P5 生产化 | 0/TBD | Not started | - |
