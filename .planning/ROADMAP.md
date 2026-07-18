@@ -225,7 +225,7 @@ Plans:
 | 4. p01 日志 AI 平台 | 6/6 | Complete   | 2026-07-18 |
 | 5. p02 实时推荐 | 4/4 | Complete    | 2026-07-18 |
 | 6. P5 生产化 | 5/5 | Complete    | 2026-07-18 |
-| 7. P6 总装 QA | 4/4 | Complete   | 2026-07-18 |
+| 7. P6 总装 QA | 4/4 | Complete    | 2026-07-18 |
 
 ## Coverage Validation
 
