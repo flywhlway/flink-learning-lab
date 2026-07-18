@@ -68,7 +68,7 @@ completed: 2026-07-19
 1. **Task 1: 清洗存量「省略」并升级 qa_check 六硬门** - `0475fea` (feat)
 2. **Task 2: 新建 eng_audit.sh + count_docs.py 并挂入索引** - `756d8e0` (feat)
 
-**Plan metadata:** （待 docs 提交）
+**Plan metadata:** `04ef50b` (docs: complete Wave 0 gates-red-first plan)
 
 ## Files Created/Modified
 
