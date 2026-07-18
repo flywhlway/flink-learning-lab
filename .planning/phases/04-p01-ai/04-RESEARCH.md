@@ -477,20 +477,16 @@ curl -sgG 'http://localhost:9090/api/v1/query' \
 | A4 | 不强制独立 Grafana dashboard JSON 也能满足 LOG-04（Prom + CH） | Discretion | 若验收方要求可见面板，补最小 JSON（抄 p03 挂载模式） |
 | A5 | LOG-03 条文中的「ML_PREDICT / Agents / Milvus」由 CONTEXT 收窄为 Async Ollama，满足里程碑意图 | phase_requirements | 文档须显式写清「REQ 原文枚举 → 本项目实现选型」以免审计歧义 |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **默认 AI 模型名写 SSOT `qwen3:8b` 还是本机已装模型？**
-   - What we know: README 建议 qwen3:8b；本机目前无该 tag，有 `qwen3.5:9b-mlx`。
-   - What's unclear: 用户是否愿意在 verify-ai 前 pull 8b。
-   - Recommendation: JobConfig 默认保持 `qwen3:8b`（对齐 SSOT），README 用表格写「本机覆盖示例」；`verify-ai` 先探测 tags，缺失则打印 pull 命令后非 0。
+   - RESOLVED: JobConfig 默认 **`qwen3:8b`**（对齐 README SSOT）；README 表格写本机覆盖示例（如 `--ai.model=qwen3.5:9b-mlx`）；`verify-ai` 先探测 tags，缺失则打印 `ollama pull` / 覆写提示后非 0。
 
 2. **护栏用静态配置还是 Broadcast topic？**
-   - What we know: e12-17 用 Broadcast；D-12 允许静态。
-   - Recommendation: MVP 静态关键词列表进 JobConfig（实现快、单测易）；若时间裕度再加 `logs.guardrail.control` 热更新作为加分项。
+   - RESOLVED: MVP **静态关键词列表进 JobConfig**（实现快、单测易）；Broadcast 热更新不挡 Phase（可作加分项，非 must_haves）。
 
 3. **是否交付可选 `verify-rag`？**
-   - What we know: D-03 可选；Milvus profile 已存在。
-   - Recommendation: **MVP 不交付** RAG 作业；仅在 DEGRADE-CHECKLIST 写「启用 `--profile ai` 组合」指针到 e12-04，避免拖垮 Phase。
+   - RESOLVED: **MVP 不交付** RAG 作业 / `verify-rag`；DEGRADE-CHECKLIST 仅指针到 e12-04 + `--profile ai`，避免拖垮 Phase。
 
 ## Environment Availability
 
