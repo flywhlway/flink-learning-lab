@@ -32,6 +32,7 @@
 | Redis | `redis:7-alpine` | |
 | MinIO | `minio/minio:latest` + `minio/mc` | S3 兼容,Checkpoint / Lakehouse 存储 |
 | Prometheus / Grafana | `v2.53.x` / `11.x` | Flink 指标已接通 |
+| grafana-clickhouse-datasource | via `GF_INSTALL_PLUGINS` | Grafana 官方 ClickHouse 插件；compose grafana 服务安装，供 p03 业务大盘（D-01） |
 | Kafka UI | `ghcr.io/kafbat/kafka-ui` | |
 | Python | 3.13(工具脚本)/ 3.12(PyFlink,见 notebook/README) | 统一用 `uv` 管理 |
 | Milvus(Phase 3,profile=ai) | `milvusdb/milvus:v2.6.19` | 向量检索底座;选 2.6 GA 而非 v3.0-beta,同 ADR-001"稳定优先"原则 |

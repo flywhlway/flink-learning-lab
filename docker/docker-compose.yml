@@ -202,11 +202,16 @@ services:
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
       GF_USERS_ALLOW_SIGN_UP: "false"
+      # 官方 ClickHouse 插件（ENG-01：已在根 README 版本矩阵登记；首次启动需拉插件）
+      GF_INSTALL_PLUGINS: grafana-clickhouse-datasource
     volumes:
       - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
+      # p03 大盘 JSON 落仓于项目目录；不改 make up profile，空目录时 Grafana 仅无面板
+      - ../projects/p03-vehicle-monitoring/monitoring/dashboards:/var/lib/grafana/dashboards/p03:ro
       - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
+
 
   kafka-ui:
     image: ${KAFKA_UI_IMAGE}
@@ -291,7 +296,7 @@ services:
   # ─────────────────────────── P4 · p03 车联网告警样板(profile=p03,按需启动)───────────────────────────
   # 用法: make up-p03  或  docker compose --profile p03 up -d p03-init
   # 说明: 一次性创建 vehicle.events / vehicle.alerts / vehicle.pattern.control
-  #       + 执行 vehicle_alerts DDL；禁止写入 default init.sh，保证 make up 不被拖入。
+  #       + 执行 vehicle_alerts / vehicle_window_metrics DDL；禁止写入 default init.sh，保证 make up 不被拖入。
   p03-init:
     image: ${KAFKA_IMAGE}
     container_name: fll-p03-init
@@ -303,6 +308,7 @@ services:
     volumes:
       - ../projects/p03-vehicle-monitoring/sql/clickhouse_alerts.sql:/ddl/clickhouse_alerts.sql:ro
       - ../projects/p03-vehicle-monitoring/sql/clickhouse_alerts_alter.sql:/ddl/clickhouse_alerts_alter.sql:ro
+      - ../projects/p03-vehicle-monitoring/sql/clickhouse_window_metrics.sql:/ddl/clickhouse_window_metrics.sql:ro
     depends_on:
       kafka:
         condition: service_healthy
@@ -324,14 +330,17 @@ services:
           if wget -qO- "http://clickhouse:8123/ping" >/dev/null 2>&1; then break; fi
           sleep 1
         done
-        echo "==> p03-init: 执行 ClickHouse DDL（CREATE 与 ALTER 分 POST；CH HTTP 禁多语句）"
+        echo "==> p03-init: 执行 ClickHouse DDL（CREATE/ALTER/metrics 分 POST；CH HTTP 禁多语句）"
         wget -qO- --post-file=/ddl/clickhouse_alerts.sql \
           "http://clickhouse:8123/?user=$${CH_USER}&password=$${CH_PASSWORD}"
         echo
         wget -qO- --post-file=/ddl/clickhouse_alerts_alter.sql \
           "http://clickhouse:8123/?user=$${CH_USER}&password=$${CH_PASSWORD}"
         echo
-        echo "==> p03-init: 完成（vehicle.events / vehicle.alerts / vehicle.pattern.control + flinklab.vehicle_alerts）"
+        wget -qO- --post-file=/ddl/clickhouse_window_metrics.sql \
+          "http://clickhouse:8123/?user=$${CH_USER}&password=$${CH_PASSWORD}"
+        echo
+        echo "==> p03-init: 完成（topics + flinklab.vehicle_alerts + flinklab.vehicle_window_metrics）"
 
 volumes:
   kafka-data:

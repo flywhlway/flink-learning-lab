@@ -1,0 +1,13 @@
+# p03 Grafana file provider → 挂载的 dashboard JSON 目录（D-03）
+apiVersion: 1
+providers:
+  - name: p03-vehicle
+    orgId: 1
+    folder: p03
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: false
+    options:
+      path: /var/lib/grafana/dashboards/p03
+      foldersFromFilesStructure: false
