@@ -30,6 +30,7 @@
 | ClickHouse | `clickhouse/clickhouse-server:24.8` | LTS |
 | PostgreSQL | `postgres:16-alpine` | 已开启 `wal_level=logical`(为 CDC 篇预留) |
 | Redis | `redis:7-alpine` | |
+| jedis | **5.2.0** | Redis 客户端（p02 / e07 / e12）；禁止漂移到 lettuce / jedis 6.x |
 | MinIO | `minio/minio:latest` + `minio/mc` | S3 兼容,Checkpoint / Lakehouse 存储 |
 | Prometheus / Grafana | `v2.53.x` / `11.x` | Flink 指标已接通 |
 | grafana-clickhouse-datasource | via `GF_INSTALL_PLUGINS` | Grafana 官方 ClickHouse 插件；compose grafana 服务安装，供 p03 业务大盘（D-01） |
