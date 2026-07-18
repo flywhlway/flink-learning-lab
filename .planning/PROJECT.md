@@ -24,7 +24,7 @@
 - ✓ P4-p02 实时推荐（RECO-01–03）：双通道特征 + 规则 Top-K + Redis 降级演练 + baseline/ADR/简历页 — Phase 5
 - ✓ P4 三项目均满足：独立 compose profile 一键起、架构文档+ADR+验证脚本、压测与故障演练本机跑通 — Phase 1–5
 - ✓ P5 生产化（PROD-01–04）：裁剪压测矩阵 + `benchmark/baseline.md`、Operator 1.15 Blue/Green 时间线、Argo CD + GitHub Actions、interview≥150 + 三块 Grafana JSON + best-practice 体系 — Phase 6
-- ✓ P6 总装 QA（QA-01/02 + ENG-01…04）：`qa_check` 六硬门全绿；mains≥100；md≥30000；`eng_audit` ENG-01…04；README/PHASES/CHANGELOG 终稿；未打 git tag（D-12）— Phase 7
+- ✓ P6 总装 QA（QA-01/02 + ENG-01…04）：`qa_check` 五硬门全绿；mains≥100；文档质量实质优先（已撤销 md≥30000 硬门，见 MEMORY D-14）；`eng_audit` ENG-01…04；README/PHASES/CHANGELOG 终稿；未打 git tag（D-12）— Phase 7
 
 ### Active
 

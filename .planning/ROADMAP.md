@@ -199,18 +199,19 @@ Plans:
 **Success Criteria** (what must be TRUE):
 
   1. `scripts/qa_check.sh` 全绿
-  2. 案例 ≥100、文档 ≥30k 行，README 与 PHASES 状态一致
+  2. 案例 ≥100、文档实质质量（违禁词/断链/互链；不以行数硬门禁），README 与 PHASES 状态一致
   3. 版本 SSOT/编号登记/违禁词/约定式提交与 CHANGELOG 纪律通过终检（ENG-*）
 
 **Plans:** 4/4 plans complete
 
 Plans:
-- [x] 07-00-PLAN.md — Wave 0：qa_check 六硬门先红 + eng_audit/count_docs 骨架 + 清洗「省略」
+- [x] 07-00-PLAN.md — Wave 0：qa_check 硬门先红 + eng_audit/count_docs 骨架 + 清洗「省略」
 - [x] 07-01-PLAN.md — Wave 1：examples mains 67→≥100（e12 缺口优先 + e0x 回填）
-- [x] 07-02-PLAN.md — Wave 2：实质扩写文档至 ≥30000 行（docs/interview/ai/best-practice）
+- [x] 07-02-PLAN.md — Wave 2：文档扩写（**事后勘误**：行数硬目标已撤销；注水已回退，见 MEMORY.md）
 - [x] 07-03-PLAN.md — Wave 3：断链/违禁词清净 + README/PHASES/CHANGELOG 终稿 + OrbStack 双绿
 
 **Note on ENG-*:** 工程不变量自 Phase 1 起每会话强制执行；Phase 7 做终检与追溯关闭。
+**Note on doc lines (2026-07-19):** 曾设 ≥30000 硬门导致 Wave 2 注水；已撤销。权威见 `.planning/MEMORY.md`。
 
 ## Progress
 

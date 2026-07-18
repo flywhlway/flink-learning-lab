@@ -4,12 +4,15 @@
 
 ## [Unreleased]
 
+### Fixed
+- **文档质量整改（撤销 ≥30000 行硬指标）**：审核发现 07-02 Wave 2 为凑行数注入大量重复模板块；已回退 `5b427d4` / `0435b7b` / `3cc6882` 涉及文档至扩写前实质内容；`qa_check` 移除文档行数硬门禁；`count_docs.py` 仅诊断；详见 `.planning/MEMORY.md`
+
 ### Added
 - **P6 总装 QA（QA-01/02 + ENG-01…04 / Phase 7）**：
-  - `scripts/qa_check.sh` 六硬门：compose / 违禁词（D-08 词表，不裸匹配「略」）/ 断链 / mains≥100 / 文档≥30000 / `mvn -DskipTests compile` 硬失败
+  - `scripts/qa_check.sh` 五硬门：compose / 违禁词（D-08 词表，不裸匹配「略」）/ 断链 / mains≥100 / `mvn -DskipTests compile` 硬失败（文档行数仅诊断，禁止注水刷数）
   - `scripts/eng_audit.sh`：ENG-01 版本抽样、ENG-02 docs 编号、ENG-03 证据指针、ENG-04 CHANGELOG Unreleased + PHASES P6 可验证完成态严格断言
-  - `scripts/count_docs.py` 文档行数诊断；`docs/QA-REPORT.md` 人读摘要（docs 模块 16）
-  - 案例轴：`examples/` `public static void main` ≥100；文档轴：非 `.planning` `*.md` ≥30000
+  - `scripts/count_docs.py` 文档行数诊断（无最小值硬失败）；`docs/QA-REPORT.md` 人读摘要（docs 模块 16）
+  - 案例轴：`examples/` `public static void main` ≥100；文档轴：实质内容 + 违禁词/断链质量门，**不以行数阈值验收**
   - 根 README / `PHASES.md` / 本 CHANGELOG 未发布区终稿对齐；**不打 git tag**（留给 `/gsd-complete-milestone`，D-12）
 - **P5 生产化收官（PROD-01–04 / Phase 6）**：
   - `benchmark/` 裁剪矩阵 + OrbStack 实测权威报告 [`benchmark/baseline.md`](./benchmark/baseline.md)

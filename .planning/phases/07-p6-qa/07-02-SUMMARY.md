@@ -2,7 +2,7 @@
 phase: 07-p6-qa
 plan: 02
 subsystem: docs
-tags: [markdown, docs, interview, qa-02, d-04, d-05, line-count]
+tags: [markdown, docs, interview, qa-02, d-04, d-05, line-count, superseded]
 
 requires:
   - phase: 07-p6-qa
@@ -55,6 +55,8 @@ requirements-completed: [QA-02]
 duration: 6min
 completed: 2026-07-19
 ---
+
+> **2026-07-19 勘误（superseded）：** 本 SUMMARY 记录的「doc_lines=30620 ≥ 30000」已被判定为注水达成。产品文档已回退至扩写前实质正文；行数硬门禁已撤销（D-14）。权威见 [`.planning/MEMORY.md`](../../MEMORY.md)。以下正文仅作历史执行记录，**不再作为验收依据**。
 
 # Phase 7 Plan 02: Wave 2 文档实质扩写 Summary
 

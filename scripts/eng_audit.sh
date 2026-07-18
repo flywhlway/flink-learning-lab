@@ -119,11 +119,10 @@ elif echo "$P6_LINE" | grep -q '📋' && ! echo "$P6_LINE" | grep -Fq '可验证
   ENG04_OK=0
 elif echo "$P6_LINE" | grep -Fq '可验证完成态' \
   && echo "$P6_LINE" | grep -Eq 'QA-01' \
-  && echo "$P6_LINE" | grep -Eq '100' \
-  && echo "$P6_LINE" | grep -Eq '30000|30k|30k 行|≥30k'; then
-  ok "ENG-04 PHASES P6 可验证完成态（含 QA-01 / 100 / 30000 口径）"
+  && echo "$P6_LINE" | grep -Eq '100'; then
+  ok "ENG-04 PHASES P6 可验证完成态（含 QA-01 / mains≥100；文档行数非硬门禁）"
 else
-  bad "ENG-04 PHASES P6 缺少可验证完成态表述（须含可验证完成态 + QA-01 + mains≥100 + md≥30000）"
+  bad "ENG-04 PHASES P6 缺少可验证完成态表述（须含可验证完成态 + QA-01 + mains≥100）"
   note "info  ENG-04 P6 行: ${P6_LINE:-"(空)"}"
   ENG04_OK=0
 fi

@@ -166,10 +166,11 @@ Progress: [██████████] 100%
 - [Phase 07]: eng_audit 独立文件，qa_check 末尾调用（D-10 Discretion）
 - [Phase ?]: 跳过 e12-10 MCP，用 e0x/e12 第二 Job 补足 mains
 - [Phase ?]: CDC Maven 坐标锁定 3.6.0-2.2；JDBC 锁定 3.3.0-1.20
-- [Phase 07]: 07-02: docs+interview 主杠杆抬升 md 至 30620 — 不堆 bluegreen-timeline；排除 .planning 刷数
+- [Phase 07]: 07-02: docs+interview 曾抬升 md 至 30620——**已判定为注水**；2026-07-19 回退并撤销行数硬门（MEMORY D-14）
 - [Phase 07]: 07-02: 清单禁写违禁词字面 — 避免 qa_check ② 自伤
 - [Phase 07]: ENG-04 严格 PHASES 与终稿同会话启用；Task 1 保持 soft
 - [Phase 07]: Auto-approved Task 3 checkpoint 仅在 OrbStack 双绿实测后；不打 git tag（D-12）
+- [Phase 07]: 2026-07-19 质量整改：回退 5b427d4/0435b7b/3cc6882 注水；qa_check 五硬门；见 .planning/MEMORY.md
 
 ### Pending Todos
 
@@ -179,6 +180,7 @@ None yet.
 
 - 研究员/roadmapper 子代理曾因 API 限额失败；后续 plan-phase 若再失败需内联降级
 - P2/P3 遗留「沙箱未验证」债务：本里程碑禁止再以该理由标 ✅
+- **文档行数硬门禁与「禁止注水」激励冲突** — 已用 D-14 消除；勿再引入类似 KPI
 
 ## Deferred Items
 
@@ -188,7 +190,13 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T17:04:17.952Z
-Stopped at: Phase 7 complete — awaiting milestone audit
+Last session: 2026-07-19T17:20:00.000Z
+Stopped at: Quick task — 撤销 30k 文档硬指标并回退 Wave 2 注水
 Resume file: 
-.planning/phases/07-p6-qa/07-VERIFICATION.md
+.planning/MEMORY.md
+
+## Quick Tasks Completed
+
+| Quick Task | Date | Slug | Result |
+|------------|------|------|--------|
+| 撤销 QA 3万行硬指标 + 注水文档回退 | 2026-07-19 | 260719-1ou-qa-3-5b427d4-0435b7b-3cc6882-c75c72c-d48 | 内容回退 + 门禁修订 + MEMORY 落盘 |

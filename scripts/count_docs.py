@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""统计仓库 *.md 行数（排除 .planning/ 与 .git/）（QA-02 / D-04）。
+"""统计仓库 *.md 行数（排除 .planning/ 与 .git/）。
 
-分目录诊断打印；合计 < 30000 则 exit 1。
-硬门禁仍以 scripts/qa_check.sh ⑤ 段为准；本脚本供维护者定位缺口。
+分目录诊断打印；仅供维护者了解体量，**不再以行数阈值硬失败**。
+文档质量门禁以 scripts/qa_check.sh 的违禁词 / 断链 / 案例 / 编译为准。
+参见 .planning/MEMORY.md（2026-07-19 撤销 ≥30000 行硬指标）。
 """
 from __future__ import annotations
 
@@ -11,7 +12,6 @@ from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-MIN_LINES = 30000
 SKIP_PARTS = {".planning", ".git"}
 
 
@@ -45,16 +45,10 @@ def main() -> int:
         by_dir[top_bucket(rel)] += n
         total += n
 
-    print(f"doc_lines={total} min={MIN_LINES} (excl .planning/.git)")
+    print(f"doc_lines={total} (excl .planning/.git; diagnostic only, no min gate)")
     for bucket in sorted(by_dir, key=lambda k: (-by_dir[k], k)):
         print(f"  {bucket}: {by_dir[bucket]}")
 
-    if total < MIN_LINES:
-        print(
-            f"FAIL: doc_lines {total} < {MIN_LINES}（D-04 / D-06）",
-            file=sys.stderr,
-        )
-        return 1
     print(f"ok doc_lines={total}")
     return 0
 

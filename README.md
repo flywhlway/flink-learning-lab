@@ -13,7 +13,7 @@
 - 全部基于 **2026 年现行版本**(Flink 2.2.x LTS 生态、Flink Agents 0.3、Flink CDC 3.6、Kubernetes Operator 1.15)
 - 全部案例在 **Apple Silicon(MacBook Pro M5 Pro 48GB + OrbStack + Docker Compose)** 上验证运行
 - 重实践、轻理论:每个知识点 = 背景 + 架构图(Mermaid)+ 可运行代码 + 验证方式 + 踩坑 + 最佳实践
-- **P6 完成态口径**：`bash scripts/qa_check.sh` 与 `bash scripts/eng_audit.sh` 双绿；`examples/` mains≥100；非 `.planning` 文档≥30000 行；详见 [docs/QA-REPORT.md](./docs/QA-REPORT.md)
+- **P6 完成态口径**：`bash scripts/qa_check.sh` 与 `bash scripts/eng_audit.sh` 双绿；`examples/` mains≥100；文档以实质内容与可读性为准（**不以行数硬门禁**）；详见 [docs/QA-REPORT.md](./docs/QA-REPORT.md)
 ## 2. 版本矩阵(SSOT,全仓库唯一版本来源)
 
 | 组件 | 版本 | 说明 |

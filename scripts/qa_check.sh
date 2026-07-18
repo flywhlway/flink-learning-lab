@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # 仓库 QA 自检(PHASES.md 约定的验收工具)。用法:bash scripts/qa_check.sh
-# 六硬门:① compose YAML 可解析 ② 违禁词扫描 ③ Markdown 相对链接存在性
-#         ④ 可运行案例计数 ≥100 ⑤ 文档行数 ≥30000 ⑥ Maven 全模块编译(硬失败)
+# 五硬门:① compose YAML 可解析 ② 违禁词扫描 ③ Markdown 相对链接存在性
+#         ④ 可运行案例计数 ≥100 ⑤ Maven 全模块编译(硬失败)
+# 文档行数仅诊断打印（不再作为硬门禁；见 .planning/MEMORY.md 2026-07-19 注水整改）
 # 末尾可选调用 scripts/eng_audit.sh(ENG-01…04)
 set -uo pipefail
 cd "$(dirname "$0")/.."
@@ -53,13 +54,13 @@ MAINS=$(grep -rl --include='*.java' 'public static void main' examples | wc -l |
 note "info  可运行作业数(main 计数)= $MAINS"
 [ "$MAINS" -ge 100 ] && ok "案例数 ≥ 100" || bad "案例数不足:$MAINS < 100"
 
-# ⑤ 文档行数(全部 *.md，排除 .planning/ 与 .git/，D-04/D-06)
+# 文档行数仅诊断(不再硬失败;质量以实质内容与违禁词/断链为准)
 DOC_LINES=$(find . -name '*.md' -not -path './.planning/*' -not -path './.git/*' \
   -print0 | xargs -0 wc -l | tail -1 | awk '{print $1}')
-note "info  文档行数(excl .planning/.git)= $DOC_LINES"
-[ "$DOC_LINES" -ge 30000 ] && ok "文档行数 ≥ 30000" || bad "文档行数不足:$DOC_LINES < 30000"
+DOC_LINES="${DOC_LINES:-0}"
+note "info  文档行数(excl .planning/.git)= ${DOC_LINES} (diagnostic only, not a hard gate)"
 
-# ⑥ Maven 编译(硬失败：无 mvn 或 compile 失败均 bad，禁止 warn 跳过，D-07)
+# ⑤ Maven 编译(硬失败：无 mvn 或 compile 失败均 bad，禁止 warn 跳过，D-07)
 if ! command -v mvn >/dev/null 2>&1; then
   bad "未检测到 mvn：合入前必须在本机安装 Maven 并通过 examples 编译"
 else

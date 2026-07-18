@@ -39,7 +39,7 @@
 ### QA · P6 总装
 
 - [x] **QA-01**: `scripts/qa_check.sh` 全绿（mvn 编译、compose config、断链、违禁词、案例计数）
-- [x] **QA-02**: 案例 ≥100、文档 ≥30k 行、README 终稿与 PHASES.md 状态一致
+- [x] **QA-02**: 案例 ≥100、文档实质质量（违禁词/断链/八段式与互链；**不以行数硬门禁**）、README 终稿与 PHASES.md 状态一致
 
 ### ENG · 工程不变量（跨 Phase）
 

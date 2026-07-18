@@ -6,7 +6,7 @@
 <domain>
 ## Phase Boundary
 
-本 Phase 交付里程碑收官质量门禁：**QA-01**（`scripts/qa_check.sh` 全绿）、**QA-02**（案例 ≥100、文档 ≥30k 行、README 终稿与 PHASES.md 状态一致），以及对 **ENG-01…ENG-04** 的终检与追溯关闭。对应 PHASES.md **P6 总装 QA**，使仓库达到可打 tag 的完成态。
+本 Phase 交付里程碑收官质量门禁：**QA-01**（`scripts/qa_check.sh` 全绿）、**QA-02**（案例 ≥100、文档实质质量、README 终稿与 PHASES.md 状态一致），以及对 **ENG-01…ENG-04** 的终检与追溯关闭。对应 PHASES.md **P6 总装 QA**，使仓库达到可打 tag 的完成态。
 
 本 Phase **不**新增第四个生产项目、**不**新拉可观测栈、**不**重做 P5 Operator/GitOps；只做计量补齐、门禁硬化、文档/状态终稿与工程不变量审计。
 
@@ -20,23 +20,26 @@
 - **D-02:** 补齐策略锁定 **真实可编译 Demo 扩容**（当前约 67 → ≥100）：优先补全 **e12 AI 专题缺失编号**（已有 01/02/03/04/06/07/08/15/17/18/22，缺口按学习路径补薄而完整的 runnable 作业），其次在配额不足的 e0x 模块按既有包结构追加案例；每个新案例须有 README 八段式要点或模块 README 登记，且本机 `mvn -pl … -am -DskipTests compile` 通过。禁止空壳 `main`、禁止「TODO/自行实现」占位。
 - **D-03:** `qa_check.sh` 案例阈值从 **67（Phase3 口径）升级为 100**；失败非 0。诊断行继续打印实际 mains 数。
 
-### 文档行数计量与补齐（QA-02 文档轴）
-- **D-04:** 文档行数口径锁定 **仓库内全部 `*.md`，排除 `.planning/` 与 `.git/`**（当前约 ~10k，目标 ≥30000）。`docs/`、`interview/`、`best-practice/`、`production/`、`examples/**/README.md`、`projects/**/docs` 等均计入；**禁止**把 `.planning/` 规划稿计入以刷数。
+### 文档质量（QA-02 文档轴）— 2026-07-19 修订
+- **D-04（修订）：** 文档行数可诊断打印（排除 `.planning/` 与 `.git/`），**不再作为完成态目标或硬门禁阈值**。历史「≥30000」目标已撤销（见 D-14）。
 - **D-05:** 补齐策略锁定 **实质内容扩写，禁止注水**：优先扩写（1）`docs/` 仍偏薄模块与交叉引用；（2）`interview/` 参考答案深度（已 ≥150 题，加厚答案与链接教材）；（3）`best-practice/` / `production/` 互链正文缺口。禁止大段复制粘贴官网、禁止重复同一段落刷行数。
-- **D-06:** `qa_check.sh` 新增 **文档行数 ≥30000** 硬检查（`find`+`wc -l` 或等价 Python）；失败非 0，并打印实际行数。
+- **D-06（修订）：** `qa_check.sh` **不**再对文档行数做 ≥N 硬失败；可保留 `info` 诊断行。`count_docs.py` 仅分目录诊断，exit 0。
+- **D-14（2026-07-19）：** 文档完成态不以行数阈值验收；禁止把最小值写入硬门禁或激励刷数。权威见 `.planning/MEMORY.md`。
+- **D-15（2026-07-19）：** 扩写必须增加可验证信息密度；禁止编号循环同句与每题同构脚手架。
+- **D-16（2026-07-19）：** QA-02 文档轴 = 违禁词清零 + 相对断链清零 + 关键路径八段式完整 + DEMO/项目互链可点开。
 
 ### qa_check 门禁硬化（QA-01）
-- **D-07:** QA-01 硬门禁集合锁定为：**(1)** docker compose config（或既有 yaml 回退）**(2)** 违禁词扫描 **(3)** Markdown 相对断链 **(4)** 案例 ≥100 **(5)** 文档 ≥30k **(6)** `examples` Maven compile（升级为硬失败，去掉「warn 可忽略」路径——无 mvn 时明确 fail 并提示合入前必须本机通过）。
+- **D-07（修订）：** QA-01 硬门禁集合锁定为：**(1)** docker compose config（或既有 yaml 回退）**(2)** 违禁词扫描 **(3)** Markdown 相对断链 **(4)** 案例 ≥100 **(5)** `examples` Maven compile（硬失败）。文档行数非硬门。
 - **D-08:** 违禁词扫描扩展为匹配 **`TODO|FIXME|自行实现|请参考官网|省略`**；对单独汉字「略」**不**做裸匹配（避免误杀「策略/省略说明中的合法用词」），但「省略」整词保留。扫描排除规则保持：`.planning/`、`PHASES.md`、`CLAUDE.md`、`AGENTS.md`、`scripts/qa_check.sh`、`scripts/README.md`、`docs/README.md`（规则声明处）。
 - **D-09:** 本 Phase 结束前必须在 OrbStack arm64 上 **真实跑通** `bash scripts/qa_check.sh` 退出码 0；禁止沙箱伪绿。
 
 ### ENG 终检与状态终稿（ENG-01…04 + QA-02 状态轴）
-- **D-10:** ENG 终检交付 **可脚本化检查清单**（推荐 `scripts/eng_audit.sh` 或并入 `qa_check.sh` ⑥ 段）：ENG-01 版本矩阵 vs pom 属性抽样；ENG-02 `docs/README.md` 编号登记完整性；ENG-03 抽检近期交付物无违禁词且关键路径有 verify/baseline 证据指针；ENG-04 CHANGELOG 未发布区与 PHASES 状态列可更新痕迹。清单失败则 Phase 不标完成。
+- **D-10:** ENG 终检交付 **可脚本化检查清单**（推荐 `scripts/eng_audit.sh` 或并入 `qa_check.sh`）：ENG-01 版本矩阵 vs pom 属性抽样；ENG-02 `docs/README.md` 编号登记完整性；ENG-03 抽检近期交付物无违禁词且关键路径有 verify/baseline 证据指针；ENG-04 CHANGELOG 未发布区与 PHASES 状态列可更新痕迹。清单失败则 Phase 不标完成。
 - **D-11:** README / PHASES / PROJECT 终稿：根 `README.md` 版本矩阵与完成态表述对齐；`PHASES.md` P6 状态列改为可验证完成态；`.planning/PROJECT.md` / `REQUIREMENTS.md` 将 QA-* / ENG-* 标为完成（在实测绿之后）；三生产项目与 P5 目录交叉引用无断链。
 - **D-12:** **git tag / GitHub Release 不在本 Phase 硬门禁**——留给 `/gsd-complete-milestone`；本 Phase 只保证「可打 tag」（门禁绿 + 状态一致 + CHANGELOG 具备发布说明草稿）。
 
 ### 交付切片建议（供 planner 切 wave）
-- **D-13:** 推荐执行顺序：**(1)** 升级 `qa_check.sh` 阈值与 ENG 审计骨架（先红）→ **(2)** 案例扩容至 ≥100（编译绿）→ **(3)** 文档实质扩写至 ≥30k → **(4)** 清违禁词/断链 + README/PHASES/CHANGELOG 终稿 + 全绿复跑。计量脚本变更可与内容扩写并行，但 **终态验收必须以一次全绿 `qa_check.sh` 为准**。
+- **D-13（修订）：** 推荐执行顺序：**(1)** 升级 `qa_check.sh` 阈值与 ENG 审计骨架 → **(2)** 案例扩容至 ≥100（编译绿）→ **(3)** 文档实质扩写（禁止行数目标）→ **(4)** 清违禁词/断链 + README/PHASES/CHANGELOG 终稿 + 全绿复跑。
 
 ### Claude's Discretion
 - 具体补哪些 e12/e0x 案例编号与类名、文档扩写优先章节顺序、ENG 审计脚本是独立文件还是并入 qa_check、CHANGELOG 发布说明文案细节、是否额外产出 `docs/QA-REPORT.md` 人读摘要（不挡门禁）。
@@ -52,7 +55,8 @@
 - `.planning/ROADMAP.md` — Phase 7 目标与成功标准（QA-01/02、ENG-01…04）
 - `.planning/REQUIREMENTS.md` — QA-01、QA-02、ENG-01…ENG-04 条文
 - `.planning/PROJECT.md` — P6 总装 QA 勾选与核心不变量
-- `PHASES.md` — P6 行：qa_check 全绿；案例 ≥100；文档 ≥30k 行；工程接力协议不变量
+- `PHASES.md` — P6 行：qa_check 全绿；案例 ≥100；文档实质质量（非行数硬门）；工程接力协议不变量
+- `.planning/MEMORY.md` — 2026-07-19 撤销 ≥30000 行硬指标与注水回退记忆
 
 ### 门禁与计量权威
 - `scripts/qa_check.sh` — 现有五段检查；本 Phase 升级阈值与硬化 compile/行数
@@ -97,7 +101,8 @@
 <specifics>
 ## Specific Ideas
 
-- 现状快照（2026-07-19 讨论时）：`examples` mains ≈ **67**；全仓非 `.planning` md ≈ **~9992** 行；距 100 / 30000 均有硬缺口。
+- 现状快照（2026-07-19 讨论时）：`examples` mains ≈ **67**；全仓非 `.planning` md ≈ **~9992** 行。
+- **事后（同日整改）：** 行数硬目标已撤销；Wave 2 注水回退；见 MEMORY D-14…D-16。
 - e12 已存在模块编号不连续，补齐编号比从零开新专题更符合学习路径。
 - 「略」字不做裸正则，避免误杀「策略」等正常中文。
 
