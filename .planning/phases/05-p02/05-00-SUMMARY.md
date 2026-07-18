@@ -79,7 +79,7 @@ Each task was committed atomically:
 2. **Task 2: RED 骨架 — verify / drill-redis / loadtest + 双 DDL** - `0b2ae2d` (test)
 3. **Task 3: 骨架 — p02-init + make up-p02** - `c32caec` (feat)
 
-**Plan metadata:** （本 SUMMARY 提交后回填）
+**Plan metadata:** `f11a990` (docs: complete Wave 0 Nyquist skeleton plan)
 
 ## Files Created/Modified
 
