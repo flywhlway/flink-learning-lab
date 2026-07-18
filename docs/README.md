@@ -58,9 +58,9 @@
 
 **独立成书,见 [ai/README.md](../ai/README.md)**(《Flink AI Engineering》全书大纲已交付)。
 
-## 模块 13 · 性能与压测 🚧([索引](./13-performance/README.md),权威路径 [benchmark/](../benchmark/))
+## 模块 13 · 性能与压测 ✅([索引](./13-performance/README.md),权威报告 [benchmark/baseline.md](../benchmark/baseline.md))
 
-13-01 压测方法论与单变量原则 · 13-02 裁剪矩阵(作业轴 e01-J2 / e10 / p03 + 负载 1k/5k eps) · 13-03 仓库级 `benchmark/baseline.md` 报告 · 权威脚本与产物落在 `benchmark/`，本模块为教材入口。
+13-01 压测方法论与单变量原则 · 13-02 裁剪矩阵(作业轴 e01-J2 / e10 `C5VehicleDtcPatternJob` / p03 `VehicleAlertJob` + 负载 1k/5k eps 必跑) · 13-03 仓库级 [`benchmark/baseline.md`](../benchmark/baseline.md)（OrbStack arm64 / compose Flink 实测）· 入口脚本 `make -C benchmark matrix`；项目级 baseline 不替代本报告。
 
 ## 模块 14 · 生产化 🚧([索引](./14-production/README.md),权威路径 [production/](../production/))
 

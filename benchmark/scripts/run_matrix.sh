@@ -213,7 +213,19 @@ run_gen_p03() {
 
 scrape_for_job() {
   local regex="$1"
-  python3 "${COLLECT_PY}" --prom-url "${PROM_URL}" --job-name "${regex}" || true
+  local attempt out
+  for attempt in 1 2 3 4 5; do
+    out="$(python3 "${COLLECT_PY}" --prom-url "${PROM_URL}" --job-name "${regex}" 2>/dev/null || true)"
+    # 至少要有一个非空数值才算成功（反压常为空属正常）
+    if echo "${out}" | grep -Eq '^(last_checkpoint_duration|num_restarts|emit_event_time_lag|busy_ms_per_s)=[0-9]'; then
+      echo "${out}"
+      return 0
+    fi
+    sleep 5
+  done
+  # 最后一次无过滤重试
+  out="$(python3 "${COLLECT_PY}" --prom-url "${PROM_URL}" 2>/dev/null || true)"
+  echo "${out}"
 }
 
 kv_get() {
@@ -316,7 +328,8 @@ run_cell() {
   esac
 
   wall_sec=$((measure_end - measure_start))
-  sleep 10
+  # Prom 刮取窗口：给 reporter + scrape_interval 留足时间
+  sleep 20
   scrape="$(scrape_for_job "${job_regex}")"
   bp="$(kv_get "${scrape}" "backpressure_ms_per_s")"
   busy="$(kv_get "${scrape}" "busy_ms_per_s")"
