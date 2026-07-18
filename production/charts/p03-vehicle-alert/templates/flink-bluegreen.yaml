@@ -1,0 +1,55 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkBlueGreenDeployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: p03-vehicle-alert
+    app.kubernetes.io/part-of: flink-learning-lab
+spec:
+  configuration:
+    kubernetes.operator.bluegreen.abort.grace-period: {{ index .Values.flinkConfiguration "kubernetes.operator.bluegreen.abort.grace-period" | quote }}
+    kubernetes.operator.bluegreen.reconciliation.reschedule-interval: {{ index .Values.flinkConfiguration "kubernetes.operator.bluegreen.reconciliation.reschedule-interval" | quote }}
+    kubernetes.operator.bluegreen.deployment-deletion.delay: {{ index .Values.flinkConfiguration "kubernetes.operator.bluegreen.deployment-deletion.delay" | quote }}
+  template:
+    spec:
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      imagePullPolicy: {{ .Values.image.pullPolicy }}
+      flinkVersion: {{ .Values.flinkVersion }}
+      serviceAccount: {{ .Values.serviceAccount }}
+      flinkConfiguration:
+{{- range $k, $v := .Values.flinkConfiguration }}
+{{- if not (hasPrefix "kubernetes.operator.bluegreen" $k) }}
+        {{ $k }}: {{ $v | quote }}
+{{- end }}
+{{- end }}
+      job:
+        jarURI: {{ .Values.job.jarURI | quote }}
+        entryClass: {{ .Values.job.entryClass | quote }}
+        upgradeMode: {{ .Values.job.upgradeMode }}
+        state: {{ .Values.job.state }}
+        parallelism: {{ .Values.job.parallelism }}
+        args:
+{{- range .Values.job.args }}
+          - {{ . | quote }}
+{{- end }}
+      jobManager:
+        resource:
+          memory: {{ .Values.jobManager.memory | quote }}
+          cpu: {{ .Values.jobManager.cpu }}
+      taskManager:
+        replicas: {{ .Values.taskManager.replicas }}
+        resource:
+          memory: {{ .Values.taskManager.memory | quote }}
+          cpu: {{ .Values.taskManager.cpu }}
+      podTemplate:
+        spec:
+          containers:
+            - name: flink-main-container
+              env:
+                - name: ENABLE_BUILT_IN_PLUGINS
+                  value: flink-s3-fs-hadoop-2.2.1.jar
+{{- if .Values.hostNetwork }}
+          hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
+{{- end }}

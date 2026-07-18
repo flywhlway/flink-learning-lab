@@ -1,0 +1,6 @@
+apiVersion: v2
+name: p03-vehicle-alert
+description: p03 VehicleAlertJob as FlinkBlueGreenDeployment（PROD-02）
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

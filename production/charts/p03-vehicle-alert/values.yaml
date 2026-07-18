@@ -1,0 +1,71 @@
+# p03 VehicleAlertJob Blue/Green chart values（OrbStack 混合拓扑）
+# Kafka：host.docker.internal:9095（compose K8S listener；禁止使用 compose 内网服务名作 bootstrap）
+
+name: p03-vehicle-alert-bg
+namespace: flink
+
+image:
+  repository: flinklab/p03-vehicle-alert
+  tag: "dev"
+  pullPolicy: IfNotPresent
+
+flinkVersion: v2_2
+
+# 作业参数：宿主机 compose Kafka / ClickHouse（经 host.docker.internal）
+job:
+  jarURI: local:///opt/flink/usrlib/p03-vehicle-monitoring.jar
+  entryClass: com.flywhl.flinklab.p03.VehicleAlertJob
+  upgradeMode: savepoint
+  state: running
+  parallelism: 1
+  args:
+    - "--kafka-bootstrap"
+    - "host.docker.internal:9095"
+    - "--clickhouse-url"
+    - "http://host.docker.internal:8123/"
+    - "--clickhouse-user"
+    - "flinklab"
+    - "--clickhouse-password"
+    - "flinklab123"
+    - "--group-id"
+    - "p03-vehicle-alerts-k8s"
+    - "--events-topic"
+    - "vehicle.events"
+    - "--alerts-topic"
+    - "vehicle.alerts"
+    - "--control-topic"
+    - "vehicle.pattern.control"
+
+jobManager:
+  memory: "1024m"
+  cpu: 0.5
+
+taskManager:
+  memory: "2048m"
+  cpu: 1
+  replicas: 1
+
+# checkpoint/savepoint → compose MinIO（host.docker.internal:9000）
+flinkConfiguration:
+  execution.checkpointing.interval: "30s"
+  execution.checkpointing.dir: s3://flink/checkpoints
+  execution.checkpointing.savepoint-dir: s3://flink/savepoints
+  s3.endpoint: http://host.docker.internal:9000
+  s3.path.style.access: "true"
+  s3.access-key: flinklab
+  s3.secret-key: flinklab123
+  fs.s3a.endpoint: http://host.docker.internal:9000
+  fs.s3a.path.style.access: "true"
+  fs.s3a.access.key: flinklab
+  fs.s3a.secret.key: flinklab123
+  fs.s3a.connection.ssl.enabled: "false"
+  fs.s3a.aws.credentials.provider: org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider
+  # 学习工程级：缩短 BG abort 观察窗口（官方默认 10 min）
+  kubernetes.operator.bluegreen.abort.grace-period: "8 min"
+  kubernetes.operator.bluegreen.reconciliation.reschedule-interval: "15s"
+  kubernetes.operator.bluegreen.deployment-deletion.delay: "0ms"
+
+# 不使用 hostNetwork（单节点 JM+TM 会端口冲突）；靠 Kafka K8S listener
+hostNetwork: false
+
+serviceAccount: flink
