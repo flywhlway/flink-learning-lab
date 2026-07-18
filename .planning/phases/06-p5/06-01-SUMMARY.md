@@ -73,7 +73,7 @@ Each task was committed atomically:
 1. **Task 1: 实现裁剪矩阵 harness** - `d93bad0` (feat)
 2. **Task 2: OrbStack 实测 baseline + 模块 13 完成态** - `365cb1c` (feat)
 
-**Plan metadata:** （本 SUMMARY 提交；STATE/ROADMAP 按 orchestrator 指示不更新）
+**Plan metadata:** `0935d29`（SUMMARY）；后续 `c9ee430`（dry-run 防覆盖）+ STATE/ROADMAP/REQUIREMENTS 收尾
 
 ## Files Created/Modified
 
@@ -109,7 +109,14 @@ Each task was committed atomically:
 - **Files modified:** `benchmark/baseline.md`, `benchmark/scripts/run_matrix.sh`
 - **Committed in:** `365cb1c`
 
-**Total deviations:** 2 auto-fixed (Rule 2 ×1, Rule 1 ×1)
+**3. [Rule 2 - Critical] dry-run 不得覆盖权威 baseline.md**
+- **Found during:** safe-resume 复核
+- **Issue:** `make dry-run` 与全量 matrix 共用 `baseline.md`，冒烟会抹掉九单元格实测
+- **Fix:** dry-run 改写 `benchmark/baseline.dry-run.md`；权威路径仍仅 `matrix` 写入
+- **Files modified:** `benchmark/scripts/run_matrix.sh`, `benchmark/README.md`, `.gitignore`
+- **Committed in:** `c9ee430`
+
+**Total deviations:** 3 auto-fixed (Rule 2 ×2, Rule 1 ×1)
 **Impact on plan:** 必要正确性修复；无范围膨胀
 
 ## Issues Encountered

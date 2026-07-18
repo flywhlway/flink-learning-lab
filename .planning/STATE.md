@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: Not started
-status: planning
-last_updated: "2026-07-18T04:36:56.136Z"
+current_plan: 2
+status: executing
+last_updated: "2026-07-18T05:35:56.796Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 4
-  total_plans: 24
-  completed_plans: 23
+  total_plans: 30
+  completed_plans: 25
   percent: 57
 ---
 
@@ -21,18 +21,18 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-17)
 
 **Core value:** 每个生产级项目必须在 OrbStack arm64 上独立 compose profile 一键起、端到端可复现，且压测与故障演练真实跑通——不可验证的内容不合入。
-**Current focus:** Phase 6 — p5 生产化
+**Current focus:** Phase 6 — p5
 
 ## Current Position
 
-Phase: 6
-Plan: 4 of 4
-Current Plan: Not started
-Total Plans in Phase: 4
-Status: Ready to plan
+Phase: 6 (p5) — EXECUTING
+Plan: 2 of 5
+Current Plan: 2
+Total Plans in Phase: 5
+Status: Ready to execute
 Last activity: 2026-07-18
 
-Progress: [██████████] 100%
+Progress: [█████████░] 89%
 
 ## Performance Metrics
 
@@ -76,6 +76,7 @@ Progress: [██████████] 100%
 | Phase 05 P01 | 3min | 3 tasks | 10 files |
 | Phase 05 P02 | 13min | 3 tasks | 16 files |
 | Phase 05 P03 | 7min | 3 tasks | 11 files |
+| Phase 6 P01 | 21min | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -142,6 +143,8 @@ Progress: [██████████] 100%
 - [Phase 05]: compose PG_HOST_PORT/REDIS_HOST_PORT 可覆盖；本机 .env 用 15432/16379 避让端口冲突
 - [Phase 05]: loadtest 墙钟吞吐用 gen 实际发送量，避免配置 eps 冒充实测
 - [Phase 05]: drill EXIT trap 强制恢复 redis，避免污染后续 loadtest
+- [Phase 6]: PROD-01 部署锁定 compose Flink；权威 baseline 仅 matrix 写入，dry-run 写 baseline.dry-run.md
+- [Phase 6]: 20k/ForSt SKIPPED+原因；热身 45s 并声明相对理想 3 分钟偏差
 
 ### Pending Todos
 
@@ -160,7 +163,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T04:36:56.129Z
-Stopped at: Phase 6 context gathered
+Last session: 2026-07-18T05:35:56.792Z
+Stopped at: Completed 06-01-PLAN.md
 Resume file: 
-.planning/phases/06-p5/06-CONTEXT.md
+None
