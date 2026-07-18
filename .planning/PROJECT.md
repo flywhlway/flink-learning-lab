@@ -20,12 +20,12 @@
 - ✓ P4-p03 告警链路样板（VEH-01/02）：独立 compose profile + CEP→CH/Kafka 断言 — Phase 1
 - ✓ P4-p03 模式库与 Broadcast（VEH-03/04）：≥3 五元组 + Kafka 控制面动态选择预编译模式 — Phase 2
 - ✓ P4-p03 监控大盘与演练收官（VEH-05/06/07）：Grafana 双 DS + 压测/watermark 演练 + ADR/简历页 — Phase 3（浏览器 UAT 见 03-HUMAN-UAT.md）
+- ✓ P4-p01 日志 AI 平台（LOG-01–05）：独立 compose profile + 可降级 AI 路径 + 压测/演练/ADR/简历页 — Phase 4
+- ✓ P4-p02 实时推荐（RECO-01–03）：双通道特征 + 规则 Top-K + Redis 降级演练 + baseline/ADR/简历页 — Phase 5
+- ✓ P4 三项目均满足：独立 compose profile 一键起、架构文档+ADR+验证脚本、压测与故障演练本机跑通 — Phase 1–5
 
 ### Active
 
-- [ ] P4-p01 日志 AI 平台：完整工程 + 压测 + 故障演练 + 架构/ADR/验证脚本 + 简历陈述
-- [ ] P4-p02 实时推荐：完整工程 + 压测 + 故障演练 + 架构/ADR/验证脚本 + 简历陈述
-- [ ] P4 三项目均满足：独立 compose profile 一键起、架构文档+ADR+验证脚本、压测与故障演练本机跑通（p03 已满足；待 p01/p02）
 - [ ] P5 生产化：benchmark 全矩阵与 baseline、Operator/CI-CD/GitOps、best-practice 完整规范、interview 扩至 150+、monitoring 看板 JSON；OrbStack K8s 完成 Blue/Green 演练
 - [ ] P6 总装 QA：全仓交叉引用、违禁词扫描、行数与案例数盘点、README 终稿；qa_check.sh 全绿、案例 ≥100、文档 ≥30k 行
 
@@ -40,8 +40,8 @@
 
 - **接力协议入口**：阅读 PHASES.md 与 docs/README.md，继续 Phase N，遵守根 README 第 5 节。
 - **已有基座可复用**：e10 CEP 车联网告警雏形、e07/e08 连接器与 CDC、e12 AI 路径、docker compose（Kafka/Flink/CH/PG/Redis/MinIO/Prom/Grafana）、Milvus ai-profile。
-- **目标目录**：`projects/p03-vehicle-monitoring` 已达 P4 单项目完成态（告警+模式库+大盘+演练+文档包）；`p01`/`p02` 待后续 Phase。
-- **当前焦点**：Phase 4 — p01 日志 AI 平台。
+- **目标目录**：`projects/p03-vehicle-monitoring`、`p01-log-ai-platform`、`p02-realtime-reco` 均已达 P4 单项目完成态。
+- **当前焦点**：Phase 6 — P5 生产化。
 - **会话粒度**：一个会话 ≤ 一个模块；先教材/架构章节，再 Demo/工程，再回填交叉引用。
 - **中断恢复**：主干始终可 `make up`；半成品放 `wip/`。
 - **受众**：已有 Flink 生产经验的架构师 → Enterprise Streaming Architect；三大项目同时服务简历陈述。
@@ -86,4 +86,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-07-18 after Phase 3 complete*
+*Last updated: 2026-07-18 after Phase 5 complete*
