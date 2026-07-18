@@ -77,7 +77,7 @@ Each task was committed atomically:
 2. **Task 2: ADR + ARCHITECTURE + RESUME + README** - `f31ea9f` (docs)
 3. **Task 3: 回填 15-01 + CHANGELOG/PHASES + qa_check** - `59dbe68` (docs)
 
-**Plan metadata:** （见 final docs commit）
+**Plan metadata:** `a238851` (docs: complete V5 drills and docs plan)
 
 ## Files Created/Modified
 
