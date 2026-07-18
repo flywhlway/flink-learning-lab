@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-18T01:19:25.950Z"
+last_updated: "2026-07-18T01:19:31.509Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
@@ -92,6 +92,7 @@ Progress: [██████████] 100%
 - [Phase 02]: ParsePatternControlJson 随作业接线落地；Sink patternId 白名单+拒注入字符
 - [Phase 02]: 切换验收主路径为 make verify-switch（CH pattern_id），禁止 Kafka 单独放行
 - [Phase 02]: p03-init DDL 拆成 CREATE + ALTER 两次 POST（CH 24.8 HTTP 无 multiquery）
+- [Phase 02]: auto 链下 Task 3 human-verify 以 OrbStack CH 断言输出为自动化验收证据
 
 ### Pending Todos
 
