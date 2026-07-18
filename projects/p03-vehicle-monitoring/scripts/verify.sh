@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
-# p03 VEH-02 验收：ClickHouse flinklab.vehicle_alerts 为唯一放行条件。
+# p03 VEH-02/VEH-04 验收：ClickHouse flinklab.vehicle_alerts 为唯一放行条件。
 # Kafka vehicle.alerts 仅作可选诊断日志，不得单独放行。
+#
+# 环境变量（可选）：
+#   PATTERN_ID  白名单 pattern_id，默认 HARSH_THEN_FAULT（D-08/D-10）
+#   MIN_COUNT   MATCH 行数下限，默认 1
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -12,9 +16,26 @@ if [[ ! -f "${COMPOSE_FILE}" ]]; then
   exit 1
 fi
 
-# 固定表名与查询，禁止拼接外部输入（T-1-01）
-# 权威断言：MATCH 告警行数（亦可退化为总 count，此处优先 MATCH）
-CH_MATCH_QUERY="SELECT count() FROM flinklab.vehicle_alerts WHERE alert_type='MATCH'"
+PATTERN_ID="${PATTERN_ID:-HARSH_THEN_FAULT}"
+MIN_COUNT="${MIN_COUNT:-1}"
+
+# T-02-01：仅允许白名单三常量拼入查询；禁止未校验用户字符串进 SQL
+case "${PATTERN_ID}" in
+  HARSH_THEN_FAULT|TRIPLE_HARSH|DTC_PAIR)
+    ;;
+  *)
+    echo "FAIL: PATTERN_ID 非法（仅允许 HARSH_THEN_FAULT|TRIPLE_HARSH|DTC_PAIR），got=${PATTERN_ID}" >&2
+    exit 1
+    ;;
+esac
+
+if ! [[ "${MIN_COUNT}" =~ ^[0-9]+$ ]]; then
+  echo "FAIL: MIN_COUNT 必须为非负整数，got=${MIN_COUNT}" >&2
+  exit 1
+fi
+
+# 白名单分支后拼入固定 pattern_id 字面量（仍禁止任意外部输入直拼）
+CH_MATCH_QUERY="SELECT count() FROM flinklab.vehicle_alerts WHERE alert_type='MATCH' AND pattern_id='${PATTERN_ID}'"
 CH_TOTAL_QUERY="SELECT count() FROM flinklab.vehicle_alerts"
 
 diag_kafka() {
@@ -50,10 +71,10 @@ if ! TOTAL_COUNT="$(docker compose -f "${COMPOSE_FILE}" exec -T clickhouse \
 fi
 TOTAL_COUNT="$(printf '%s' "${TOTAL_COUNT}" | tr -d '[:space:]')"
 
-if [[ "${MATCH_COUNT}" -lt 1 ]]; then
-  echo "FAIL: expected vehicle_alerts MATCH count >= 1, got match=${MATCH_COUNT} total=${TOTAL_COUNT}" >&2
+if [[ "${MATCH_COUNT}" -lt "${MIN_COUNT}" ]]; then
+  echo "FAIL: expected vehicle_alerts MATCH pattern_id=${PATTERN_ID} count >= ${MIN_COUNT}, got match=${MATCH_COUNT} total=${TOTAL_COUNT}" >&2
   diag_kafka
   exit 1
 fi
 
-echo "ok alerts_match=${MATCH_COUNT} alerts_total=${TOTAL_COUNT}"
+echo "ok alerts_match=${MATCH_COUNT} pattern_id=${PATTERN_ID} min_count=${MIN_COUNT} alerts_total=${TOTAL_COUNT}"
