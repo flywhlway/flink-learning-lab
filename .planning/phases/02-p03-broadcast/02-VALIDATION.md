@@ -28,8 +28,9 @@ created: 2026-07-18
 
 ## Sampling Rate
 
-- **After every task commit:** Run `cd projects/p03-vehicle-monitoring && mvn -q test`
-- **After every plan wave:** 至少一条切换剧本 e2e（TRUNCATE → control → gen → verify PATTERN_ID）
+- **After every task commit:** Run `cd projects/p03-vehicle-monitoring && mvn -q test`（适用处）
+- **Wave 0–3（02-00 / 02-01 / 02-02 / 02-02b）：** 仅 unit / package 门禁（surefire + `mvn package`）；不要求切换剧本 e2e
+- **Wave 4+（02-03）：** 至少一条切换剧本 e2e（TRUNCATE → control → gen → verify PATTERN_ID）
 - **Before `/gsd-verify-work`:** 三模式五元组文档 + within 单测绿 + 切换 e2e 绿 + `qa_check.sh` 绿 + 默认路径回归绿
 - **Max feedback latency:** unit < 60s；e2e < 10min
 
@@ -52,11 +53,12 @@ created: 2026-07-18
 
 ## Wave 0 Requirements
 
+> 与 `02-00-PLAN.md` 对齐。`gen_vehicle_events.py` scenarios + `--publish-control` 属 **02-03**（Wave 4），不在 Wave 0。
+
 - [ ] `PatternRegistryWithinTest.java` — VEH-03 / D-11（每条 Pattern `getWindowSize()` 非空）
 - [ ] `TripleHarshPatternTest.java` / `DtcPairPatternTest.java` — 工厂可构建 + within
 - [ ] `PatternActivationGateTest.java` — 默认集 / version 单调 / 过滤
 - [ ] `verify.sh` 支持 `PATTERN_ID`（默认 `HARSH_THEN_FAULT`）
-- [ ] `gen_vehicle_events.py` scenarios + `--publish-control`
 
 ---
 

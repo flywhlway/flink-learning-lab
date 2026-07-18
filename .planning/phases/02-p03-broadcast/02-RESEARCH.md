@@ -481,22 +481,25 @@ ALTER TABLE flinklab.vehicle_alerts
 
 **若需用户确认：** A1（门控是否必须 Keyed 同构）可选；其余不阻塞规划。
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **门控算子形态（Discretion — 研究员推荐已给出）**
    - What we know: 非 keyed 与 keyed 门控均可满足 D-04–D-09。
    - What's unclear: 无 — 推荐 `BroadcastProcessFunction`；planner 可直接采纳。
    - Recommendation: 采用推荐；SUMMARY 记一笔教学取舍即可。
+   - **RESOLVED:** Gate 采用非 keyed `BroadcastProcessFunction`（recommended；见 02-02-PLAN / PatternActivationGate）。
 
 2. **Phase 1 Makefile `gen` 场景名兼容**
    - What we know: 现为 `--scenario match`。
    - What's unclear: 是否保留 `match` 别名指向 `match-harsh-fault`。
    - Recommendation: **保留 `match` 作为别名**，避免破坏既有 README 命令；新名为主。
+   - **RESOLVED:** 保留 `--scenario match` 作为 `match-harsh-fault` 别名（见 02-03-PLAN / D-12）。
 
 3. **verify 脚本接口**
    - What we know: 现硬编码 MATCH count≥1。
    - What's unclear: 单脚本多模式 vs 多脚本。
    - Recommendation: 扩展 `PATTERN_ID`（默认 `HARSH_THEN_FAULT`）+ 可选 `MIN_COUNT`；切换剧本用 Makefile 目标 `verify-switch` 串联 TRUNCATE→control→gen→assert。
+   - **RESOLVED:** `verify.sh` 使用环境变量 `PATTERN_ID`（默认 `HARSH_THEN_FAULT`）+ 可选 `MIN_COUNT`；切换剧本由 Makefile `verify-switch` 串联（见 02-00 / 02-03-PLAN）。
 
 ## Environment Availability
 
@@ -550,7 +553,8 @@ ALTER TABLE flinklab.vehicle_alerts
 
 ### Sampling Rate
 - **Per task commit:** `mvn -q test`（p03 模块）
-- **Per wave merge:** 至少一条切换剧本 e2e（TRUNCATE → control → gen → verify PATTERN_ID）
+- **Wave 0–3：** 仅 unit / package（surefire + `mvn package`）；不要求切换 e2e
+- **Wave 4+（02-03）：** 至少一条切换剧本 e2e（TRUNCATE → control → gen → verify PATTERN_ID）
 - **Phase gate:** 三模式文档五元组齐全 + within 单测绿 + 切换 e2e 绿 + `qa_check.sh` 绿 + 默认路径回归绿
 
 ### Wave 0 Gaps
@@ -558,9 +562,8 @@ ALTER TABLE flinklab.vehicle_alerts
 - [ ] `TripleHarshPatternTest.java` / `DtcPairPatternTest.java` — 谓词 + within +（DTC）skip 挂载可观察性
 - [ ] `PatternActivationGateTest.java` — 默认集 / version / 过滤
 - [ ] `verify.sh` 支持 `PATTERN_ID`（默认 `HARSH_THEN_FAULT`）
-- [ ] `gen_vehicle_events.py` scenarios + `--publish-control`
-- [ ] `clickhouse_alerts.sql` pattern_id + p03-init control topic
-- [ ] `docs/PATTERN-LIBRARY.md` + README 交叉引用 + 评审清单（五元组缺项即失败）
+
+> 非 Wave 0（对齐 02-00 / 02-VALIDATION）：`gen_vehicle_events.py` scenarios + `--publish-control` → **02-03**；`clickhouse_alerts.sql` pattern_id + p03-init control topic → **02-02b**；`docs/PATTERN-LIBRARY.md` + README 交叉引用 → **02-01 / 02-03**。
 
 ## Security Domain
 

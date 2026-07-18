@@ -55,7 +55,7 @@ Plans:
   2. 维护者可通过 Broadcast 配置切换模式集并观察到匹配行为变化
   3. 无 within 的模式无法通过项目自检/评审清单
 
-**Plans:** 4 plans
+**Plans:** 5 plans
 Plans:
 **Wave 0**
 
@@ -67,9 +67,13 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1)*
 
-- [ ] 02-02-PLAN.md — VEH-04：Broadcast 门控 + 三 CEP 作业接线 + pattern_id DDL/topic
+- [ ] 02-02-PLAN.md — VEH-04：PatternControlMessage + PatternActivationGate 单测 GREEN
 
 **Wave 3** *(blocked on Wave 2)*
+
+- [ ] 02-02b-PLAN.md — VEH-04：三 CEP 作业接线 + pattern_id DDL/Sink + control topic
+
+**Wave 4** *(blocked on Wave 3)*
 
 - [ ] 02-03-PLAN.md — VEH-03/04：造数切换 e2e + README/qa_check + 人工验收
 
