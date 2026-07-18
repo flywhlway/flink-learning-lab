@@ -66,6 +66,8 @@ class HarshThenFaultPatternTest {
                 "超时路径 alertType 必须为 TIMEOUT");
         assertEquals("VIN-T", alert.vin);
         assertEquals(460.0, alert.harshValue, 0.001);
+        assertEquals(PatternIds.HARSH_THEN_FAULT, alert.patternId,
+                "TIMEOUT 必须带 patternId=HARSH_THEN_FAULT（D-09）");
     }
 
     @SuppressWarnings("unchecked")
