@@ -73,7 +73,7 @@ Each task was committed atomically:
 
 1. **Task 1: PatternControlMessage + PatternActivationGate 单测 GREEN** - `aef01a3` (feat)
 
-**Plan metadata:** （待 final docs commit）
+**Plan metadata:** `7b6c680` (docs: complete plan)
 
 ## Files Created/Modified
 
