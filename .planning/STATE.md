@@ -149,7 +149,6 @@ Progress: [██████████] 96%
 - [Phase 6]: 20k/ForSt SKIPPED+原因；热身 45s 并声明相对理想 3 分钟偏差
 - [Phase 06]: Kafka K8S listener 9095（host.docker.internal）；拒绝 hostNetwork 因 JM+TM 端口冲突
 - [Phase 06]: p03 chart 自带 flink SA RBAC；BG 演练以 image.tag 触发 TRANSITION
-- [Phase ?]: origin 无 chart 时用 OrbStack git-daemon 本机镜像
 - [Phase 06]: origin 无 chart 时用 OrbStack git-daemon 本机镜像保证 Argo Synced/Healthy
 - [Phase 06]: Application 默认显式 sync；CI 硬门禁=compile+qa_check，buildx 非硬门禁
 
