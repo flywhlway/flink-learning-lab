@@ -77,7 +77,7 @@ Each task was committed atomically:
 
 附加：`fe20d81` (fix: 词边界匹配)、`ce5e951` (chore: make test 纳入 BudgetGateTest)
 
-**Plan metadata:** （本 SUMMARY / STATE 提交）
+**Plan metadata:** `41c226b` (docs: complete guardrail budget metrics plan)
 
 ## Files Created/Modified
 
