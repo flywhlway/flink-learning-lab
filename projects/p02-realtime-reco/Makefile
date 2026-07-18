@@ -68,7 +68,7 @@ match: truncate-results
 		sleep 3; \
 	done
 
-# RECO-03：Redis 降级演练（门闩骨架；--implemented 后绿）
+# RECO-03 / D-12：Redis 降级演练（stop fll-redis → CH feature_source=STATE_ONLY）
 drill-redis:
 	bash scripts/drill_redis_degrade.sh
 
