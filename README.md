@@ -3,7 +3,7 @@
 > **企业级 Apache Flink 全栈学习工程(2026 · AI 时代版)**
 > 面向已有 Flink 生产经验的架构师,目标:成长为 Enterprise Streaming Architect,并打通 Flink × AI Agent 全链路。
 
-**当前版本:`v0.1.0-phase0`(Phase 0 基线交付)** · 交付状态与后续阶段见 [PHASES.md](./PHASES.md)
+**当前版本:`v0.1.0-phase0` 起累计至 P6 可验证完成态** · 交付状态见 [PHASES.md](./PHASES.md)（P0–P6 ✅；git tag / Release 由 `/gsd-complete-milestone` 执行）
 
 ---
 
@@ -13,7 +13,7 @@
 - 全部基于 **2026 年现行版本**(Flink 2.2.x LTS 生态、Flink Agents 0.3、Flink CDC 3.6、Kubernetes Operator 1.15)
 - 全部案例在 **Apple Silicon(MacBook Pro M5 Pro 48GB + OrbStack + Docker Compose)** 上验证运行
 - 重实践、轻理论:每个知识点 = 背景 + 架构图(Mermaid)+ 可运行代码 + 验证方式 + 踩坑 + 最佳实践
-
+- **P6 完成态口径**：`bash scripts/qa_check.sh` 与 `bash scripts/eng_audit.sh` 双绿；`examples/` mains≥100；非 `.planning` 文档≥30000 行；详见 [docs/QA-REPORT.md](./docs/QA-REPORT.md)
 ## 2. 版本矩阵(SSOT,全仓库唯一版本来源)
 
 | 组件 | 版本 | 说明 |
@@ -80,10 +80,11 @@ uv run ../scripts/gen_events.py --topic clicks --eps 200
 | 目录 | 内容 | 当前状态 |
 |---|---|---|
 | [roadmap/](./roadmap/) | **Level 1→10 学习路线**(从 Flink 开发者到 Enterprise Streaming Architect) | ✅ 完整交付 |
-| [docs/](./docs/) | 全部教材章节(SSOT 索引 + 编号体系 + 2026 技术版图) | ✅ 索引 + 版图交付,章节按 Phase 推进 |
+| [docs/](./docs/) | 全部教材章节(SSOT 索引 + 编号体系 + 2026 技术版图) | ✅ P6：模块 00–15 + [QA-REPORT](./docs/QA-REPORT.md) |
 | [docker/](./docker/) | 一键启动的本地企业级流平台 | ✅ 完整交付 |
-| [examples/](./examples/) | 可运行 Demo 工程(Maven 多模块,目标 100+) | ✅ e01 交付(3 个作业) |
-| [scripts/](./scripts/) | 数据生成器与运维脚本(uv 单文件脚本) | ✅ 交付 |
+| [examples/](./examples/) | 可运行 Demo 工程(Maven 多模块) | ✅ P6：`public static void main` ≥100（`qa_check` ④） |
+| [projects/](./projects/) | 三大生产级项目 | ✅ P4： [p03 车联网](./projects/p03-vehicle-monitoring/) · [p01 日志 AI](./projects/p01-log-ai-platform/) · [p02 实时推荐](./projects/p02-realtime-reco/) |
+| [scripts/](./scripts/) | 数据生成器与运维脚本；[`qa_check.sh`](./scripts/qa_check.sh) / [`eng_audit.sh`](./scripts/eng_audit.sh) | ✅ P6 六硬门 + ENG 终检 |
 | [playground/](./playground/) | Flink SQL Client 交互实验场 | ✅ 首批 SQL 练习交付 |
 | [ai/](./ai/) | **《Flink AI Engineering》**(本仓库核心) | ✅ 全书大纲 + 2026 现状简报交付 |
 | [datasets/](./datasets/) | 数据集规范与生成方案 | ✅ 规范交付 |

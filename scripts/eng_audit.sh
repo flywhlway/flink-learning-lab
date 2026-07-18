@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ENG-01…04 终检（D-10）。用法:bash scripts/eng_audit.sh
-# 失败非 0。ENG-04 对本波仅断言 CHANGELOG Unreleased；PHASES P6 严格断言留给 07-03。
+# 失败非 0。ENG-04：CHANGELOG Unreleased + PHASES P6 可验证完成态严格断言（07-03）。
 set -uo pipefail
 cd "$(dirname "$0")/.."
 FAIL=0
@@ -101,17 +101,40 @@ else
 fi
 [ "$ENG03_OK" -eq 1 ] && ok "ENG-03 证据指针通过"
 
-# ── ENG-04 Wave 0: 仅 CHANGELOG Unreleased；PHASES P6 严格断言 soft/deferred → 07-03 ──
-note "── ENG-04 状态痕迹（Wave 0 soft）──"
+# ── ENG-04: CHANGELOG Unreleased + PHASES P6 可验证完成态（严格）──
+note "── ENG-04 状态痕迹 ──"
+ENG04_OK=1
 if grep -Eq '\[Unreleased\]|未发布' CHANGELOG.md; then
   ok "ENG-04 CHANGELOG 含 Unreleased/未发布区"
 else
   bad "ENG-04 CHANGELOG.md 缺少 Unreleased/未发布区"
+  ENG04_OK=0
 fi
-# 诊断：打印 PHASES P6 行，但不因未 ✅ 而失败（避免 Wave 0 先红死锁）
-P6_LINE=$(grep -E 'P6|总装' PHASES.md | head -3 || true)
-note "info  ENG-04 PHASES P6 诊断(不挡门): ${P6_LINE:-"(未找到 P6 行)"}"
-note "info  ENG-04 PHASES 严格断言延期至 07-03"
+P6_LINE=$(grep -E '\*\*P6 总装 QA\*\*' PHASES.md | head -1 || true)
+if [ -z "$P6_LINE" ]; then
+  bad "ENG-04 PHASES.md 缺少 **P6 总装 QA** 行"
+  ENG04_OK=0
+elif echo "$P6_LINE" | grep -q '📋' && ! echo "$P6_LINE" | grep -Fq '可验证完成态'; then
+  bad "ENG-04 PHASES P6 仍为 📋 占位，未达可验证完成态"
+  ENG04_OK=0
+elif echo "$P6_LINE" | grep -Fq '可验证完成态' \
+  && echo "$P6_LINE" | grep -Eq 'QA-01' \
+  && echo "$P6_LINE" | grep -Eq '100' \
+  && echo "$P6_LINE" | grep -Eq '30000|30k|30k 行|≥30k'; then
+  ok "ENG-04 PHASES P6 可验证完成态（含 QA-01 / 100 / 30000 口径）"
+else
+  bad "ENG-04 PHASES P6 缺少可验证完成态表述（须含可验证完成态 + QA-01 + mains≥100 + md≥30000）"
+  note "info  ENG-04 P6 行: ${P6_LINE:-"(空)"}"
+  ENG04_OK=0
+fi
+# 额外：Unreleased 应出现 P6 / qa_check / eng_audit 痕迹（发布说明草稿，D-12 不打 tag）
+if grep -E 'P6|qa_check|eng_audit' CHANGELOG.md | head -1 >/dev/null; then
+  ok "ENG-04 CHANGELOG 含 P6/qa_check/eng_audit 草稿痕迹"
+else
+  bad "ENG-04 CHANGELOG 缺少 P6/qa_check/eng_audit 发布说明草稿"
+  ENG04_OK=0
+fi
+[ "$ENG04_OK" -eq 1 ] && ok "ENG-04 状态痕迹通过"
 
 if [ "$FAIL" -eq 0 ]; then
   note "== ENG AUDIT PASS =="

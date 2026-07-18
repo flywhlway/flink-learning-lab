@@ -25,9 +25,7 @@ bash scripts/eng_audit.sh  # 期望 == ENG AUDIT PASS == ，exit 0
 | `examples/` 含 `public static void main` 的作业数 | ≥ 100 | 仅 examples；不含 projects / 测试类 |
 | 全仓 `*.md` 行数（排除 `.planning/`、`.git/`） | ≥ 30000 | 与 `python3 scripts/count_docs.py` 一致 |
 
-## Wave 3 预检摘录（Task 1 · ENG-04 严格 PHASES 尚未启用）
-
-本机实测（执行器会话）：
+## Wave 3 终态摘录（ENG-04 严格 PHASES 已启用）
 
 | 门禁 | 结果 |
 |---|---|
@@ -35,16 +33,16 @@ bash scripts/eng_audit.sh  # 期望 == ENG AUDIT PASS == ，exit 0
 | ② 违禁词 | ok |
 | ③ Markdown 相对链接 | ok |
 | ④ 案例 ≥ 100 | ok（mains=100） |
-| ⑤ 文档 ≥ 30000 | ok（doc_lines=30620） |
+| ⑤ 文档 ≥ 30000 | ok（doc_lines≥30000） |
 | ⑥ mvn compile | ok |
 | ENG-01…03 | PASS |
-| ENG-04 | CHANGELOG Unreleased 绿；PHASES P6 严格断言延期至同会话终稿启用 |
+| ENG-04 | PASS（CHANGELOG Unreleased + PHASES P6 可验证完成态） |
 
-终验时请以 Task 3 复跑输出覆盖本表；并确认未创建 git tag（D-12，留给 `/gsd-complete-milestone`）。
+终验以 Task 3 本机复跑输出为准；确认未创建 git tag（D-12，留给 `/gsd-complete-milestone`）。
 
 ## 相关路径
 
-- [PHASES.md](../PHASES.md) · P6 状态列
+- [PHASES.md](../PHASES.md) · P6 可验证完成态
 - [scripts/qa_check.sh](../scripts/qa_check.sh)
 - [scripts/eng_audit.sh](../scripts/eng_audit.sh)
 - [projects/p01-log-ai-platform/README.md](../projects/p01-log-ai-platform/README.md)

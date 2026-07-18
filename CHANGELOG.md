@@ -5,6 +5,12 @@
 ## [Unreleased]
 
 ### Added
+- **P6 总装 QA（QA-01/02 + ENG-01…04 / Phase 7）**：
+  - `scripts/qa_check.sh` 六硬门：compose / 违禁词（D-08 词表，不裸匹配「略」）/ 断链 / mains≥100 / 文档≥30000 / `mvn -DskipTests compile` 硬失败
+  - `scripts/eng_audit.sh`：ENG-01 版本抽样、ENG-02 docs 编号、ENG-03 证据指针、ENG-04 CHANGELOG Unreleased + PHASES P6 可验证完成态严格断言
+  - `scripts/count_docs.py` 文档行数诊断；`docs/QA-REPORT.md` 人读摘要（docs 模块 16）
+  - 案例轴：`examples/` `public static void main` ≥100；文档轴：非 `.planning` `*.md` ≥30000
+  - 根 README / `PHASES.md` / 本 CHANGELOG 未发布区终稿对齐；**不打 git tag**（留给 `/gsd-complete-milestone`，D-12）
 - **P5 生产化收官（PROD-01–04 / Phase 6）**：
   - `benchmark/` 裁剪矩阵 + OrbStack 实测权威报告 [`benchmark/baseline.md`](./benchmark/baseline.md)
   - `production/`：Flink Kubernetes Operator 1.15 Blue/Green 可观察演练 + 单一 Argo CD GitOps + GitHub Actions CI 清单

@@ -38,7 +38,7 @@
 
 ### QA · P6 总装
 
-- [ ] **QA-01**: `scripts/qa_check.sh` 全绿（mvn 编译、compose config、断链、违禁词、案例计数）
+- [x] **QA-01**: `scripts/qa_check.sh` 全绿（mvn 编译、compose config、断链、违禁词、案例计数）
 - [x] **QA-02**: 案例 ≥100、文档 ≥30k 行、README 终稿与 PHASES.md 状态一致
 
 ### ENG · 工程不变量（跨 Phase）
@@ -95,7 +95,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROD-02 | Phase 6 | Complete |
 | PROD-03 | Phase 6 | Complete |
 | PROD-04 | Phase 6 | Complete |
-| QA-01 | Phase 7 | Pending |
+| QA-01 | Phase 7 | Complete |
 | QA-02 | Phase 7 | Complete |
 | ENG-01 | Phase 7 | Complete |
 | ENG-02 | Phase 7 | Complete |

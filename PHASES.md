@@ -13,7 +13,7 @@
 | **P3 AI 专书** | ai/ 24 章全文 + e12 系列 Demo ×11(7 个零依赖进主构建 + 2 个 SQL 脚本 + 2 个 Agents standalone);Milvus ai-profile 进 compose;docs 11 生态协同 | 第 6 部分(重点)+ 第 3 部分 AI 能力 | 24 章成文;每章降级路径明示;零依赖 Demo 本地可跑 | ✅ v0.4.0(沙箱限制:Agents standalone 依赖未编译验证、Ollama/Milvus 端到端留本机,各 README 已给核对清单与降级路径) |
 | **P4 三大项目** | projects/p01 日志 AI 平台、p02 实时推荐、p03 车联网监控(各含完整工程、压测、故障演练、简历陈述) | 第 7 部分 | 每个项目独立 compose profile 一键起;有架构文档+ADR+验证脚本 | ✅ **三大项目单项目完成态均已交付**：p03（VEH-01–07）；p01（LOG-01–05）；**p02（RECO-01–03：compose profile `p02` + Keyed State/Redis 双通道 + 规则 Top-K + `make loadtest`/`make drill-redis` + ARCHITECTURE/ADR/RESUME；OrbStack 实测）**；P4 收官后进入 P5 生产化 |
 | **P5 生产化** | benchmark 全矩阵与 baseline.md;production(Operator/CI-CD/GitOps)落地;best-practice 完整规范;interview 扩至 150+;monitoring 看板 JSON | 第 8/9 部分 | 压测报告可复现;OrbStack K8s 上完成 Blue/Green 演练;三块 Grafana 可打开;interview≥150;规范与 production 互链 | ✅ **可验证完成态**（PROD-01–04）：`benchmark/baseline.md`；Operator Blue/Green 时间线；Argo/CI 文档与脚本；`monitoring/` 三 JSON + provisioning；`interview` 门禁绿；`best-practice/` 体系；docs 模块 13/14 完成态 |
-| **P6 总装 QA** | 全仓交叉引用校验、违禁词扫描(TODO/省略/略/自行实现/请参考官网)、行数与案例数盘点、README 终稿 | 第 10 部分 + 最终交付要求 | qa_check.sh 全绿;案例 ≥100;文档 ≥30k 行 | 📋 |
+| **P6 总装 QA** | 全仓交叉引用校验、违禁词扫描(内容禁令词表)、行数与案例数盘点、README 终稿 | 第 10 部分 + 最终交付要求 | ✅ **可验证完成态**（QA-01/02 + ENG-01…04）：`bash scripts/qa_check.sh` 全绿；mains≥100；md≥30000；`bash scripts/eng_audit.sh` ENG-01…04；扫描匹配整词内容禁令词表、不裸匹配「略」（D-08）；git tag 留给 `/gsd-complete-milestone`（D-12） |
 
 ## 接力协议(Claude Code + open-gsd)
 

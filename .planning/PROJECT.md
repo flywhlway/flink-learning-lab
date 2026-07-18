@@ -24,10 +24,11 @@
 - ✓ P4-p02 实时推荐（RECO-01–03）：双通道特征 + 规则 Top-K + Redis 降级演练 + baseline/ADR/简历页 — Phase 5
 - ✓ P4 三项目均满足：独立 compose profile 一键起、架构文档+ADR+验证脚本、压测与故障演练本机跑通 — Phase 1–5
 - ✓ P5 生产化（PROD-01–04）：裁剪压测矩阵 + `benchmark/baseline.md`、Operator 1.15 Blue/Green 时间线、Argo CD + GitHub Actions、interview≥150 + 三块 Grafana JSON + best-practice 体系 — Phase 6
+- ✓ P6 总装 QA（QA-01/02 + ENG-01…04）：`qa_check` 六硬门全绿；mains≥100；md≥30000；`eng_audit` ENG-01…04；README/PHASES/CHANGELOG 终稿；未打 git tag（D-12）— Phase 7
 
 ### Active
 
-- [ ] P6 总装 QA：全仓交叉引用、违禁词扫描、行数与案例数盘点、README 终稿；qa_check.sh 全绿、案例 ≥100、文档 ≥30k 行
+（无 — P4–P6 里程碑交付物已全部进入 Validated；git tag / GitHub Release 见 `/gsd-complete-milestone`）
 
 ### Out of Scope
 
@@ -41,7 +42,7 @@
 - **接力协议入口**：阅读 PHASES.md 与 docs/README.md，继续 Phase N，遵守根 README 第 5 节。
 - **已有基座可复用**：e10 CEP 车联网告警雏形、e07/e08 连接器与 CDC、e12 AI 路径、docker compose（Kafka/Flink/CH/PG/Redis/MinIO/Prom/Grafana）、Milvus ai-profile。
 - **目标目录**：`projects/p03-vehicle-monitoring`、`p01-log-ai-platform`、`p02-realtime-reco` 均已达 P4 单项目完成态。
-- **当前焦点**：Phase 7 — P6 总装 QA。
+- **当前焦点**：P6 总装 QA 已达可验证完成态；下一步 `/gsd-complete-milestone`（打 tag，非本 Phase）。
 - **会话粒度**：一个会话 ≤ 一个模块；先教材/架构章节，再 Demo/工程，再回填交叉引用。
 - **中断恢复**：主干始终可 `make up`；半成品放 `wip/`。
 - **受众**：已有 Flink 生产经验的架构师 → Enterprise Streaming Architect；三大项目同时服务简历陈述。
