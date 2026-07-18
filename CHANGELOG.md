@@ -5,6 +5,13 @@
 ## [Unreleased]
 
 ### Added
+- **P5 生产化收官（PROD-01–04 / Phase 6）**：
+  - `benchmark/` 裁剪矩阵 + OrbStack 实测权威报告 [`benchmark/baseline.md`](./benchmark/baseline.md)
+  - `production/`：Flink Kubernetes Operator 1.15 Blue/Green 可观察演练 + 单一 Argo CD GitOps + GitHub Actions CI 清单
+  - `monitoring/`：恰好三块可导入 Grafana JSON（`platform-overview` / `job-deepdive` / `ai-cost`）+ compose provisioning；Loki/OTel 明确为可选增强
+  - `interview/`：Level 分层 ≥150 题（完整参考答案）+ `scripts/count_interview.py` 门禁
+  - `best-practice/`：完整规范体系（架构命名 / uid·savepoint / checkpoint·Kafka / 状态 TTL / 反压 / 日志异常 / CI-CD·GitOps / AI 降级）与 `production/docs/*` 双向互链
+  - docs 模块 13/14 完成态；根 README 目录表与 `PHASES.md` P5 状态回填
 - **projects/p02-realtime-reco Phase 5 单项目完成态（RECO-01–03）**：独立 compose profile `p02`；Kafka `reco.events` → Parse → Keyed State 会话特征 → Redis at-least-once 点查 → PG `reco_items` 规则 Top-K → 双写 `reco.results` + CH `reco_results`；验收 `make match`（CH 权威）
 - 演练：`make loadtest` → `docs/baseline.md`（OrbStack arm64 实测）；`make drill-redis`（stop `fll-redis` 后 CH `feature_source=STATE_ONLY` 仍绿）
 - 文档包：`docs/ARCHITECTURE.md`、`docs/adr/0001-dual-channel-features.md`、`docs/RESUME.md`；docs 模块 15-02 回填完成态

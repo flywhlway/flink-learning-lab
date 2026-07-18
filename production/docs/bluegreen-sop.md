@@ -4,6 +4,8 @@ PROD-02 / D-05 / D-06 / D-09：在 OrbStack K8s 上对 `FlinkBlueGreenDeployment
 
 **硬门禁**是 Blue/Green CR 状态机（`ACTIVE_BLUE` ↔ `TRANSITIONING_*` ↔ `ACTIVE_GREEN`）+ 脚本时间线，**不是**单独改 `job.upgradeMode`。
 
+**规范互链：** uid/savepoint 纪律见 [`best-practice/02-uid-savepoint.md`](../../best-practice/02-uid-savepoint.md)；本文件只描述可执行步骤与回滚。
+
 ## 前置
 
 ```bash

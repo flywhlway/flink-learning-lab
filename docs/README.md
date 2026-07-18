@@ -62,9 +62,9 @@
 
 13-01 压测方法论与单变量原则 · 13-02 裁剪矩阵(作业轴 e01-J2 / e10 `C5VehicleDtcPatternJob` / p03 `VehicleAlertJob` + 负载 1k/5k eps 必跑) · 13-03 仓库级 [`benchmark/baseline.md`](../benchmark/baseline.md)（OrbStack arm64 / compose Flink 实测）· 入口脚本 `make -C benchmark matrix`；项目级 baseline 不替代本报告。
 
-## 模块 14 · 生产化 🚧([索引](./14-production/README.md),权威路径 [production/](../production/))
+## 模块 14 · 生产化 ✅([索引](./14-production/README.md),权威路径 [production/](../production/) · [monitoring/](../monitoring/) · [best-practice/](../best-practice/))
 
-14-01 K8s Operator 1.15 全解(CRD/升级模式/Blue-Green/Autoscaler) · 14-02 可观测(Prometheus/Grafana；Loki/OTel 为可选增强) · 14-03 CI/CD 与 GitOps(Helm/Argo CD/灰度；禁止并行 Flux) · 14-04 多租户与成本治理 · 14-05 安全与合规(含车企 UN R155 视角) · 落地清单与脚本在 `production/`。
+14-01 K8s Operator 1.15（CRD/升级模式/Blue-Green 状态机硬门禁/Autoscaler 附录）· 14-02 可观测（Prometheus + 仓库级三块 Grafana JSON；Loki/OTel 可选增强非硬门禁）· 14-03 CI/CD 与 GitOps（Helm/唯一 Argo CD/GitHub Actions；禁止并行 Flux）· 14-04 多租户与成本治理 · 14-05 安全与合规视角 · 落地清单在 `production/`，规范正文在 `best-practice/`，题库 ≥150 在 `interview/`。
 
 ## 模块 15 · 企业实战三案例(P4)
 

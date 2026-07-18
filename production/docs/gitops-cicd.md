@@ -214,3 +214,4 @@ docker buildx build --platform linux/amd64,linux/arm64 \
 - [bluegreen-sop.md](./bluegreen-sop.md) — BG 操作与回滚
 - [../scripts/install-argocd.sh](../scripts/install-argocd.sh) / [../scripts/verify-argocd-sync.sh](../scripts/verify-argocd-sync.sh)
 - [../argocd/application-p03.yaml](../argocd/application-p03.yaml)
+- **规范正文（非操作步骤）：** [`best-practice/07-cicd-gitops.md`](../../best-practice/07-cicd-gitops.md) · 总索引 [`best-practice/README.md`](../../best-practice/README.md)

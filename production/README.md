@@ -66,6 +66,6 @@ bash scripts/qa_check.sh
 
 ## 范围备注
 
-- HA / uid / savepoint 纪律与 `best-practice/` 互链；规范正文在 `best-practice/`，此处放可执行清单。
+- HA / uid / savepoint 纪律与 [`best-practice/`](../best-practice/) 互链：规范正文见 [`best-practice/02-uid-savepoint.md`](../best-practice/02-uid-savepoint.md)、[`07-cicd-gitops.md`](../best-practice/07-cicd-gitops.md)；**本目录只放可执行清单与 SOP**。
 - Autoscaler、Session 模式仅见 `docs/bluegreen-sop.md` 附录，不作为 PROD-02 硬门禁。
 - 三种 `upgradeMode`（stateless / savepoint / last-state）对照见 SOP 附录；硬门禁始终是 BG 状态机时间线。

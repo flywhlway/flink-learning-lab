@@ -87,13 +87,13 @@ uv run ../scripts/gen_events.py --topic clicks --eps 200
 | [playground/](./playground/) | Flink SQL Client 交互实验场 | ✅ 首批 SQL 练习交付 |
 | [ai/](./ai/) | **《Flink AI Engineering》**(本仓库核心) | ✅ 全书大纲 + 2026 现状简报交付 |
 | [datasets/](./datasets/) | 数据集规范与生成方案 | ✅ 规范交付 |
-| [benchmark/](./benchmark/) | 压测方法论与基准工程 | 📐 方法论交付,工程在 Phase 5 |
-| [monitoring/](./monitoring/) | 指标体系、Grafana 看板 | ✅ 指标接通 + 指标手册 |
-| [production/](./production/) | K8s Operator、CI/CD、GitOps 生产化 | 📐 蓝图交付,落地在 Phase 5 |
+| [benchmark/](./benchmark/) | 压测方法论与基准工程 | ✅ P5：裁剪矩阵 + OrbStack 实测 [`baseline.md`](./benchmark/baseline.md) |
+| [monitoring/](./monitoring/) | 指标体系、Grafana 看板 JSON | ✅ P5：值班五指标 + 恰好三块可导入看板（platform/job/ai） |
+| [production/](./production/) | K8s Operator、CI/CD、GitOps 生产化 | ✅ P5：Operator 1.15 Blue/Green + 单一 Argo CD + CI 可复现 |
 | [templates/](./templates/) | 作业工程脚手架模板 | 📐 规范交付 |
 | [cheatsheet/](./cheatsheet/) | CLI / SQL / 配置速查 | ✅ 交付 |
-| [interview/](./interview/) | 面试题库(按 Level 分层) | ✅ 首批 30 题交付 |
-| [best-practice/](./best-practice/) | 生产最佳实践清单 | ✅ 首批 12 条军规交付 |
+| [interview/](./interview/) | 面试题库(按 Level 分层) | ✅ P5：≥150 题 + 完整参考答案（`python3 scripts/count_interview.py`） |
+| [best-practice/](./best-practice/) | 生产最佳实践规范体系 | ✅ P5：完整规范（架构/uid/CP/TTL/反压/日志/GitOps/AI 降级）与 `production/` 互链 |
 | [notebook/](./notebook/) | PyFlink / Jupyter 环境 | ✅ 环境说明交付 |
 | [PHASES.md](./PHASES.md) | 分阶段交付计划 + Claude Code / open-gsd 接力协议 | ✅ |
 | [CHANGELOG.md](./CHANGELOG.md) | 版本记录 | ✅ |
