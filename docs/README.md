@@ -76,6 +76,12 @@
 | 15-01 | [p01 日志 AI 平台 · P4 单项目完成态](../projects/p01-log-ai-platform/README.md)（compose profile `p01` + 规则路径默认 AI off + 可选 Async Ollama + BudgetGate/Guardrail + 压测/降级演练） | ✅ 完成：`make verify` / `make verify-ai`（可选）+ [baseline.md](../projects/p01-log-ai-platform/docs/baseline.md) + [ADR-0001](../projects/p01-log-ai-platform/docs/adr/0001-ai-path-degradable.md) + [RESUME](../projects/p01-log-ai-platform/docs/RESUME.md) + [ARCHITECTURE](../projects/p01-log-ai-platform/docs/ARCHITECTURE.md) 可打开；CH 仍为规则/AI 权威；主构建零硬依赖 Preview/外部模型 |
 | 15-02 | [p02 实时推荐 · P4 单项目完成态](../projects/p02-realtime-reco/README.md)（compose profile `p02` + Keyed State/Redis 双通道特征 + PG 目录规则 Top-K + 压测/Redis 降级演练） | ✅ 完成：`make match` / `make drill-redis` / `make loadtest` + [baseline.md](../projects/p02-realtime-reco/docs/baseline.md) + [ADR-0001](../projects/p02-realtime-reco/docs/adr/0001-dual-channel-features.md) + [RESUME](../projects/p02-realtime-reco/docs/RESUME.md) + [ARCHITECTURE](../projects/p02-realtime-reco/docs/ARCHITECTURE.md) 可打开；CH 仍为推荐权威；Redis 写 at-least-once，读失败 STATE_ONLY |
 
+## 模块 16 · P6 总装 QA 摘要
+
+| 编号 | 文档 | 状态 |
+|---|---|---|
+| 16-01 | [QA 报告 · P6 总装门禁摘要](./QA-REPORT.md)（qa_check 六硬门 + eng_audit ENG-01…04 人读摘录；不挡门禁） | ✅ |
+
 ---
 
 ### 交叉引用规则
