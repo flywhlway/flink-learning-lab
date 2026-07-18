@@ -43,10 +43,10 @@
 
 ### ENG · 工程不变量（跨 Phase）
 
-- [ ] **ENG-01**: 新增组件先写入根 README 版本矩阵与 pom 属性区再使用
-- [ ] **ENG-02**: 文档/模块编号先在 docs/README.md 登记；项目文档遵守八段式或等价结构
-- [ ] **ENG-03**: 合入内容均在 OrbStack arm64 实测；禁止 TODO/省略/略/自行实现/请参考官网
-- [ ] **ENG-04**: 每个工作会话结束更新 CHANGELOG 未发布区与 PHASES 状态，并做约定式提交
+- [x] **ENG-01**: 新增组件先写入根 README 版本矩阵与 pom 属性区再使用
+- [x] **ENG-02**: 文档/模块编号先在 docs/README.md 登记；项目文档遵守八段式或等价结构
+- [x] **ENG-03**: 合入内容均在 OrbStack arm64 实测；禁止 TODO/省略/略/自行实现/请参考官网
+- [x] **ENG-04**: 每个工作会话结束更新 CHANGELOG 未发布区与 PHASES 状态，并做约定式提交
 
 ## v2 Requirements
 
@@ -97,10 +97,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROD-04 | Phase 6 | Complete |
 | QA-01 | Phase 7 | Pending |
 | QA-02 | Phase 7 | Pending |
-| ENG-01 | Phase 7 | Pending |
-| ENG-02 | Phase 7 | Pending |
-| ENG-03 | Phase 7 | Pending |
-| ENG-04 | Phase 7 | Pending |
+| ENG-01 | Phase 7 | Complete |
+| ENG-02 | Phase 7 | Complete |
+| ENG-03 | Phase 7 | Complete |
+| ENG-04 | Phase 7 | Complete |
 
 **Coverage:**
 - v1 requirements: 25 total
