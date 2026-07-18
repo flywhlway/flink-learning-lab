@@ -14,6 +14,10 @@ public final class AlertEvent {
     public double faultValue;
     public long eventTime;
     public String message;
+    /**
+     * 触发本告警的模式 ID（门控过滤用；完整 Handler/DDL 贯通属 02-02b）。
+     */
+    public String patternId;
 
     public AlertEvent() {
     }

@@ -82,17 +82,6 @@
 
   <build>
     <plugins>
-      <!-- Wave 0 Gate RED 夹具依赖 PatternActivationGate（02-02）；排除以免阻塞 VEH-03 单测 -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.15.0</version>
-        <configuration>
-          <testExcludes>
-            <testExclude>**/PatternActivationGateTest.java</testExclude>
-          </testExcludes>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
