@@ -202,7 +202,13 @@ Plans:
   2. 案例 ≥100、文档 ≥30k 行，README 与 PHASES 状态一致
   3. 版本 SSOT/编号登记/违禁词/约定式提交与 CHANGELOG 纪律通过终检（ENG-*）
 
-**Plans:** TBD
+**Plans:** 4 plans
+
+Plans:
+- [ ] 07-00-PLAN.md — Wave 0：qa_check 六硬门先红 + eng_audit/count_docs 骨架 + 清洗「省略」
+- [ ] 07-01-PLAN.md — Wave 1：examples mains 67→≥100（e12 缺口优先 + e0x 回填）
+- [ ] 07-02-PLAN.md — Wave 2：实质扩写文档至 ≥30000 行（docs/interview/ai/best-practice）
+- [ ] 07-03-PLAN.md — Wave 3：断链/违禁词清净 + README/PHASES/CHANGELOG 终稿 + OrbStack 双绿
 
 **Note on ENG-*:** 工程不变量自 Phase 1 起每会话强制执行；Phase 7 做终检与追溯关闭。
 
@@ -219,7 +225,7 @@ Plans:
 | 4. p01 日志 AI 平台 | 6/6 | Complete   | 2026-07-18 |
 | 5. p02 实时推荐 | 4/4 | Complete    | 2026-07-18 |
 | 6. P5 生产化 | 5/5 | Complete    | 2026-07-18 |
-| 7. P6 总装 QA | 0/TBD | Not started | - |
+| 7. P6 总装 QA | 0/4 | Not started | - |
 
 ## Coverage Validation
 
