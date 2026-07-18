@@ -159,7 +159,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. p03 告警链路样板 | 4/4 | Complete    | 2026-07-17 |
-| 2. p03 模式库与 Broadcast | 5/5 | Complete   | 2026-07-18 |
+| 2. p03 模式库与 Broadcast | 5/5 | Complete    | 2026-07-18 |
 | 3. p03 大盘与演练收官 | 0/TBD | Not started | - |
 | 4. p01 日志 AI 平台 | 0/TBD | Not started | - |
 | 5. p02 实时推荐 | 0/TBD | Not started | - |
