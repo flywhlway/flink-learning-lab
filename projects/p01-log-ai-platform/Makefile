@@ -1,4 +1,4 @@
-.PHONY: package test submit submit-ai cancel-p01 gen gen-ai verify verify-ai truncate-results match match-ai
+.PHONY: package test submit submit-ai cancel-p01 gen gen-ai verify verify-ai truncate-results match match-ai loadtest drill-degrade
 
 COMPOSE_FILE := ../../docker/docker-compose.yml
 VERIFY_WAIT_SEC ?= 60
@@ -133,3 +133,15 @@ match-ai: truncate-results gen-ai
 		fi; \
 		sleep 5; \
 	done
+
+# LOG-05 / D-14：AI off + endpoint 不可达时规则路径仍绿
+drill-degrade:
+	bash scripts/drill_ai_degrade.sh
+
+# LOG-05 / D-13：项目级压测 → docs/baseline.md（OrbStack 实测；可用 RATE/WARMUP_SEC/DURATION_SEC 覆盖）
+RATE ?= 100
+WARMUP_SEC ?= 30
+DURATION_SEC ?= 90
+
+loadtest:
+	RATE=$(RATE) WARMUP_SEC=$(WARMUP_SEC) DURATION_SEC=$(DURATION_SEC) bash scripts/loadtest.sh
