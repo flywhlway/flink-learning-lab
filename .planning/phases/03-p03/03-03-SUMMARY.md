@@ -69,7 +69,7 @@ completed: 2026-07-18
 1. **Task 1: ARCHITECTURE + ADR-0001 CEP Broadcast** - `2519f2f` (docs)
 2. **Task 2: RESUME + 15-03/CHANGELOG/PHASES + qa_check** - `6cca9e9` (docs)
 
-**Plan metadata:** （本 SUMMARY 提交后填写）
+**Plan metadata:** `1bffbeb` (docs: complete plan)
 
 ## Files Created/Modified
 
