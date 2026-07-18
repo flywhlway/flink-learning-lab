@@ -94,21 +94,13 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
         <configuration>
-          <!-- RuleScorer / CatalogItem 等由 05-02 交付；Wave 0 RED 夹具暂排除编译以免挡住 Parse GREEN -->
-          <testExcludes>
-            <testExclude>**/score/RuleScorerTest.java</testExclude>
-          </testExcludes>
+          <!-- 05-02：RuleScorer / CatalogItem 已交付，恢复全量 testCompile -->
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${surefire.plugin.version}</version>
-        <configuration>
-          <excludes>
-            <exclude>**/score/RuleScorerTest.java</exclude>
-          </excludes>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
