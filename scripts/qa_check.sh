@@ -63,4 +63,11 @@ else
   fi
 fi
 
+# ENG-01…04 终检（独立脚本；存在则调用，D-10）
+if [ -f scripts/eng_audit.sh ]; then
+  bash scripts/eng_audit.sh || bad "eng_audit"
+else
+  note "warn  scripts/eng_audit.sh 不存在，跳过 ENG 终检"
+fi
+
 if [ "$FAIL" -eq 0 ]; then note "== QA PASS =="; else note "== QA FAIL =="; exit 1; fi
