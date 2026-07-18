@@ -2,7 +2,7 @@
 SHELL := /bin/bash
 TM ?= 2            # TaskManager 数量(2 台 × 4 slot = 8 slots)
 
-.PHONY: up up-ai up-p03 up-p01 down clean ps logs init urls topics submit-e01 submit-p03 submit-p03-window sql savepoint-e01
+.PHONY: up up-ai up-p03 up-p01 down clean ps logs init urls topics submit-e01 submit-p03 submit-p03-window submit-p01 sql savepoint-e01
 
 up:            ## 启动全部核心服务(TaskManager 默认 2 个,不含 AI/p03 profile)
 	docker compose up -d --scale taskmanager=$(TM)
@@ -81,6 +81,17 @@ submit-p03-window: ## 提交 p03 旁路窗口指标作业(同 jar，主类 Vehic
 		-c com.flywhl.flinklab.p03.VehicleWindowMetricsJob \
 		"/opt/flink/usrlib/$$JAR_NAME"
 	@echo "已提交 p03 VehicleWindowMetricsJob,打开 http://localhost:8081 查看"
+
+submit-p01:    ## 提交 p01 日志 AI 作业(先在 projects/p01-log-ai-platform 下 mvn package；默认 AI off)
+	@JAR=$$(ls ../projects/p01-log-ai-platform/target/p01-log-ai-platform-*.jar 2>/dev/null | grep -v original | head -1); \
+	if [ -z "$$JAR" ]; then echo "未找到 jar,请先: cd ../projects/p01-log-ai-platform && mvn -q clean package" && exit 1; fi; \
+	mkdir -p ./jobs && cp "$$JAR" ./jobs/; \
+	JAR_NAME=$$(basename "$$JAR"); \
+	docker compose exec jobmanager flink run -d \
+		-c com.flywhl.flinklab.p01.LogAiJob \
+		"/opt/flink/usrlib/$$JAR_NAME" \
+		--ai.enabled=false
+	@echo "已提交 p01 LogAiJob（--ai.enabled=false）,打开 http://localhost:8081 查看"
 
 savepoint-e01: ## 对指定作业触发 savepoint: make savepoint-e01 JOB=<jobId>
 	docker compose exec jobmanager flink savepoint $(JOB) s3://flink/savepoints
