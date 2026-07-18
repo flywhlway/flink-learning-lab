@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 5
+current_plan: 6
 status: executing
-last_updated: "2026-07-18T03:11:05.308Z"
+last_updated: "2026-07-18T03:15:57.478Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 19
-  completed_plans: 17
+  completed_plans: 18
   percent: 43
 ---
 
@@ -26,13 +26,13 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 4
-Plan: 5 of 6
-Current Plan: 5
+Plan: 6 of 6
+Current Plan: 6
 Total Plans in Phase: 6
 Status: Ready to execute
 Last activity: 2026-07-18
 
-Progress: [█████████░] 89%
+Progress: [██████████] 95%
 
 ## Performance Metrics
 
@@ -69,6 +69,7 @@ Progress: [█████████░] 89%
 | Phase 04 P01 | 3min | 3 tasks | 9 files |
 | Phase 04 P02 | 4min | 3 tasks | 10 files |
 | Phase 04 P03 | 5min | 3 tasks | 9 files |
+| Phase 04 P04 | 3min | 3 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -116,6 +117,9 @@ Progress: [█████████░] 89%
 - [Phase 04]: 默认模型名保留 qwen3:8b；Makefile/submit-ai 默认 AI_MODEL=qwen3.5:9b-mlx 对齐本机 ollama list
 - [Phase 04]: submit-ai 使用独立 group-id=p01-log-ai-verify，避免与默认规则作业争抢消费组
 - [Phase 04]: 护栏/预算/指标留给 04-04；本切片仅 Async 旁路 + 双轨验收 + 降级清单
+- [Phase 04]: 护栏选型：静态 JobConfig --guardrail.keywords（非 Broadcast），对齐 e12-17 BLOCK 语义（D-12 Discretion）
+- [Phase 04]: BudgetGate 仅在 ai.enabled=true 分支挂图；源码 BudgetGate 标识符仍位于 AsyncDataStream 之前
+- [Phase 04]: PromQL 全名不臆造：README 以 :9249 grep 名片段为观察路径
 
 ### Pending Todos
 
@@ -134,7 +138,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T03:11:05.303Z
+Last session: 2026-07-18T03:15:07.296Z
 Stopped at: Completed 04-03-PLAN.md
 Resume file: 
 None
