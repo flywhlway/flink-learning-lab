@@ -23,7 +23,7 @@
 | Flink Docker 镜像 | `flink:2.2.1-java21` | 官方多架构镜像,原生支持 arm64v8 |
 | JDK | 21(本地)/ 21(集群) | 镜像即 java21 变体 |
 | flink-connector-kafka | **5.0.0-2.2** | 官方声明兼容 Flink 2.1.x / 2.2.x |
-| Flink CDC | 3.6.0 | 兼容 Flink 1.20.x / 2.2.x |
+| Flink CDC | 3.6.0（Maven `3.6.0-2.2`） | 兼容 Flink 2.2.x；连接器坐标带 `-2.2` 后缀 |
 | Flink Agents | 0.3.0(Preview) | 官方 AI Agent 子项目,兼容 Flink 1.20/2.0/2.1/2.2 |
 | Flink Kubernetes Operator | 1.15.0 | 兼容 Flink 2.2 |
 | Flink Kubernetes Operator Helm chart | **1.15.0** | repo `https://downloads.apache.org/flink/flink-kubernetes-operator-1.15.0/`；chart `flink-kubernetes-operator`；学习工程可 `--set webhook.create=false`，此时不强制 cert-manager |

@@ -1,4 +1,4 @@
-# e11 · Async I/O 与维表富化(3 案例)
+# e11 · Async I/O 与维表富化(6 案例)
 
 > 对应教材:docs/05-03(Lookup)与本页 · Level:L5
 > 运行:`mvn -q -Plocal compile exec:java -pl e11-async-io -Dexec.mainClass=com.flywhl.flinklab.e11.<类名>`
@@ -14,6 +14,9 @@
 | C1 | C1OrderedVsUnorderedJob | 有序 vs 无序 | UNORD 的 seq 乱序、吞吐高;事件时间窗口不受 unordered 影响 → 默认无序 |
 | C2 | C2TimeoutRetryJob | 重试+超时+降级 | 框架级 FixedDelayRetry;timeout() 发降级记录,作业零重启(军规 12 底座) |
 | C3 | C3CachedDimEnrichJob | 两级维表 | HIT 命中率爬升;缓存=加速器而非状态 |
+| C4 | C4FailFastBudgetJob | 短超时预算 | BUDGET-EXCEEDED 降级 |
+| C5 | C5CircuitOpenJob | 熔断短路 | SHORT-CIRCUIT 跳过外呼 |
+| C6 | C6RefreshAheadCacheJob | 预刷新缓存 | LOAD/HIT/REFRESH |
 
 ## 3. 容量与背压模型
 

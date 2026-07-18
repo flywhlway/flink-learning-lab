@@ -14,6 +14,10 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.flywhl.flinklab</groupId>
+      <artifactId>common</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-streaming-java</artifactId>
     </dependency>

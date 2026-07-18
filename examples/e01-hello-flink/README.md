@@ -1,11 +1,19 @@
 # e01 · Hello Flink:运行时、事件时间与 Kafka 端到端
 
 > 对应教材:docs/01-runtime、docs/02-time-window(入门部分) · 对应 Level:L1
-> 本模块 3 个作业:J1 本地事件时间窗口 / J2 Kafka 端到端 PV-UV / J3 纯 SQL 版本
+> 本模块 5 个作业:J1 本地事件时间窗口 / J2 Kafka 端到端 PV-UV / J3 纯 SQL 版本
 
 ## 1. 背景
 
 任何 Flink 学习工程的第一步都不该是 WordCount,而应该是一条**带事件时间语义、带 checkpoint、进出都是 Kafka 的最小生产链路**——因为这才是你在企业里 Day 1 会接手的东西。本模块用同一个"页面点击统计"需求,分别以 DataStream(J1 本地版 / J2 集群版)和 SQL(J3)实现,建立三个 API 层的对照心智。
+
+
+## Phase 7 追加案例
+
+| 类 | 主题 |
+|---|---|
+| ProcessingTimeCountJob | 处理时间滚动窗口计数(对照 J1 事件时间) |
+| KeyedRunningStatsJob | 按用户 running min/max/avg |
 
 ## 2. 架构
 

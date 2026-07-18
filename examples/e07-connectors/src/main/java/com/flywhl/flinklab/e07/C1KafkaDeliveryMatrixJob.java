@@ -6,6 +6,7 @@ import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.connector.base.DeliveryGuarantee;
 import org.apache.flink.connector.kafka.sink.KafkaRecordSerializationSchema;
 import org.apache.flink.connector.kafka.sink.KafkaSink;
+import org.apache.flink.connector.kafka.sink.KafkaSinkBuilder;
 import org.apache.flink.core.execution.CheckpointingMode;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
@@ -35,7 +36,7 @@ public final class C1KafkaDeliveryMatrixJob {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.enableCheckpointing(15_000, CheckpointingMode.EXACTLY_ONCE);
 
-        KafkaSink.Builder<String> sink = KafkaSink.<String>builder()
+        KafkaSinkBuilder<String> sink = KafkaSink.<String>builder()
                 .setBootstrapServers("kafka:9092")
                 .setRecordSerializer(KafkaRecordSerializationSchema.builder()
                         .setTopic("events.enriched")

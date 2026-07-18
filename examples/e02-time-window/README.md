@@ -1,7 +1,7 @@
-# e02 · 窗口专题(5 案例)
+# e02 · 窗口专题(7 案例)
 
 > 对应教材:[docs/02-time-window](../../docs/02-time-window/README.md) · Level:L2
-> 案例:C1 乱序补偿 / C2 会话窗口 / C3 迟到三分层 / C4 自定义提前触发 Trigger / C5 多流 watermark 对齐
+> 案例:C1–C5 既有 + C6 滑动事件时间 / C7 计数批伪窗口(Phase 7)
 
 ## 1. 背景
 

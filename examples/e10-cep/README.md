@@ -1,4 +1,4 @@
-# e10 · CEP 复杂事件处理(5 案例)
+# e10 · CEP 复杂事件处理(7 案例)
 
 > 对应教材:[docs/10-cep](../../docs/10-cep/README.md) · Level:L5
 > 运行:`mvn -q -Plocal compile exec:java -pl e10-cep -Dexec.mainClass=com.flywhl.flinklab.e10.<类名>`
@@ -14,6 +14,8 @@ CEP 的本质:把"事件序列的形状"编译成 NFA(非确定有限自动机),
 | C3 | C3TimeoutSideOutputJob | 超时半成品旁路 | CONVERTED 主流 + ABANDONED-CART 侧流,"没发生"变商业动作 |
 | C4 | C4IterativeRisingJob | IterativeCondition | 三连涨;相对条件必须回看已捕获事件 |
 | C5 | C5VehicleDtcPatternJob | 车联网告警雏形 | 激烈驾驶→故障 关联告警,p03 模式库第一条 |
+| C6 | C6HomeThenCartJob | home→cart followedBy | FUNNEL 命中 |
+| C7 | C7LowThenHighSpikeJob | 低→高尖刺 next | SPIKE 命中 |
 
 ## 2. NFA 心智模型
 

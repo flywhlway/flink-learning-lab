@@ -1,7 +1,7 @@
-# e04 · Checkpoint / Savepoint 专题(4 案例)
+# e04 · Checkpoint / Savepoint 专题(6 案例)
 
 > 对应教材:[docs/04-checkpoint](../../docs/04-checkpoint/README.md) · Level:L3
-> C1 对齐 vs 非对齐(本地 WebUI) / C2 Kafka 端到端 2PC(集群) / C3 Savepoint 升级 V1→V2(集群) / C4 故障注入与恢复(本地 WebUI)
+> C1–C4 既有 + C5 checkpointed 计数 / C6 uid 契约演示(Phase 7)
 
 ## 1. 背景
 

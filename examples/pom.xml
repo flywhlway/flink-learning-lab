@@ -50,10 +50,11 @@
     <flink.version>2.2.1</flink.version>
     <!-- Kafka connector 采用独立版本线:5.0.0-2.2 兼容 Flink 2.1.x / 2.2.x -->
     <flink.kafka.connector.version>5.0.0-2.2</flink.kafka.connector.version>
-    <!-- JDBC 连接器独立版本线(4.x 对应 Flink 2.x;与 2.2 的兼容以本机构建为准,见 docs/00) -->
-    <flink.jdbc.connector.version>4.0.0-2.0</flink.jdbc.connector.version>
+    <!-- JDBC 连接器:Central 现网最新 3.3.0-1.20(表 API jdbc connector);原 4.0.0-2.0 未发布 -->
+    <flink.jdbc.connector.version>3.3.0-1.20</flink.jdbc.connector.version>
     <!-- Flink CDC(Postgres DataStream Source 用;Pipeline YAML 走独立 CLI 发行包) -->
-    <flink.cdc.version>3.6.0</flink.cdc.version>
+    <!-- Maven 坐标线为 3.6.0-2.2（对齐 Flink 2.2）；产品线仍称 Flink CDC 3.6 -->
+    <flink.cdc.version>3.6.0-2.2</flink.cdc.version>
     <postgres.driver.version>42.7.4</postgres.driver.version>
     <jedis.version>5.2.0</jedis.version>
     <!-- Flink Agents 0.3.0(Preview):e12-07/e12-08 用,独立 pom 不进本聚合构建(见 e12-07 README 说明) -->

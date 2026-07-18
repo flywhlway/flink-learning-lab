@@ -40,10 +40,10 @@ public final class C4FileSinkRollingPolicyJob {
         FileSink<String> sink = FileSink
                 .forRowFormat(new Path("s3://warehouse/events"),
                         new org.apache.flink.api.common.serialization.SimpleStringEncoder<String>("UTF-8"))
-                .withBucketAssigner(new org.apache.flink.streaming.api.functions.sink.filesystem.assigners
-                        .DateTimeBucketAssigner<String>("yyyy-MM-dd--HH-mm"))
+                .withBucketAssigner(new org.apache.flink.streaming.api.functions.sink.filesystem.bucketassigners
+                        .DateTimeBucketAssigner<>("yyyy-MM-dd--HH-mm"))
                 .withRollingPolicy(DefaultRollingPolicy.builder()
-                        .withMaxPartSize(new org.apache.flink.core.fs.MemorySize(64L * 1024 * 1024))
+                        .withMaxPartSize(org.apache.flink.configuration.MemorySize.ofMebiBytes(64))
                         .withRolloverInterval(Duration.ofMinutes(5))
                         .withInactivityInterval(Duration.ofMinutes(1))
                         .build())

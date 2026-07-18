@@ -50,7 +50,7 @@ public final class C6ClickHouseHttpSinkJob {
     /** 极简 SinkV2:每 subtask 一个 writer,内部攒批 + HTTP INSERT。 */
     public static final class ClickHouseHttpSink implements Sink<Event> {
         @Override
-        public SinkWriter<Event> createWriter(InitContext ctx) {
+        public SinkWriter<Event> createWriter(WriterInitContext ctx) {
             return new BatchWriter();
         }
     }
