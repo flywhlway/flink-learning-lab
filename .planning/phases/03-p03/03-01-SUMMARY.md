@@ -74,7 +74,7 @@ completed: 2026-07-18
 2. **Task 2: Grafana 双 DS 大盘 + verify_dashboard** — `18d330d` (feat)
 3. **Task 3: 异常阈值条文 + README 大盘节** — `5793495` (docs)
 
-**Plan metadata:** （本文件提交后回填）
+**Plan metadata:** `e27cef8` (docs: complete plan)
 
 ## Files Created/Modified
 
