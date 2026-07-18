@@ -139,8 +139,8 @@ Progress: [██████████] 100%
 - [Phase 05]: TopKScoreFunction feature_source=REDIS|STATE_ONLY；读失败不抛死作业
 - [Phase 05]: CatalogLoader 显式 Class.forName(org.postgresql.Driver) + TopK ensureCatalog 懒重试
 - [Phase 05]: compose PG_HOST_PORT/REDIS_HOST_PORT 可覆盖；本机 .env 用 15432/16379 避让端口冲突
-- [Phase ?]: loadtest 墙钟吞吐用 gen 实际发送量，避免配置 eps 冒充实测
-- [Phase ?]: drill EXIT trap 强制恢复 redis，避免污染后续 loadtest
+- [Phase 05]: loadtest 墙钟吞吐用 gen 实际发送量，避免配置 eps 冒充实测
+- [Phase 05]: drill EXIT trap 强制恢复 redis，避免污染后续 loadtest
 
 ### Pending Todos
 

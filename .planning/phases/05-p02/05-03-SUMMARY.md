@@ -77,7 +77,7 @@ Each task was committed atomically:
 2. **Task 2: 项目级 loadtest 与 OrbStack baseline 实测** - `96bf56d` (feat)
 3. **Task 3: p02 文档包与 15-02 完成态回填** - `cbe9206` (docs)
 
-**Plan metadata:** （本 SUMMARY 提交后填写）
+**Plan metadata:** `f673a4b` (docs: complete RECO-03 drills docs and baseline plan)
 
 ## Files Created/Modified
 
