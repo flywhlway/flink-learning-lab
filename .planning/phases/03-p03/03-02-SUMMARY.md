@@ -66,7 +66,7 @@ completed: 2026-07-18
 1. **Task 1: gen --rate/--duration + loadtest → baseline.md** - `b5415fd` (feat)
 2. **Task 2: drill_watermark_stall 停滞→恢复断言** - `553ecce` (feat)
 
-**Plan metadata:** （本 SUMMARY；按编排指示不更新 STATE.md / ROADMAP.md）
+**Plan metadata:** `50cc394` (docs: complete plan；按编排指示未更新 STATE.md / ROADMAP.md)
 
 ## Files Created/Modified
 
