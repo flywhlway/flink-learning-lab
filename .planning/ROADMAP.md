@@ -55,7 +55,7 @@ Plans:
   2. 维护者可通过 Broadcast 配置切换模式集并观察到匹配行为变化
   3. 无 within 的模式无法通过项目自检/评审清单
 
-**Plans:** 2/5 plans executed
+**Plans:** 3/5 plans executed
 Plans:
 **Wave 0**
 
@@ -67,7 +67,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1)*
 
-- [ ] 02-02-PLAN.md — VEH-04：PatternControlMessage + PatternActivationGate 单测 GREEN
+- [x] 02-02-PLAN.md — VEH-04：PatternControlMessage + PatternActivationGate 单测 GREEN
 
 **Wave 3** *(blocked on Wave 2)*
 
@@ -159,7 +159,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. p03 告警链路样板 | 4/4 | Complete    | 2026-07-17 |
-| 2. p03 模式库与 Broadcast | 2/5 | In Progress|  |
+| 2. p03 模式库与 Broadcast | 3/5 | In Progress|  |
 | 3. p03 大盘与演练收官 | 0/TBD | Not started | - |
 | 4. p01 日志 AI 平台 | 0/TBD | Not started | - |
 | 5. p02 实时推荐 | 0/TBD | Not started | - |

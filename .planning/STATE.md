@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-18T01:05:13.875Z"
+last_updated: "2026-07-18T01:08:24.379Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 9
-  completed_plans: 6
+  completed_plans: 7
   percent: 14
 ---
 
@@ -25,11 +25,11 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 2
-Plan: 2 of 5
+Plan: 3 of 5
 Status: Ready to execute
 Last activity: 2026-07-18
 
-Progress: [███████░░░] 67%
+Progress: [████████░░] 78%
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ Progress: [███████░░░] 67%
 | Phase 01-p03 P03 | 61min | 3 tasks | 9 files |
 | Phase 02-p03 P00 | 2min | 2 tasks | 5 files |
 | Phase 02 P01 | 2min | 2 tasks | 6 files |
+| Phase 02 P02 | 1min | 1 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,9 @@ Progress: [███████░░░] 67%
 - [Phase 02]: Registry Entry 用 record(id, pattern) 对齐 Wave 0 entry.id()/entry.pattern() 契约
 - [Phase 02]: within 秒数锁定 CONTEXT 默认 30/20/15，未做 Discretion 微调
 - [Phase 02]: 排除 PatternActivationGateTest 编译直至 02-02 交付 Gate/ControlMessage
+- [Phase 02]: Gate 采用非 keyed BroadcastProcessFunction（RESEARCH A1 / RESOLVED Q1）
+- [Phase 02]: AlertEvent 仅增加 patternId 最小字段；Handler/DDL/作业接线留给 02-02b
+- [Phase 02]: 原始 activePatterns.size()>3 整条跳过；未知 ID 求交过滤
 
 ### Pending Todos
 
@@ -100,6 +104,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T01:05:13.867Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-07-18T01:08:24.373Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
