@@ -160,7 +160,13 @@ Plans:
   2. 特征与打分结果可在 Kafka/存储中观察
   3. 压测、故障演练、架构/ADR/验证脚本/简历陈述齐全
 
-**Plans:** TBD
+**Plans:** 4 plans
+
+Plans:
+- [ ] 05-00-PLAN.md — Wave 0：jedis SSOT + RED 单测/脚本 + p02-init 钩子
+- [ ] 05-01-PLAN.md — V1（RECO-01）：Parse 透传作业 + gen + profile 冒烟
+- [ ] 05-02-PLAN.md — V2（RECO-02）：双通道特征 + 规则 Top-K + CH/Kafka 双写 + verify 绿
+- [ ] 05-03-PLAN.md — V3（RECO-03）：Redis 降级演练 + loadtest/baseline + 文档包/15-02
 
 ### Phase 6: P5 生产化
 
@@ -204,7 +210,7 @@ Plans:
 | 2. p03 模式库与 Broadcast | 5/5 | Complete    | 2026-07-18 |
 | 3. p03 大盘与演练收官 | 4/4 | Complete    | 2026-07-18 |
 | 4. p01 日志 AI 平台 | 6/6 | Complete   | 2026-07-18 |
-| 5. p02 实时推荐 | 0/TBD | Not started | - |
+| 5. p02 实时推荐 | 0/4 | Not started | - |
 | 6. P5 生产化 | 0/TBD | Not started | - |
 | 7. P6 总装 QA | 0/TBD | Not started | - |
 
