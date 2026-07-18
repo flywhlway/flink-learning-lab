@@ -94,6 +94,17 @@ bash production/scripts/probe_kafka_from_k8s.sh
 ## 构建 Application 镜像并部署 chart
 
 ```bash
+# 0) 确保 p03 topic 存在（compose 关闭了 auto.create.topics）
+docker compose -f docker/docker-compose.yml exec -T kafka \
+  /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --if-not-exists \
+  --topic vehicle.events --partitions 3 --replication-factor 1
+docker compose -f docker/docker-compose.yml exec -T kafka \
+  /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --if-not-exists \
+  --topic vehicle.alerts --partitions 3 --replication-factor 1
+docker compose -f docker/docker-compose.yml exec -T kafka \
+  /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --if-not-exists \
+  --topic vehicle.pattern.control --partitions 3 --replication-factor 1
+
 # 1) 打包 p03 shade jar
 make -C projects/p03-vehicle-monitoring package
 
@@ -104,11 +115,7 @@ docker build \
   -t flinklab/p03-vehicle-alert:dev-green \
   .
 
-# 3) 命名空间与 SA
-kubectl create namespace flink --dry-run=client -o yaml | kubectl apply -f -
-kubectl create serviceaccount flink -n flink --dry-run=client -o yaml | kubectl apply -f -
-
-# 4) 安装 FlinkBlueGreenDeployment
+# 3) 安装 FlinkBlueGreenDeployment（chart 自带 flink SA + Role/RoleBinding）
 helm upgrade --install p03-vehicle-alert \
   production/charts/p03-vehicle-alert \
   --namespace flink \
