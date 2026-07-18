@@ -9,6 +9,7 @@ import org.apache.flink.metrics.MetricGroup;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 /**
  * 输出侧关键词护栏（LOG-04 / D-12）：类比 e12-17 BLOCK 语义，本切片用静态
@@ -86,10 +87,14 @@ public final class GuardrailFunction extends RichMapFunction<LogResult, LogResul
         if (haystack == null || haystack.isBlank()) {
             return null;
         }
-        String lower = haystack.toLowerCase(Locale.ROOT);
         for (String kw : keywords) {
-            if (kw != null && !kw.isBlank()
-                    && lower.contains(kw.toLowerCase(Locale.ROOT))) {
+            if (kw == null || kw.isBlank()) {
+                continue;
+            }
+            // 词边界匹配：避免 "exfiltrate" 误伤 "exfiltrating"（verify-ai 造数）
+            Pattern p = Pattern.compile(
+                    "(?i)(?<!\\p{L})" + Pattern.quote(kw) + "(?!\\p{L})");
+            if (p.matcher(haystack).find()) {
                 return kw;
             }
         }
