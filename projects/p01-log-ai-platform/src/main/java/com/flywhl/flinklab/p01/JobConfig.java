@@ -98,7 +98,8 @@ public final class JobConfig {
                 capacity,
                 retry,
                 Integer.parseInt(arg(args, "budget.max-ai-calls", "120")),
-                arg(args, "guardrail.keywords", ""));
+                // RESEARCH 默认串；可用 --guardrail.keywords 覆盖（D-12）
+                arg(args, "guardrail.keywords", "ignore safety,exfiltrate,越权"));
     }
 
     /** 支持 {@code --key value} 与 {@code --key=value}。 */

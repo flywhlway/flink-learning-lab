@@ -3,6 +3,7 @@ package com.flywhl.flinklab.p01;
 import com.flywhl.flinklab.p01.ai.OllamaRiskAsyncFunction;
 import com.flywhl.flinklab.p01.cost.BudgetGateFunction;
 import com.flywhl.flinklab.p01.enrich.FeatureEnricher;
+import com.flywhl.flinklab.p01.guardrail.GuardrailFunction;
 import com.flywhl.flinklab.p01.model.LogEvent;
 import com.flywhl.flinklab.p01.model.LogResult;
 import com.flywhl.flinklab.p01.rule.RuleTagger;
@@ -33,7 +34,7 @@ import java.util.concurrent.TimeUnit;
  * 开启时 BudgetGate 短路超限流量；允许路径经 {@link AsyncDataStream#unorderedWaitWithRetry}
  * 旁路宿主机 {@code /api/chat}（D-01 / D-12）。
  *
- * <p>接线顺序强制：Parse→Enrich→Rule→BudgetGate→Async→（Guardrail 由 04-04 Task2）→CH。
+ * <p>接线顺序强制：Parse→Enrich→Rule→BudgetGate→Async→Guardrail→CH。
  */
 public final class LogAiJob {
 
@@ -120,12 +121,18 @@ public final class LogAiJob {
             results = ruled;
         }
 
-        results
+        // 输出侧护栏：Async/规则合流之后、CH Sink 之前（D-12 / T-04-02）
+        DataStream<LogResult> guarded = results
+                .map(new GuardrailFunction(cfg.guardrailKeywords))
+                .name("guardrail")
+                .uid("p01-guardrail");
+
+        guarded
                 .sinkTo(new ClickHouseLogSink(
                         cfg.clickhouseUrl, cfg.clickhouseUser, cfg.clickhousePassword))
                 .name("clickhouse-log-sink")
                 .uid("p01-clickhouse-log-sink");
 
-        return results;
+        return guarded;
     }
 }
