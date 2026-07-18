@@ -411,16 +411,18 @@ p02-init:
 
 **已验证无需确认的锁定项：** D-01–D-13、目录名、profile 隔离、CH 权威、jedis（非 lettuce）、规则打分。
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Redis 容器当前未 Running**
    - What we know: compose 定义了 redis/postgres；本机 `fll-redis`/`fll-postgres` 状态为 `Created`
    - What's unclear: 是否用户环境长期停用这两服务
    - Recommendation: Phase 执行 Wave 0/`up-p02` 前置显式 `make up`；drill 文档写容器名 `fll-redis`
+   - RESOLVED: 执行前显式 `make up`（或至少 `up -d redis postgres`）；drill 使用容器名 `fll-redis`。计划 05-00/05-03 已按此落地。
 
 2. **打分是否同步读 Redis 还是仅写 Redis + 用 State 打分**
    - What we know: D-01 要求 Redis「供打分阶段低延迟读取」且两者可观察
    - Recommendation: **实现「读 Redis，失败回落 State」**；正常路径 feature_source=REDIS，演练路径 STATE_ONLY——同时满足叙事与 drill
+   - RESOLVED: 采用「读 Redis，失败回落 State」；`feature_source=REDIS|STATE_ONLY`。计划 05-02/05-03 已按此实现。
 
 （其余决策已被 CONTEXT 锁定；无需再问用户。）
 
