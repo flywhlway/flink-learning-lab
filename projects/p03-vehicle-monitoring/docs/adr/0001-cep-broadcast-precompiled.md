@@ -36,7 +36,7 @@
 
 - 切换激活集可在 OrbStack 上用 `make verify-switch` 复现；权威出口仍是 ClickHouse `pattern_id`（`scripts/verify.sh`），Kafka 仅诊断。
 - 模式评审可走五元组 checklist；无 `within` 不得合入，状态上界可论证。
-- 与 e10-C5 / docs/10-cep 叙事一致，简历陈述可指向 `make verify` / `make verify-switch` / `make loadtest` 等脚本路径。
+- 与 e10-C5 / docs/10-cep 叙事一致，简历陈述可指向脚本路径（见 [RESUME.md](../RESUME.md)）。
 
 ### 负向 / 约束
 

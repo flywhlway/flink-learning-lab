@@ -1,7 +1,7 @@
 # p03 · 车联网监控告警链路样板
 
 > 对应教材:[docs/10-cep](../../docs/10-cep/README.md) · 企业实战模块 15 · GSD Phase 1–3（VEH-01–VEH-07）
-> 模式五元组评审见 [docs/PATTERN-LIBRARY.md](docs/PATTERN-LIBRARY.md)。架构总图 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)；CEP Broadcast ADR [docs/adr/0001-cep-broadcast-precompiled.md](docs/adr/0001-cep-broadcast-precompiled.md)。
+> 模式五元组评审见 [docs/PATTERN-LIBRARY.md](docs/PATTERN-LIBRARY.md)。架构总图 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)；CEP Broadcast ADR [docs/adr/0001-cep-broadcast-precompiled.md](docs/adr/0001-cep-broadcast-precompiled.md)；简历陈述 [docs/RESUME.md](docs/RESUME.md)。
 
 ## 1. 背景
 
@@ -63,6 +63,7 @@ Compose 隔离：`profiles: ["p03"]` 的 `p03-init` 幂等创建 topic + `vehicl
 | `docs/PATTERN-LIBRARY.md` | 三模式五元组评审页 |
 | `docs/ARCHITECTURE.md` | 告警 + 窗口大盘 + 演练架构短文 |
 | `docs/adr/0001-cep-broadcast-precompiled.md` | CEP 预编译 + Broadcast 激活集 ADR |
+| `docs/RESUME.md` | 简历可复现陈述页（指向 verify / baseline / 大盘） |
 | `docs/ANOMALY-THRESHOLDS.md` | 异常阈值条文（演示默认 / 非生产 SLA） |
 | `docs/baseline.md` | OrbStack arm64 实测压测数字（由 `make loadtest` 生成） |
 
@@ -241,7 +242,7 @@ make drill-watermark
 
 **参考**
 
-- 架构 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)；ADR [docs/adr/0001-cep-broadcast-precompiled.md](docs/adr/0001-cep-broadcast-precompiled.md)
+- 架构 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)；ADR [docs/adr/0001-cep-broadcast-precompiled.md](docs/adr/0001-cep-broadcast-precompiled.md)；简历 [docs/RESUME.md](docs/RESUME.md)
 - 本项目模式库 [docs/PATTERN-LIBRARY.md](docs/PATTERN-LIBRARY.md)
 - 异常阈值 [docs/ANOMALY-THRESHOLDS.md](docs/ANOMALY-THRESHOLDS.md)；大盘 JSON `monitoring/dashboards/p03-vehicle-overview.json`
 - 教材 [docs/10-cep](../../docs/10-cep/README.md)；时间窗口 [docs/02-time-window](../../docs/02-time-window/README.md)；值班指标 [monitoring/README.md](../../monitoring/README.md)

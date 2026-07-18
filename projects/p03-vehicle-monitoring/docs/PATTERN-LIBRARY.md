@@ -1,6 +1,6 @@
 # p03 CEP 模式库（五元组评审）
 
-本页登记 **恰好 3 条**预编译模式（D-01），与 `PatternIds` / `PatternRegistry` 常量一一对应。开源 Flink CEP 的 Pattern 在编译期固定；运行期切换激活集走 Broadcast 选择预编译模式集（e10 README / docs/10-cep），**不在本页声称已交付 Grafana 大盘或压测 baseline**（属后续 Phase）。
+本页登记 **恰好 3 条**预编译模式（D-01），与 `PatternIds` / `PatternRegistry` 常量一一对应。开源 Flink CEP 的 Pattern 在编译期固定；运行期切换激活集走 Broadcast 选择预编译模式集（e10 README / docs/10-cep）。大盘 / baseline / ADR 见 [ARCHITECTURE.md](ARCHITECTURE.md)、[baseline.md](baseline.md)、[adr/0001-cep-broadcast-precompiled.md](adr/0001-cep-broadcast-precompiled.md)；本页只评审五元组。
 
 ## 五元组登记表
 
@@ -29,7 +29,7 @@
 - [ ] 对应工厂方法含 `within`；`PatternRegistryWithinTest` GREEN（`getWindowSize().isPresent()`）
 - [ ] `DTC_PAIR` 代码在 `begin` 显式挂 `skipPastLastEvent`（禁止仅文档写 skip、默认 `begin("dtc1")`）
 - [ ] 未新增 `signalType`；模式谓词仅用 `HARSH_ACCEL` / `DTC` / `HEARTBEAT` 白名单
-- [ ] 未声称 Grafana 大盘完成或压测 baseline 已交付
+- [ ] 本页未混写 Grafana/压测验收步骤（大盘与 baseline 走独立脚本与文档）
 
 ## 代码锚点
 

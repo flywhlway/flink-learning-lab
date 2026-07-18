@@ -5,9 +5,11 @@
 ## [Unreleased]
 
 ### Added
+- **projects/p03-vehicle-monitoring Phase 3 大盘与演练收官（VEH-05/06/07）**：旁路 `VehicleWindowMetricsJob` → CH `vehicle_window_metrics`；Grafana 双 DS 大盘 `p03-vehicle-overview`（`make verify-dashboard`）；`make loadtest` → `docs/baseline.md`；`make drill-watermark` 冻结 HEARTBEAT 停滞→恢复
+- 文档包：`docs/ARCHITECTURE.md`、`docs/adr/0001-cep-broadcast-precompiled.md`、`docs/RESUME.md`；docs 模块 15-03 回填完成态
 - **projects/p03-vehicle-monitoring Phase 2 模式库 + Broadcast**：静态三 CEP（`HARSH_THEN_FAULT` / `TRIPLE_HARSH` / `DTC_PAIR`）+ `vehicle.pattern.control` 控制面；出口门控按 `activePatterns` 过滤；CH `pattern_id` 列
 - 造数三 scenario（`match-harsh-fault` / `match-triple-harsh` / `match-dtc-pair`，`match` 别名）与 `--publish-control`；Makefile `verify-switch`（TRUNCATE→control→gen→`PATTERN_ID` verify）
-- 五元组文档 `docs/PATTERN-LIBRARY.md`；八段式 README 交叉引用与切换剧本；docs 模块 15-03 登记 Phase 2
+- 五元组文档 `docs/PATTERN-LIBRARY.md`；八段式 README 交叉引用与切换剧本
 - **projects/p03-vehicle-monitoring Phase 1 告警链路样板**：独立 compose profile `p03`（topic + `vehicle_alerts` DDL）、CEP `HARSH_ACCEL→DTC` within(30s) + TIMEOUT Side Output、告警双写 Kafka/ClickHouse
 - 造数 `scripts/gen_vehicle_events.py`（可判定 match 序列 + 尾心跳推进 watermark）与 `scripts/verify.sh`（ClickHouse MATCH count 为唯一权威出口；Kafka 仅诊断）
 

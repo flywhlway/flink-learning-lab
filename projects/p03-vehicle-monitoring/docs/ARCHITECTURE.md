@@ -83,5 +83,6 @@ Compose 隔离：`profiles: ["p03"]` 的 `p03-init` 创建 topic 与 DDL；defau
 ## 6. 交叉引用
 
 - 八段式启动与验收步骤：项目根 [README.md](../README.md)
+- 简历可复现陈述：[RESUME.md](RESUME.md)
 - 模式库五元组与门控踩坑：[PATTERN-LIBRARY.md](PATTERN-LIBRARY.md)
 - 仓库压测方法论子集：[benchmark/README.md](../../../benchmark/README.md)（全矩阵属 P5）

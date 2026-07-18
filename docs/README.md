@@ -70,7 +70,7 @@
 
 | 编号 | 项目 | 状态 |
 |---|---|---|
-| 15-03 | [p03 车联网监控 · Phase 1–2 告警+模式库](../projects/p03-vehicle-monitoring/README.md)（compose profile `p03` + 三 CEP + Broadcast 门控；CH `pattern_id` 权威 verify） | 🚧 Phase 2：模式库/Broadcast 切换已交付；五元组见 [PATTERN-LIBRARY](../projects/p03-vehicle-monitoring/docs/PATTERN-LIBRARY.md)；完整 ADR（VEH-07）/ Grafana / 压测延后续 |
+| 15-03 | [p03 车联网监控 · P4 单项目完成态](../projects/p03-vehicle-monitoring/README.md)（compose profile `p03` + 三 CEP + Broadcast + 旁路窗口大盘 + 压测/WM 演练） | ✅ 完成：Grafana 双 DS JSON（`p03-vehicle-overview`）+ [baseline.md](../projects/p03-vehicle-monitoring/docs/baseline.md) + [ADR-0001](../projects/p03-vehicle-monitoring/docs/adr/0001-cep-broadcast-precompiled.md) + [RESUME](../projects/p03-vehicle-monitoring/docs/RESUME.md) + [ARCHITECTURE](../projects/p03-vehicle-monitoring/docs/ARCHITECTURE.md) 可打开；CH 仍为 CEP 权威 |
 | 15-01 | p01 日志 AI 平台 | 📋(后续 Phase) |
 | 15-02 | p02 实时推荐 | 📋(后续 Phase) |
 
