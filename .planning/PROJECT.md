@@ -17,10 +17,12 @@
 - ✓ P2 SQL 与集成：docs 05–10、e05–e11、playground/templates — v0.3.0
 - ✓ P3 AI 专书：ai/ 24 章 + e12 系列、Milvus ai-profile、docs 11 — v0.4.0
 - ✓ 工程约定生效：版本 SSOT、八段式章节、docs/README.md 编号登记、约定式提交与 CHANGELOG — existing
+- ✓ P4-p03 告警链路样板（VEH-01/02）：独立 compose profile + CEP→CH/Kafka 断言 — Phase 1
+- ✓ P4-p03 模式库与 Broadcast（VEH-03/04）：≥3 五元组 + Kafka 控制面动态选择预编译模式 — Phase 2
 
 ### Active
 
-- [ ] P4-p03 车联网监控：告警链路（事件→Kafka→CEP→旁路→存储/通知）先交付，监控大盘（窗口聚合+Grafana+异常检测）第二会话
+- [ ] P4-p03 监控大盘与演练收官（VEH-05/06/07）：Grafana + 压测/故障演练 + ADR/简历页 — Phase 3
 - [ ] P4-p01 日志 AI 平台：完整工程 + 压测 + 故障演练 + 架构/ADR/验证脚本 + 简历陈述
 - [ ] P4-p02 实时推荐：完整工程 + 压测 + 故障演练 + 架构/ADR/验证脚本 + 简历陈述
 - [ ] P4 三项目均满足：独立 compose profile 一键起、架构文档+ADR+验证脚本、压测与故障演练本机跑通
@@ -38,7 +40,8 @@
 
 - **接力协议入口**：阅读 PHASES.md 与 docs/README.md，继续 Phase N，遵守根 README 第 5 节。
 - **已有基座可复用**：e10 CEP 车联网告警雏形、e07/e08 连接器与 CDC、e12 AI 路径、docker compose（Kafka/Flink/CH/PG/Redis/MinIO/Prom/Grafana）、Milvus ai-profile。
-- **目标目录**：`projects/p01-log-ai-platform`、`projects/p02-realtime-reco`、`projects/p03-vehicle-monitoring`（均尚未创建）。
+- **目标目录**：`projects/p03-vehicle-monitoring` 已交付告警+模式库；`p01`/`p02` 待后续 Phase。
+- **当前焦点**：Phase 3 — p03 大盘与演练收官（Grafana / 压测 / ADR）。
 - **会话粒度**：一个会话 ≤ 一个模块；先教材/架构章节，再 Demo/工程，再回填交叉引用。
 - **中断恢复**：主干始终可 `make up`；半成品放 `wip/`。
 - **受众**：已有 Flink 生产经验的架构师 → Enterprise Streaming Architect；三大项目同时服务简历陈述。
@@ -61,7 +64,7 @@
 | P4 交付顺序 p03→p01→p02 | e10 已预演车联网 CEP，最快出端到端硬验收样板 | — Pending |
 | P4 验收三项全硬 | compose / ADR+验证脚本 / 压测故障演练均不可降级 | — Pending |
 | GSD 按交付物切细（约 5–7 phase） | 会话粒度 ≤ 一模块；避免单 phase 过大 | — Pending |
-| p03：先告警链路，后监控大盘 | 两者都要；告警先证明 CEP 端到端可复现 | — Pending |
+| p03：先告警链路，后监控大盘 | 两者都要；告警先证明 CEP 端到端可复现 | ✓ Phase 1–2 告警+模式库已交付；大盘属 Phase 3 |
 | 跳过 codebase map | 用户熟悉仓库；以 PHASES/docs/已交付产物为上下文 | ✓ Good |
 | 主线锁定 Flink 2.2.1 | ADR-001：生态兼容优先于最新号 | ✓ Good |
 
@@ -83,4 +86,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-07-17 after initialization*
+*Last updated: 2026-07-18 after Phase 2 complete*
