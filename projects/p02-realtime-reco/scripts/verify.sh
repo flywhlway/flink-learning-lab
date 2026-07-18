@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
-# p02 RECO-01/02 验收：ClickHouse flinklab.reco_results 为唯一放行条件（D-06/D-10）。
-# Kafka reco.results / Redis KEYS 仅作可选诊断，不得单独放行。
+# p02 RECO-02 验收：ClickHouse flinklab.reco_results 为唯一放行条件（D-06/D-10）。
+# Kafka reco.results / Redis feature:* 仅作可选诊断，不得单独放行。
 #
 # 环境变量（可选）：
 #   FEATURE_SOURCE  白名单 feature_source，空=不按源过滤；允许 REDIS|STATE_ONLY（T-05-01）
 #   MIN_COUNT       行数下限，默认 1
-#
-# Wave 0：无作业/空表时非 0；完整绿路径留给后续 plan。
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -57,7 +55,7 @@ diag_kafka() {
 }
 
 diag_redis() {
-  # 禁止 redis-cli KEYS 单独 exit 0（D-10）；此处只打印诊断
+  # 禁止用 Redis 扫描结果单独放行（D-10）；此处只打印诊断
   local n
   n="$(docker compose -f "${COMPOSE_FILE}" exec -T redis \
     redis-cli --scan --pattern 'feature:*' 2>/dev/null | wc -l | tr -d '[:space:]' || true)"

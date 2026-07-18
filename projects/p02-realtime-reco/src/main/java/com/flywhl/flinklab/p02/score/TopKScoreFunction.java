@@ -65,10 +65,9 @@ public final class TopKScoreFunction extends RichFlatMapFunction<FeatureSnapshot
         stateOnlyScores = getRuntimeContext().getMetricGroup().counter("p02_score_state_only");
         redisScores = getRuntimeContext().getMetricGroup().counter("p02_score_redis");
 
-        Map<String, ItemCatalog> loaded = CatalogLoader.load(jdbcUrl);
-        catalogItems = CatalogLoader.toCatalogItems(loaded);
-        if (catalogItems.isEmpty()) {
-            LOG.warn("catalog 为空，Top-K 将无输出（检查 PG reco_items / pg-jdbc）");
+        ensureCatalog();
+        if (catalogItems == null || catalogItems.isEmpty()) {
+            LOG.warn("catalog 为空，将在首条事件时重试加载（检查 PG reco_items / pg-jdbc）");
         }
 
         try {
@@ -84,9 +83,21 @@ public final class TopKScoreFunction extends RichFlatMapFunction<FeatureSnapshot
         }
     }
 
+    private void ensureCatalog() {
+        if (catalogItems != null && !catalogItems.isEmpty()) {
+            return;
+        }
+        Map<String, ItemCatalog> loaded = CatalogLoader.load(jdbcUrl);
+        catalogItems = CatalogLoader.toCatalogItems(loaded);
+    }
+
     @Override
     public void flatMap(FeatureSnapshot value, Collector<RecoResult> out) {
-        if (value == null || catalogItems == null || catalogItems.isEmpty()) {
+        if (value == null) {
+            return;
+        }
+        ensureCatalog();
+        if (catalogItems == null || catalogItems.isEmpty()) {
             return;
         }
         FeatureSnapshot features = value;

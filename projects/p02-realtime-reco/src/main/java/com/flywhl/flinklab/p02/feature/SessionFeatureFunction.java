@@ -1,5 +1,6 @@
 package com.flywhl.flinklab.p02.feature;
 
+import com.flywhl.flinklab.p02.catalog.CatalogLoader;
 import com.flywhl.flinklab.p02.model.BehaviorEvent;
 import com.flywhl.flinklab.p02.model.FeatureSnapshot;
 import org.apache.flink.api.common.functions.OpenContext;
@@ -43,13 +44,20 @@ public final class SessionFeatureFunction
     private transient ValueState<Long> lastEventTsState;
     private transient ValueState<Long> clickCountState;
 
-    /** itemId → category；由作业在 open 前通过 {@link #withCategoryIndex} 注入，可空。 */
+    /** itemId → category；open 时从 PG 加载，或由 {@link #withCategoryIndex} 预置。 */
     private Map<String, String> categoryIndex;
 
+    private final String jdbcUrl;
+
     public SessionFeatureFunction() {
+        this.jdbcUrl = null;
     }
 
-    /** 注入 item→category 索引（作业 open catalog 后设置；Flink 序列化前调用）。 */
+    public SessionFeatureFunction(String jdbcUrl) {
+        this.jdbcUrl = jdbcUrl;
+    }
+
+    /** 注入 item→category 索引（单测 / 预置；优先于 jdbc 加载结果）。 */
     public SessionFeatureFunction withCategoryIndex(Map<String, String> categoryIndex) {
         this.categoryIndex = categoryIndex == null ? null : Map.copyOf(categoryIndex);
         return this;
@@ -65,6 +73,9 @@ public final class SessionFeatureFunction
                 new ValueStateDescriptor<>("p02-last-ts", Long.class));
         clickCountState = getRuntimeContext().getState(
                 new ValueStateDescriptor<>("p02-click-count", Long.class));
+        if ((categoryIndex == null || categoryIndex.isEmpty()) && jdbcUrl != null) {
+            categoryIndex = CatalogLoader.categoryIndex(CatalogLoader.load(jdbcUrl));
+        }
     }
 
     @Override

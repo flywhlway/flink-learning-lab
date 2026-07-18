@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * PostgreSQL {@code reco_items} 全表加载（D-05）：供算子 {@code open()} 调用一次。
@@ -26,6 +27,15 @@ public final class CatalogLoader {
     private static final String DEFAULT_USER = "flinklab";
     private static final String DEFAULT_PASSWORD = "flinklab123";
 
+    static {
+        // Shade 后 SPI 偶发未注册；显式加载驱动（Flink TM 类加载器）
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            LOG.warn("org.postgresql.Driver 未找到: {}", e.toString());
+        }
+    }
+
     private CatalogLoader() {
     }
 
@@ -38,7 +48,19 @@ public final class CatalogLoader {
             LOG.warn("pg jdbcUrl 为空，返回空 catalog");
             return map;
         }
-        try (Connection conn = DriverManager.getConnection(jdbcUrl, DEFAULT_USER, DEFAULT_PASSWORD);
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            LOG.warn("显式加载 PostgreSQL 驱动失败: {}", e.toString());
+        }
+        Properties props = new Properties();
+        props.setProperty("user", DEFAULT_USER);
+        props.setProperty("password", DEFAULT_PASSWORD);
+        props.setProperty("loginTimeout", "10");
+        props.setProperty("connectTimeout", "10");
+        props.setProperty("socketTimeout", "30");
+
+        try (Connection conn = DriverManager.getConnection(jdbcUrl, props);
              Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(
                      "SELECT item_id, category, title, base_weight FROM reco_items")) {

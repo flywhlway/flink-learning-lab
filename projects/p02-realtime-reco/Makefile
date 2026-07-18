@@ -7,9 +7,9 @@ package:
 	mvn -q clean package
 
 test:
-	mvn -q -Dtest=ParseBehaviorJsonTest test
+	mvn -q test
 
-# 文档约定：package → submit → gen → verify（CH 权威；完整绿路径在 05-02）
+# 文档约定：package → submit → gen → verify（CH 权威）
 # 仅复制固定 p02 jar 通配，flink run -c 固定主类
 submit: package
 	@mkdir -p ../../docker/jobs
@@ -45,8 +45,13 @@ truncate-results:
 		--query "TRUNCATE TABLE flinklab.reco_results"
 	@echo "truncated flinklab.reco_results ok"
 
-# 一键：清空 → 造数 → 等待 CH 断言（05-02 接线后可用）
-match: truncate-results gen
+# 一键：清空 → 提交作业 → 造数 → 轮询 CH 权威断言（D-10）
+match: truncate-results
+	@$(MAKE) cancel-p02
+	@$(MAKE) submit
+	@echo "==> 等待作业 RUNNING（8s）"
+	@sleep 8
+	@$(MAKE) gen
 	@echo "==> 等待作业落库（最多 $(VERIFY_WAIT_SEC)s）"
 	@deadline=$$(( $$(date +%s) + $(VERIFY_WAIT_SEC) )); \
 	while true; do \
@@ -57,6 +62,7 @@ match: truncate-results gen
 		now=$$(date +%s); \
 		if [ $$now -ge $$deadline ]; then \
 			echo "FAIL: match 超时（$(VERIFY_WAIT_SEC)s）" >&2; \
+			bash scripts/verify.sh || true; \
 			exit 1; \
 		fi; \
 		sleep 3; \

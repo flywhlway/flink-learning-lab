@@ -106,8 +106,9 @@ services:
     image: ${POSTGRES_IMAGE}
     container_name: fll-postgres
     command: postgres -c wal_level=logical -c max_wal_senders=8 -c max_replication_slots=8
+    # 宿主机端口可经 PG_HOST_PORT 覆盖（避让本机其他 postgres 占用 5432）
     ports:
-      - "5432:5432"
+      - "${PG_HOST_PORT:-5432}:5432"
     environment:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
@@ -123,8 +124,9 @@ services:
   redis:
     image: ${REDIS_IMAGE}
     container_name: fll-redis
+    # 宿主机端口可经 REDIS_HOST_PORT 覆盖（避让本机其他 redis 占用 6379）
     ports:
-      - "6379:6379"
+      - "${REDIS_HOST_PORT:-6379}:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
