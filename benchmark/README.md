@@ -30,10 +30,10 @@ cd docker && make up && make up-p03
 cd ../examples && mvn -q -pl e01-hello-flink,e10-cep -am package -DskipTests
 cd ../projects/p03-vehicle-monitoring && mvn -q package -DskipTests
 
-# 低负载冒烟（单单元格）
+# 低负载冒烟（单单元格；写入 baseline.dry-run.md，不覆盖权威报告）
 make -C benchmark dry-run
 
-# 全量必跑矩阵 → 写入 baseline.md
+# 全量必跑矩阵 → 写入权威 baseline.md
 make -C benchmark matrix
 ```
 

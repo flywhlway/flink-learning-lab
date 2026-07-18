@@ -461,3 +461,6 @@ datasets/**/*.avro
 .history/
 .hop.metadata/
 )
+
+# benchmark dry-run 冒烟产物（不得覆盖权威 baseline.md）
+benchmark/baseline.dry-run.md

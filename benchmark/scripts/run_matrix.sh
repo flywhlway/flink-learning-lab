@@ -20,6 +20,8 @@ DRY_RUN="${DRY_RUN:-0}"
 CELL_LIMIT="${CELL_LIMIT:-0}"   # 0=全量必跑；dry-run 默认 1
 SKIP_20K="${SKIP_20K:-1}"       # stretch 默认跳过
 SKIP_FORST="${SKIP_FORST:-1}"
+# dry-run 不得覆盖权威 baseline.md（PROD-01 / D-03）
+DRY_RUN_BASELINE_MD="${REPO_ROOT}/benchmark/baseline.dry-run.md"
 
 usage() {
   cat <<'EOF'
@@ -72,7 +74,9 @@ if [[ "${DRY_RUN}" == "1" ]] || [[ "${DRY_RUN}" == "true" ]]; then
     EPS_OVERRIDE=100
   fi
   DURATION_SEC="${DURATION_SEC:-20}"
+  BASELINE_MD="${DRY_RUN_BASELINE_MD}"
   echo "==> dry-run: EPS=${EPS_OVERRIDE} WARMUP=${WARMUP_SEC}s MEASURE=${DURATION_SEC}s CELL_LIMIT=${CELL_LIMIT}"
+  echo "==> dry-run 写入 ${BASELINE_MD}（不覆盖权威 baseline.md）"
 fi
 
 # 完整矩阵热身必须落在 30–60（dry-run 豁免）
