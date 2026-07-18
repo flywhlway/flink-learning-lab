@@ -75,7 +75,7 @@ completed: 2026-07-18
 2. **Task 2: OrbStack 切换 e2e + README/登记/qa_check** - `bb18529` (feat)
 3. **Task 3: 人工确认模式切换可观察** - 自动化验收（见下）；无单独代码 commit
 
-**Plan metadata:** `5b3c963` (docs: complete plan；后续 STATE 决策补记另见)
+**Plan metadata:** `5b3c963` + `41480fc` (docs: complete plan / Task3 决策补记)
 
 ## OrbStack e2e 证据（CH 权威断言）
 
