@@ -29,7 +29,7 @@
 | `projects/p01-log-ai-platform/scripts/gen_log_events.py` | utility | pub-sub | `projects/p03-vehicle-monitoring/scripts/gen_vehicle_events.py` | exact |
 | `projects/p01-log-ai-platform/scripts/verify.sh` | utility | request-response | `projects/p03-vehicle-monitoring/scripts/verify.sh` | exact |
 | `projects/p01-log-ai-platform/scripts/verify_ai.sh` | utility | request-response | `projects/p03-vehicle-monitoring/scripts/verify.sh` | role-match |
-| `projects/p01-log-ai-platform/scripts/smoke_p01_profile.sh` | utility | request-response | `docker/Makefile` (`up-p03` compose config 差集) + `projects/p03-vehicle-monitoring/scripts/verify.sh`（非 0 失败纪律） | role-match |
+| `scripts/smoke_p01_profile.sh` | utility | request-response | `docker/Makefile` (`up-p03` compose config 差集) + `projects/p03-vehicle-monitoring/scripts/verify.sh`（非 0 失败纪律） | role-match |
 | `projects/p01-log-ai-platform/scripts/loadtest.sh` | utility | batch | `projects/p03-vehicle-monitoring/scripts/loadtest.sh` | exact |
 | `projects/p01-log-ai-platform/scripts/drill_ai_degrade.sh` | utility | request-response | `projects/p03-vehicle-monitoring/scripts/drill_watermark_stall.sh` | role-match |
 | `projects/p01-log-ai-platform/docs/ARCHITECTURE.md` | config | file-I/O | `projects/p03-vehicle-monitoring/docs/ARCHITECTURE.md` | exact |
