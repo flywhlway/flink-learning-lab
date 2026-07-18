@@ -78,7 +78,7 @@ Each task was committed atomically:
 2. **Task 2: RealtimeRecoJob 透传 + Makefile + gen_reco_events.py** - `d7ecb4b` (feat)
 3. **Task 3: profile 冒烟 — smoke_p02_profile + up-p02 可达性检查** - `c467a05` (feat)
 
-**Plan metadata:** _(pending docs commit)_
+**Plan metadata:** `f0be27e` (docs: complete RECO-01 vertical slice plan)
 
 ## Files Created/Modified
 
