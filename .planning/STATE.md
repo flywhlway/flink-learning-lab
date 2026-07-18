@@ -4,7 +4,7 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: 3
 status: executing
-last_updated: "2026-07-18T16:46:16.081Z"
+last_updated: "2026-07-18T16:46:41.909Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
@@ -82,6 +82,7 @@ Progress: [█████████░] 94%
 | Phase 06 P03 | 14min | 2 tasks | 8 files |
 | Phase 06 P04 | 7min | 3 tasks | 30 files |
 | Phase 07 P00 | 2min | 2 tasks | 7 files |
+| Phase 07 P01 | 16min | 3 tasks | 70 files |
 
 ## Accumulated Context
 
@@ -160,6 +161,8 @@ Progress: [█████████░] 94%
 - [Phase 07]: 违禁词含「省略」、禁止裸匹配「略」；先清洗 e12-06/07 再升词表
 - [Phase 07]: ENG-04 Wave 0 仅断言 CHANGELOG Unreleased；PHASES P6 严格断言延期 07-03
 - [Phase 07]: eng_audit 独立文件，qa_check 末尾调用（D-10 Discretion）
+- [Phase ?]: 跳过 e12-10 MCP，用 e0x/e12 第二 Job 补足 mains
+- [Phase ?]: CDC Maven 坐标锁定 3.6.0-2.2；JDBC 锁定 3.3.0-1.20
 
 ### Pending Todos
 
