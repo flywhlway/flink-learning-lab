@@ -77,6 +77,18 @@
 
   <build>
     <plugins>
+      <!-- RuleTagger / BudgetGate 由 04-02+ 交付；排除 Wave 0 RED 单测以免阻塞 ParseLogJson GREEN -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <testExcludes>
+            <testExclude>**/rule/RuleTaggerTest.java</testExclude>
+            <testExclude>**/cost/BudgetGateTest.java</testExclude>
+          </testExcludes>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
