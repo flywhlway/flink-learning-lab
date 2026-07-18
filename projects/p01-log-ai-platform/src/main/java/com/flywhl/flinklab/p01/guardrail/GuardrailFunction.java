@@ -8,7 +8,6 @@ import org.apache.flink.metrics.MetricGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**

@@ -11,7 +11,7 @@ package:
 	mvn -q clean package
 
 test:
-	mvn -q -Dtest=RuleTaggerTest,ParseLogJsonTest test
+	mvn -q -Dtest=BudgetGateTest,RuleTaggerTest,ParseLogJsonTest test
 
 # 文档约定：package → submit（ai off）→ gen → verify（CH 权威）
 # 仅复制固定 p01 jar 通配，flink run -c 固定主类；默认 AI off
