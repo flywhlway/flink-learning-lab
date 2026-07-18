@@ -1,0 +1,44 @@
+# Argo CD Application — p03 FlinkBlueGreenDeployment chart（PROD-03 / D-07）
+# 单一 GitOps 路径：仅 Argo CD（禁止并行第二套工具）。
+#
+# repoURL 填实策略（见 production/docs/gitops-cicd.md 与 install-argocd.sh）：
+# 1) 优先 git remote get-url origin（HTTPS/SSH）——当 remote 已含本 path 时
+# 2) 否则本机 OrbStack git-daemon 镜像（Service gitops-mirror:9418，协议 git://）
+# 安装脚本会在 apply 前按检测结果改写 repoURL；本文件保留可审阅的默认占位。
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flinklab-p03-bg
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: flinklab-p03-bg
+    app.kubernetes.io/part-of: flink-learning-lab
+    flinklab.flywhl.com/project: p03-vehicle-alert
+spec:
+  project: default
+  source:
+    # 占位：install-argocd.sh 以 ORIGIN / 本机镜像 URL 覆盖
+    repoURL: https://github.com/flywhlway/flink-learning-lab.git
+    targetRevision: HEAD
+    path: production/charts/p03-vehicle-alert
+    helm:
+      valueFiles:
+        - values.yaml
+      # 与 OrbStack 当前演练镜像对齐，避免 sync 误触发二次 BG 切换；可按环境改
+      parameters:
+        - name: image.tag
+          value: "dev-green"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: flink
+  syncPolicy:
+    # 默认手动/显式 sync（威胁模型 T-06-03-01）；由 install / verify 脚本触发
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  ignoreDifferences:
+    - group: flink.apache.org
+      kind: FlinkBlueGreenDeployment
+      jsonPointers:
+        - /metadata/annotations
+        - /metadata/managedFields

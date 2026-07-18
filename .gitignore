@@ -464,3 +464,6 @@ datasets/**/*.avro
 
 # benchmark dry-run 冒烟产物（不得覆盖权威 baseline.md）
 benchmark/baseline.dry-run.md
+
+# Argo CD 本机 GitOps 镜像（install-argocd.sh 生成；勿提交）
+.gitops-mirror/
