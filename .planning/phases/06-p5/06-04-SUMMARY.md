@@ -102,7 +102,7 @@ completed: 2026-07-18
 2. **Task 2: interview ≥150 + count_interview 绿** — `cd14bd3` (feat)
 3. **Task 3: best-practice 体系 + docs/PHASES/CHANGELOG 收尾** — `2f70ec4` (docs)
 
-**Plan metadata:** （见最终 docs commit）
+**Plan metadata:** `ec88a5b` (docs: complete PROD-04 plan)
 
 ## Files Created/Modified
 
