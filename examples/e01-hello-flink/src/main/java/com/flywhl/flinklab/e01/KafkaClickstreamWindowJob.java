@@ -9,6 +9,7 @@ import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.connector.base.DeliveryGuarantee;
 import org.apache.flink.connector.kafka.sink.KafkaRecordSerializationSchema;
 import org.apache.flink.connector.kafka.sink.KafkaSink;
+import org.apache.flink.configuration.Configuration;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.core.execution.CheckpointingMode;
@@ -20,7 +21,9 @@ import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -54,16 +57,33 @@ public final class KafkaClickstreamWindowJob {
         String bootstrap = argOr(args, "--bootstrap", "kafka:9092");
         String inTopic   = argOr(args, "--in",  "clicks");
         String outTopic  = argOr(args, "--out", "clicks.agg");
+        String groupId   = argOr(args, "--group-id", "e01-clickstream");
+        String stateBackend = argOr(args, "--state-backend", "hashmap");
+        long checkpointMs = Long.parseLong(argOr(args, "--checkpoint-interval-ms", "30000"));
+        boolean unaligned = hasFlag(args, "--unaligned");
 
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        // 30s 一次 EXACTLY_ONCE checkpoint(注意:这是「状态一致性」语义,
+        Map<String, String> confMap = new HashMap<>();
+        confMap.put("state.backend.type", normalizeBackend(stateBackend));
+        if ("rocksdb".equals(normalizeBackend(stateBackend))) {
+            confMap.put("execution.checkpointing.incremental", "true");
+        }
+        if (unaligned) {
+            confMap.put("execution.checkpointing.unaligned.enabled", "true");
+        }
+
+        StreamExecutionEnvironment env =
+                StreamExecutionEnvironment.getExecutionEnvironment(Configuration.fromMap(confMap));
+        // 默认 30s EXACTLY_ONCE checkpoint(注意:这是「状态一致性」语义,
         // 端到端语义还取决于 Sink 的 DeliveryGuarantee,二者是两回事)
-        env.enableCheckpointing(30_000, CheckpointingMode.EXACTLY_ONCE);
+        env.enableCheckpointing(checkpointMs, CheckpointingMode.EXACTLY_ONCE);
+        if (unaligned) {
+            env.getCheckpointConfig().enableUnalignedCheckpoints();
+        }
 
         KafkaSource<String> source = KafkaSource.<String>builder()
                 .setBootstrapServers(bootstrap)
                 .setTopics(inTopic)
-                .setGroupId("e01-clickstream")
+                .setGroupId(groupId)
                 .setStartingOffsets(OffsetsInitializer.latest())
                 .setValueOnlyDeserializer(new SimpleStringSchema())
                 .build();
@@ -168,6 +188,26 @@ public final class KafkaClickstreamWindowJob {
                     .formatted(ctx.window().getStart(), ctx.window().getEnd(),
                             page, r.pv, r.users.size()));
         }
+    }
+
+    private static String normalizeBackend(String raw) {
+        String v = raw == null ? "hashmap" : raw.trim().toLowerCase();
+        if ("hashmap".equals(v) || "hash_map".equals(v)) {
+            return "hashmap";
+        }
+        if ("rocksdb".equals(v) || "rocks".equals(v)) {
+            return "rocksdb";
+        }
+        return v;
+    }
+
+    private static boolean hasFlag(String[] args, String flag) {
+        for (String a : args) {
+            if (flag.equals(a)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static String argOr(String[] args, String key, String dflt) {

@@ -6,10 +6,14 @@ import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.functions.PatternProcessFunction;
 import org.apache.flink.cep.pattern.Pattern;
 import org.apache.flink.cep.pattern.conditions.SimpleCondition;
+import org.apache.flink.configuration.Configuration;
+import org.apache.flink.core.execution.CheckpointingMode;
+import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,16 +27,39 @@ import java.util.Map;
  *
  * <p>运行:mvn -q -Plocal compile exec:java -pl e10-cep \
  *          -Dexec.mainClass=com.flywhl.flinklab.e10.C5VehicleDtcPatternJob
+ *
+ * <p>P5 压测矩阵参数(可选):{@code --eps} / {@code --state-backend} /
+ * {@code --checkpoint-interval-ms} / {@code --unaligned}。负载由
+ * {@link Labs#events} RateLimiter 驱动(需 amount 字段;与 gen_events 点击流格式不兼容)。
  */
 public final class C5VehicleDtcPatternJob {
     private C5VehicleDtcPatternJob() {
     }
 
     public static void main(String[] args) throws Exception {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        env.setParallelism(1);
+        double eps = Double.parseDouble(argOr(args, "--eps", "60"));
+        String stateBackend = argOr(args, "--state-backend", "hashmap");
+        long checkpointMs = Long.parseLong(argOr(args, "--checkpoint-interval-ms", "30000"));
+        boolean unaligned = hasFlag(args, "--unaligned");
 
-        var keyed = Labs.events(env, "can-bus", 60, 6, 15, 1_000)
+        Map<String, String> confMap = new HashMap<>();
+        confMap.put("state.backend.type", normalizeBackend(stateBackend));
+        if ("rocksdb".equals(normalizeBackend(stateBackend))) {
+            confMap.put("execution.checkpointing.incremental", "true");
+        }
+        if (unaligned) {
+            confMap.put("execution.checkpointing.unaligned.enabled", "true");
+        }
+
+        StreamExecutionEnvironment env =
+                StreamExecutionEnvironment.getExecutionEnvironment(Configuration.fromMap(confMap));
+        env.setParallelism(1);
+        env.enableCheckpointing(checkpointMs, CheckpointingMode.EXACTLY_ONCE);
+        if (unaligned) {
+            env.getCheckpointConfig().enableUnalignedCheckpoints();
+        }
+
+        KeyedStream<Event, String> keyed = Labs.events(env, "can-bus", eps, 6, 15, 1_000)
                 .assignTimestampsAndWatermarks(Labs.boundedWm(Duration.ofSeconds(1)))
                 .keyBy(e -> e.userId);   // ≈ VIN
 
@@ -59,5 +86,34 @@ public final class C5VehicleDtcPatternJob {
            .print();
 
         env.execute("e10-c5-vehicle-dtc-pattern");
+    }
+
+    private static String normalizeBackend(String raw) {
+        String v = raw == null ? "hashmap" : raw.trim().toLowerCase();
+        if ("hashmap".equals(v) || "hash_map".equals(v)) {
+            return "hashmap";
+        }
+        if ("rocksdb".equals(v) || "rocks".equals(v)) {
+            return "rocksdb";
+        }
+        return v;
+    }
+
+    private static boolean hasFlag(String[] args, String flag) {
+        for (String a : args) {
+            if (flag.equals(a)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static String argOr(String[] args, String key, String dflt) {
+        for (int i = 0; i < args.length - 1; i++) {
+            if (key.equals(args[i])) {
+                return args[i + 1];
+            }
+        }
+        return dflt;
     }
 }
