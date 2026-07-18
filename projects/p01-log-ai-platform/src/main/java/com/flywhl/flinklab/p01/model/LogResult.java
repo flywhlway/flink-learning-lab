@@ -19,7 +19,8 @@ public final class LogResult {
     public String aiSource;
 
     public LogResult() {
-        this.featureJson = "{}";
+        // 无引号默认值，对齐 ClickHouseLogSink 拒引号校验（T-04-01）
+        this.featureJson = "{errorCount:0}";
         this.ruleLabel = "NONE";
         this.aiRisk = "NONE";
         this.aiSource = "DISABLED";
@@ -51,7 +52,7 @@ public final class LogResult {
         this.message = message;
         this.traceId = traceId;
         this.eventTime = eventTime;
-        this.featureJson = featureJson != null ? featureJson : "{}";
+        this.featureJson = featureJson != null ? featureJson : "{errorCount:0}";
         this.ruleLabel = ruleLabel != null ? ruleLabel : "NONE";
         this.aiRisk = aiRisk != null ? aiRisk : "NONE";
         this.aiSource = aiSource != null ? aiSource : "DISABLED";

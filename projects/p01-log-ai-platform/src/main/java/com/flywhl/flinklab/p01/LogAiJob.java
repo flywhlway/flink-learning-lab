@@ -1,6 +1,10 @@
 package com.flywhl.flinklab.p01;
 
+import com.flywhl.flinklab.p01.enrich.FeatureEnricher;
 import com.flywhl.flinklab.p01.model.LogEvent;
+import com.flywhl.flinklab.p01.model.LogResult;
+import com.flywhl.flinklab.p01.rule.RuleTagger;
+import com.flywhl.flinklab.p01.sink.ClickHouseLogSink;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.configuration.Configuration;
@@ -14,10 +18,11 @@ import java.time.Duration;
 import java.util.Map;
 
 /**
- * p01 日志 AI 平台作业（V1 骨架）：Kafka {@code logs.events} → {@link ParseLogJson} 透传。
+ * p01 日志 AI 平台作业（V2 规则路径）：
+ * Kafka {@code logs.events} → Parse → FeatureEnricher → RuleTagger → ClickHouse。
  *
- * <p>本切片默认 {@code --ai.enabled=false}，不接 Agents/Milvus/CH Sink；
- * V2（04-02）将接线 FeatureEnricher / RuleTagger / ClickHouse Sink。
+ * <p>默认 {@code --ai.enabled=false}：零 Ollama/Milvus 调用，{@code ai_source=DISABLED}（D-04）。
+ * Async AI 旁路留给 04-03。
  */
 public final class LogAiJob {
 
@@ -39,7 +44,7 @@ public final class LogAiJob {
         env.execute(cfg.jobName);
     }
 
-    static DataStream<LogEvent> buildPipeline(StreamExecutionEnvironment env, JobConfig cfg) {
+    static DataStream<LogResult> buildPipeline(StreamExecutionEnvironment env, JobConfig cfg) {
         KafkaSource<String> eventSource = KafkaSource.<String>builder()
                 .setBootstrapServers(cfg.kafkaBootstrap)
                 .setTopics(cfg.eventsTopic)
@@ -60,14 +65,22 @@ public final class LogAiJob {
                                 .withTimestampAssigner((e, ts) -> e.eventTime)
                                 .withIdleness(Duration.ofSeconds(30)));
 
-        // V1：无 CH Sink；print 保持图连通以便 flink run 启动。V2（04-02）将接 ClickHouseLogSink。
-        events
-                .map(e -> e.service + "|" + e.level + "|" + e.traceId)
-                .name("passthrough-await-v2-sink")
-                .uid("p01-passthrough-await-v2-sink")
-                .print()
-                .uid("p01-print-await-v2-ch-sink");
+        // V2：规则路径（AI off 旁路；本切片不接 Async Ollama）
+        DataStream<LogResult> results = events
+                .keyBy(e -> e.service == null ? "" : e.service)
+                .process(new FeatureEnricher())
+                .name("feature-enricher")
+                .uid("p01-feature-enricher")
+                .map(new RuleTagger())
+                .name("rule-tagger")
+                .uid("p01-rule-tagger");
 
-        return events;
+        results
+                .sinkTo(new ClickHouseLogSink(
+                        cfg.clickhouseUrl, cfg.clickhouseUser, cfg.clickhousePassword))
+                .name("clickhouse-log-sink")
+                .uid("p01-clickhouse-log-sink");
+
+        return results;
     }
 }
