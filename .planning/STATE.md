@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 6
-status: verifying
-last_updated: "2026-07-18T03:46:07.068Z"
+current_plan: 2
+status: executing
+last_updated: "2026-07-18T04:03:44.997Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 4
-  total_plans: 19
-  completed_plans: 19
+  total_plans: 24
+  completed_plans: 20
   percent: 57
 ---
 
@@ -21,18 +21,18 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-17)
 
 **Core value:** 每个生产级项目必须在 OrbStack arm64 上独立 compose profile 一键起、端到端可复现，且压测与故障演练真实跑通——不可验证的内容不合入。
-**Current focus:** Phase 4 — p01 日志 ai 平台
+**Current focus:** Phase 05 — p02
 
 ## Current Position
 
-Phase: 4
-Plan: 6 of 6
-Current Plan: 6
-Total Plans in Phase: 6
-Status: Phase complete — ready for verification
+Phase: 05 (p02) — EXECUTING
+Plan: 2 of 4
+Current Plan: 2
+Total Plans in Phase: 4
+Status: Ready to execute
 Last activity: 2026-07-18
 
-Progress: [██████████] 100%
+Progress: [█████████░] 87%
 
 ## Performance Metrics
 
@@ -71,6 +71,7 @@ Progress: [██████████] 100%
 | Phase 04 P03 | 5min | 3 tasks | 9 files |
 | Phase 04 P04 | 3min | 3 tasks | 10 files |
 | Phase 04 P05 | 6min | 3 tasks | 12 files |
+| Phase 05 P00 | 2min | 3 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -124,6 +125,10 @@ Progress: [██████████] 100%
 - [Phase 04]: 压测默认 RATE=100 WARMUP=30s DURATION=90s（OrbStack 稳定 Discretion）
 - [Phase 04]: drill_ai_degrade 同时 --ai.enabled=false + 不可达 endpoint
 - [Phase 04]: 恰好 2 条硬演练：loadtest + drill-degrade
+- [Phase 05]: Wave 0 故意不实现 ParseBehaviorJson/RuleScorer/RealtimeRecoJob，testCompile 失败建立 RED 反馈环
+- [Phase 05]: drill/loadtest 用 --implemented 门闩；verify 走真实 CH 查询以便空表/未起时非 0
+- [Phase 05]: PG reco_items 50 行种子由 make up-p02 psql 注入，p02-init 仅 Kafka+CH
+- [Phase 05]: eventType 锁定 VIEW|CLICK|CART|BUY；Top-K=5；权重 VIEW=1/CLICK=3/CART=5/BUY=10
 
 ### Pending Todos
 
@@ -142,7 +147,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T03:46:07.063Z
-Stopped at: Phase 5 context gathered
+Last session: 2026-07-18T04:03:44.992Z
+Stopped at: Completed 05-00-PLAN.md
 Resume file: 
-.planning/phases/05-p02/05-CONTEXT.md
+None
