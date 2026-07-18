@@ -9,7 +9,7 @@
 
 - [x] **VEH-01**: 维护者可用独立 compose profile 一键启动 p03，且不影响 default `make up`
 - [x] **VEH-02**: 维护者可复现告警链路（事件→Kafka→CEP→Side Output→ClickHouse/通知），验证脚本对可观察输出做断言
-- [ ] **VEH-03**: 模式库至少 3 条模式，每条登记 within/连接语义/skip/状态上界五元组
+- [x] **VEH-03**: 模式库至少 3 条模式，每条登记 within/连接语义/skip/状态上界五元组
 - [ ] **VEH-04**: 作业支持通过 Broadcast 动态选择预编译模式集
 - [ ] **VEH-05**: 维护者可复现监控大盘（窗口聚合指标 + Grafana + 异常检测规则）
 - [ ] **VEH-06**: 压测脚本与故障演练（含 watermark 停滞）可执行，并记录 baseline 数字
@@ -78,7 +78,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | VEH-01 | Phase 1 | Complete |
 | VEH-02 | Phase 1 | Complete |
-| VEH-03 | Phase 2 | Pending |
+| VEH-03 | Phase 2 | Complete |
 | VEH-04 | Phase 2 | Pending |
 | VEH-05 | Phase 3 | Pending |
 | VEH-06 | Phase 3 | Pending |

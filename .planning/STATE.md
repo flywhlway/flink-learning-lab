@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-18T01:00:39.657Z"
-last_activity: 2026-07-18 -- Completed 02-00-PLAN.md (Wave 0 RED)
+last_updated: "2026-07-18T01:05:13.875Z"
+last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 9
-  completed_plans: 5
+  completed_plans: 6
   percent: 14
 ---
 
@@ -25,11 +25,11 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 2
-Plan: 1 of 5
+Plan: 2 of 5
 Status: Ready to execute
-Last activity: 2026-07-18 -- Completed 02-00-PLAN.md (Wave 0 RED)
+Last activity: 2026-07-18
 
-Progress: [██████░░░░] 56%
+Progress: [███████░░░] 67%
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ Progress: [██████░░░░] 56%
 | Phase 01-p03 P02 | 5min | 2 tasks | 10 files |
 | Phase 01-p03 P03 | 61min | 3 tasks | 9 files |
 | Phase 02-p03 P00 | 2min | 2 tasks | 5 files |
+| Phase 02 P01 | 2min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,9 @@ Progress: [██████░░░░] 56%
 - [Phase 01-p03]: Flink FLINK_PROPERTIES 固定 S3a SimpleAWSCredentialsProvider，消除 INITIALIZING 挂起
 - [Phase 02-00]: Gate 单测用 resolveActivePatterns/isNewerVersion/isAllowed 包内辅助，避免 MiniCluster
 - [Phase 02-00]: verify PATTERN_ID 仅白名单三常量拼 SQL；默认 HARSH_THEN_FAULT
+- [Phase 02]: Registry Entry 用 record(id, pattern) 对齐 Wave 0 entry.id()/entry.pattern() 契约
+- [Phase 02]: within 秒数锁定 CONTEXT 默认 30/20/15，未做 Discretion 微调
+- [Phase 02]: 排除 PatternActivationGateTest 编译直至 02-02 交付 Gate/ControlMessage
 
 ### Pending Todos
 
@@ -96,6 +100,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T01:00:29.106Z
-Stopped at: Completed 02-00-PLAN.md
+Last session: 2026-07-18T01:05:13.867Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
