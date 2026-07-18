@@ -38,7 +38,7 @@ for i in 1 2 3 4 5 6 7 8 9 10; do
         FOUND=$((FOUND + 1))
       fi
     done
-    if [[ "${FOUND}" -ge 1 ]]; then
+    if [[ "${FOUND}" -eq 3 ]]; then
       echo "ok monitoring_json=${COUNT} grafana=${GRAFANA_URL} search_hits=${FOUND}/3 titles=flinklab-*"
       exit 0
     fi

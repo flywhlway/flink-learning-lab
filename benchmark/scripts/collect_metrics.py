@@ -16,7 +16,7 @@ import urllib.request
 
 # 值班五指标（与 monitoring/README 对齐）
 DEFAULT_QUERIES = {
-    "backpressure_ms_per_s": "flink_taskmanager_job_task_isBackPressuredTimeMsPerSecond",
+    "backpressure_ms_per_s": "flink_taskmanager_job_task_backPressuredTimeMsPerSecond",
     "busy_ms_per_s": "flink_taskmanager_job_task_busyTimeMsPerSecond",
     "last_checkpoint_duration": "flink_jobmanager_job_lastCheckpointDuration",
     "num_restarts": "flink_jobmanager_job_numRestarts",

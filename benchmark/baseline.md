@@ -56,6 +56,7 @@
 - 本轮在 OrbStack arm64 / compose Flink 上跑通 D-01 裁剪必跑集（三作业 × 1k/5k × HashMap/RocksDB 增量主路径 + checkpoint 对照行）。
 - 单元格 #8（对齐 10s）首轮 Prom 瞬时空结果后已同配置补刮（lag=22 / ckpt=43ms）；harness 已加重试。
 - p03 单元格 `emitEventTimeLag` 量级偏大：作业默认 `earliest` 消费叠加历史 backlog，属本轮实测观测，非填假数。
+- 反压列本轮均为 `n/a`：采集时 `collect_metrics.py` 误用 `isBackPressuredTimeMsPerSecond`（本机 Prom 无此 series）；已改为 `backPressuredTimeMsPerSecond`，复跑矩阵后该列应可非空，**不得手填假数覆盖上表**。
 - 复跑：`cd docker && make up && make up-p03` → 打包 e01/e10/p03 → `make -C benchmark matrix`。
 - dry-run 冒烟：`make -C benchmark dry-run`（低 EPS 单单元格）。
 - 项目级 baseline 可交叉引用本文件，**不**替代仓库级矩阵报告（D-03）。
