@@ -16,21 +16,28 @@ MIN_QUESTIONS = 150
 QUESTION_RE = re.compile(r"^\d+\.\s+")
 
 
-def count_questions() -> int:
+def count_questions() -> tuple[int, dict[str, int]]:
     total = 0
+    per_file: dict[str, int] = {}
     if not INTERVIEW_DIR.is_dir():
-        return 0
+        return 0, per_file
     for path in sorted(INTERVIEW_DIR.rglob("*.md")):
         text = path.read_text(encoding="utf-8")
+        n = 0
         for line in text.splitlines():
             if QUESTION_RE.match(line):
-                total += 1
-    return total
+                n += 1
+        if n:
+            per_file[str(path.relative_to(ROOT))] = n
+            total += n
+    return total, per_file
 
 
 def main() -> int:
-    n = count_questions()
+    n, per_file = count_questions()
     print(f"interview_questions={n} min={MIN_QUESTIONS}")
+    for rel, c in per_file.items():
+        print(f"  {rel}: {c}")
     if n < MIN_QUESTIONS:
         print(
             f"FAIL: interview 题量 {n} < {MIN_QUESTIONS}（D-11 / PROD-04）",
