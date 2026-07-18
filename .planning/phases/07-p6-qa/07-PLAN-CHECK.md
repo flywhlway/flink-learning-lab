@@ -190,3 +190,11 @@ issues:
 
 - [ ] Mark `07-RESEARCH.md` Open Questions as `(RESOLVED)` with inline RESOLVED on Q1–Q3
 - [ ] (Recommended) Fix `07-03` Task 1 ENG-04 vs PHASES ordering / verify strength
+
+
+## Revision Applied (2026-07-19)
+
+- Open Questions marked (RESOLVED) with inline RESOLVED lines
+- 07-03: ENG-04 strict PHASES assertion moved to Task 2 (with PHASES write)
+
+**Status after revision:** PASS — ready for execute
