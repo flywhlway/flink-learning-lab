@@ -1,4 +1,4 @@
-.PHONY: package verify test submit gen verify-switch truncate-alerts
+.PHONY: package verify test submit submit-window gen verify-switch truncate-alerts verify-dashboard
 
 COMPOSE_FILE := ../../docker/docker-compose.yml
 CONTROL_VERSION ?= 2
@@ -24,6 +24,21 @@ submit: package
 		-c com.flywhl.flinklab.p03.VehicleAlertJob \
 		"/opt/flink/usrlib/$$JAR_NAME"
 	@echo "已提交 p03 VehicleAlertJob，打开 http://localhost:8081 查看"
+
+# D-02：旁路窗口指标作业（同 jar，独立主类；不得与 VehicleAlertJob 共享 group.id）
+submit-window: package
+	@mkdir -p ../../docker/jobs
+	@JAR=$$(ls target/p03-vehicle-monitoring-*.jar 2>/dev/null | grep -v original | head -1); \
+	if [ -z "$$JAR" ]; then echo "未找到 p03-vehicle-monitoring-*.jar，请先 make package" >&2; exit 1; fi; \
+	cp "$$JAR" ../../docker/jobs/; \
+	JAR_NAME=$$(basename "$$JAR"); \
+	cd ../../docker && docker compose exec jobmanager flink run -d \
+		-c com.flywhl.flinklab.p03.VehicleWindowMetricsJob \
+		"/opt/flink/usrlib/$$JAR_NAME"
+	@echo "已提交 p03 VehicleWindowMetricsJob，打开 http://localhost:8081 查看"
+
+verify-dashboard:
+	bash scripts/verify_dashboard.sh
 
 # 默认回归：match 别名 → match-harsh-fault；未发 control 时 PATTERN_ID=HARSH_THEN_FAULT（D-06）
 gen:

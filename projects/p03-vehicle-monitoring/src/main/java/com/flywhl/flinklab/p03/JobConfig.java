@@ -48,16 +48,27 @@ public final class JobConfig {
         this.stateBackendType = stateBackendType;
     }
 
+    /** 告警作业默认：{@code p03-vehicle-alert} / {@code p03-vehicle-alerts}。 */
     public static JobConfig from(String[] args) {
+        return from(args, "p03-vehicle-alert", "p03-vehicle-alerts");
+    }
+
+    /**
+     * 解析参数；窗口作业传入不同默认 job-name / group-id，不改变告警作业现有默认。
+     *
+     * @param defaultJobName 未传 {@code --job-name} 时的作业名
+     * @param defaultGroupId 未传 {@code --group-id} 时的 Kafka consumer group
+     */
+    public static JobConfig from(String[] args, String defaultJobName, String defaultGroupId) {
         return new JobConfig(
-                arg(args, "job-name", "p03-vehicle-alert"),
+                arg(args, "job-name", defaultJobName),
                 Long.parseLong(arg(args, "checkpoint-interval-ms", "15000")),
                 Long.parseLong(arg(args, "checkpoint-timeout-ms", "600000")),
                 arg(args, "kafka-bootstrap", "kafka:9092"),
                 arg(args, "events-topic", "vehicle.events"),
                 arg(args, "alerts-topic", "vehicle.alerts"),
                 arg(args, "control-topic", "vehicle.pattern.control"),
-                arg(args, "group-id", "p03-vehicle-alerts"),
+                arg(args, "group-id", defaultGroupId),
                 arg(args, "clickhouse-url", "http://clickhouse:8123/"),
                 arg(args, "clickhouse-user", "flinklab"),
                 arg(args, "clickhouse-password", "flinklab123"),
