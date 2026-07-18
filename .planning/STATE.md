@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-18T01:12:51.211Z"
+last_updated: "2026-07-18T01:19:25.950Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 9
-  completed_plans: 8
-  percent: 14
+  completed_plans: 9
+  percent: 29
 ---
 
 # Project State
@@ -25,11 +25,11 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 2
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
 Last activity: 2026-07-18
 
-Progress: [█████████░] 89%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -59,6 +59,7 @@ Progress: [█████████░] 89%
 | Phase 02 P01 | 2min | 2 tasks | 6 files |
 | Phase 02 P02 | 1min | 1 tasks | 4 files |
 | Phase 02 P02b | 2min | 2 tasks | 12 files |
+| Phase 02 P03 | 5min | 3 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -89,6 +90,8 @@ Progress: [█████████░] 89%
 - [Phase 02]: 原始 activePatterns.size()>3 整条跳过；未知 ID 求交过滤
 - [Phase 02]: HarshThenFaultHandler 继承 AlertPatternHandler，三 Handler 共享 TIMEOUT_TAG
 - [Phase 02]: ParsePatternControlJson 随作业接线落地；Sink patternId 白名单+拒注入字符
+- [Phase 02]: 切换验收主路径为 make verify-switch（CH pattern_id），禁止 Kafka 单独放行
+- [Phase 02]: p03-init DDL 拆成 CREATE + ALTER 两次 POST（CH 24.8 HTTP 无 multiquery）
 
 ### Pending Todos
 
@@ -107,6 +110,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T01:12:51.206Z
-Stopped at: Completed 02-02b-PLAN.md
+Last session: 2026-07-18T01:19:25.945Z
+Stopped at: Completed 02-03-PLAN.md
 Resume file: None

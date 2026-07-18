@@ -7,7 +7,7 @@
 ## Phases
 
 - [x] **Phase 1: p03 告警链路样板** - compose profile + 事件→CEP→告警落库可复现 (completed 2026-07-17)
-- [ ] **Phase 2: p03 模式库与 Broadcast** - ≥3 模式五元组 + 动态选择预编译模式
+- [x] **Phase 2: p03 模式库与 Broadcast** - ≥3 模式五元组 + 动态选择预编译模式 (completed 2026-07-18)
 - [ ] **Phase 3: p03 大盘与演练收官** - Grafana 大盘 + 压测/故障演练 + 完整文档包
 - [ ] **Phase 4: p01 日志 AI 平台** - 可降级 AI 路径 + 生产项目纪律全套
 - [ ] **Phase 5: p02 实时推荐** - 特征+打分闭环 + 生产项目纪律全套
@@ -55,7 +55,7 @@ Plans:
   2. 维护者可通过 Broadcast 配置切换模式集并观察到匹配行为变化
   3. 无 within 的模式无法通过项目自检/评审清单
 
-**Plans:** 4/5 plans executed
+**Plans:** 5/5 plans complete
 Plans:
 **Wave 0**
 
@@ -75,7 +75,7 @@ Plans:
 
 **Wave 4** *(blocked on Wave 3)*
 
-- [ ] 02-03-PLAN.md — VEH-03/04：造数切换 e2e + README/qa_check + 人工验收
+- [x] 02-03-PLAN.md — VEH-03/04：造数切换 e2e + README/qa_check + 人工验收
 
 ### Phase 3: p03 大盘与演练收官
 
@@ -159,7 +159,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. p03 告警链路样板 | 4/4 | Complete    | 2026-07-17 |
-| 2. p03 模式库与 Broadcast | 4/5 | In Progress|  |
+| 2. p03 模式库与 Broadcast | 5/5 | Complete   | 2026-07-18 |
 | 3. p03 大盘与演练收官 | 0/TBD | Not started | - |
 | 4. p01 日志 AI 平台 | 0/TBD | Not started | - |
 | 5. p02 实时推荐 | 0/TBD | Not started | - |
