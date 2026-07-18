@@ -58,11 +58,13 @@
 
 **独立成书,见 [ai/README.md](../ai/README.md)**(《Flink AI Engineering》全书大纲已交付)。
 
-## 模块 13 · 性能与压测(P5,配套 benchmark/)
+## 模块 13 · 性能与压测 🚧([索引](./13-performance/README.md),权威路径 [benchmark/](../benchmark/))
 
-## 模块 14 · 生产化(P5,配套 production/)
+13-01 压测方法论与单变量原则 · 13-02 裁剪矩阵(作业轴 e01-J2 / e10 / p03 + 负载 1k/5k eps) · 13-03 仓库级 `benchmark/baseline.md` 报告 · 权威脚本与产物落在 `benchmark/`，本模块为教材入口。
 
-14-01 K8s Operator 1.15 全解(CRD/升级模式/Blue-Green/Autoscaler) · 14-02 可观测(Prometheus/Grafana/Loki/OTel) · 14-03 CI/CD 与 GitOps(Helm/ArgoCD/灰度) · 14-04 多租户与成本治理 · 14-05 安全与合规(含车企 UN R155 视角)
+## 模块 14 · 生产化 🚧([索引](./14-production/README.md),权威路径 [production/](../production/))
+
+14-01 K8s Operator 1.15 全解(CRD/升级模式/Blue-Green/Autoscaler) · 14-02 可观测(Prometheus/Grafana；Loki/OTel 为可选增强) · 14-03 CI/CD 与 GitOps(Helm/Argo CD/灰度；禁止并行 Flux) · 14-04 多租户与成本治理 · 14-05 安全与合规(含车企 UN R155 视角) · 落地清单与脚本在 `production/`。
 
 ## 模块 15 · 企业实战三案例(P4)
 

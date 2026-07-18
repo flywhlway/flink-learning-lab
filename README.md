@@ -26,6 +26,9 @@
 | Flink CDC | 3.6.0 | 兼容 Flink 1.20.x / 2.2.x |
 | Flink Agents | 0.3.0(Preview) | 官方 AI Agent 子项目,兼容 Flink 1.20/2.0/2.1/2.2 |
 | Flink Kubernetes Operator | 1.15.0 | 兼容 Flink 2.2 |
+| Flink Kubernetes Operator Helm chart | **1.15.0** | repo `https://downloads.apache.org/flink/flink-kubernetes-operator-1.15.0/`；chart `flink-kubernetes-operator`；学习工程可 `--set webhook.create=false`，此时不强制 cert-manager |
+| Helm CLI | **4.2.3**（Homebrew `helm`） | Operator / Argo 安装前置；禁止 PyPI 伪 `helm` 包 |
+| Argo CD Helm chart | **10.1.4**（app `v3.4.5`） | repo `https://argoproj.github.io/argo-helm`；chart `argo/argo-cd`；单一 GitOps 路径（禁止并行 Flux）；禁止 PyPI 伪 `argocd` 包 |
 | Kafka | `apache/kafka:3.9.1`(KRaft) | 无 ZooKeeper |
 | ClickHouse | `clickhouse/clickhouse-server:24.8` | LTS |
 | PostgreSQL | `postgres:16-alpine` | 已开启 `wal_level=logical`(为 CDC 篇预留) |
