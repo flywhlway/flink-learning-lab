@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 3
+current_plan: 4
 status: executing
-last_updated: "2026-07-18T03:00:23.095Z"
+last_updated: "2026-07-18T03:05:12.118Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 19
-  completed_plans: 15
+  completed_plans: 16
   percent: 43
 ---
 
@@ -26,13 +26,13 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 4
-Plan: 3 of 6
-Current Plan: 3
+Plan: 4 of 6
+Current Plan: 4
 Total Plans in Phase: 6
 Status: Ready to execute
 Last activity: 2026-07-18
 
-Progress: [████████░░] 79%
+Progress: [████████░░] 84%
 
 ## Performance Metrics
 
@@ -67,6 +67,7 @@ Progress: [████████░░] 79%
 | Phase 02 P03 | 5min | 3 tasks | 9 files |
 | Phase 04 P00 | 2min | 3 tasks | 11 files |
 | Phase 04 P01 | 3min | 3 tasks | 9 files |
+| Phase 04 P02 | 4min | 3 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -108,6 +109,9 @@ Progress: [████████░░] 79%
 - [Phase 04]: 排除 RuleTaggerTest/BudgetGateTest 编译直至 04-02+ 交付生产类
 - [Phase 04]: V1 LogAiJob 以 print 作临时 Sink，注释标明 V2 接 CH
 - [Phase 04]: submit 显式 --ai.enabled=false，与 JobConfig 默认双重保险
+- [Phase 04]: featureJson 用无引号紧凑格式，避开 Sink 拒双引号与合法 JSON 冲突
+- [Phase 04]: RuleTagger.tag(LogEvent) 供单测；tag(LogResult) 叠加 ERROR_BURST 阈值 5
+- [Phase 04]: 本切片不接 Async Ollama；LogAiJob 整图 Parse→Enrich→Rule→CH
 
 ### Pending Todos
 
@@ -126,6 +130,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T03:00:23.090Z
-Stopped at: Completed 04-01-PLAN.md
-Resume file: None
+Last session: 2026-07-18T03:05:12.113Z
+Stopped at: Completed 04-02-PLAN.md
+Resume file: 

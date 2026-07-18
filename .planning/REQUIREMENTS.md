@@ -18,7 +18,7 @@
 ### LOG · p01 日志 AI 平台
 
 - [x] **LOG-01**: 维护者可用独立 compose profile 一键启动 p01，端到端结构化日志流可复现
-- [ ] **LOG-02**: 无 LLM/Milvus 时，流式富化/特征路径仍可完整演示
+- [x] **LOG-02**: 无 LLM/Milvus 时，流式富化/特征路径仍可完整演示
 - [ ] **LOG-03**: 至少一条 AI 路径（ML_PREDICT / Agents / Milvus）可用，且文档给出显式降级核对清单
 - [ ] **LOG-04**: 成本/护栏相关业务指标可在 Prometheus/日志中观察
 - [ ] **LOG-05**: 交付压测、故障演练、架构文档、ADR、验证脚本与简历陈述页
@@ -84,7 +84,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VEH-06 | Phase 3 | Complete |
 | VEH-07 | Phase 3 | Complete |
 | LOG-01 | Phase 4 | Complete |
-| LOG-02 | Phase 4 | Pending |
+| LOG-02 | Phase 4 | Complete |
 | LOG-03 | Phase 4 | Pending |
 | LOG-04 | Phase 4 | Pending |
 | LOG-05 | Phase 4 | Pending |
