@@ -1,4 +1,4 @@
-.PHONY: package verify test submit submit-window gen verify-switch truncate-alerts verify-dashboard
+.PHONY: package verify test submit submit-window gen verify-switch truncate-alerts verify-dashboard loadtest drill-watermark
 
 COMPOSE_FILE := ../../docker/docker-compose.yml
 CONTROL_VERSION ?= 2
@@ -43,6 +43,14 @@ verify-dashboard:
 # 默认回归：match 别名 → match-harsh-fault；未发 control 时 PATTERN_ID=HARSH_THEN_FAULT（D-06）
 gen:
 	uv run scripts/gen_vehicle_events.py --scenario match
+
+# VEH-06：项目级压测 → docs/baseline.md（D-06/D-07/D-08）；可用 RATE/WARMUP_SEC/DURATION_SEC 覆盖
+loadtest:
+	bash scripts/loadtest.sh
+
+# VEH-06：watermark 冻结心跳停滞 → 恢复后 PATTERN_ID verify（D-09/D-10）
+drill-watermark:
+	bash scripts/drill_watermark_stall.sh
 
 # ClickHouse 权威表清空（切换剧本前必做，避免旧 pattern_id 污染；D-10）
 truncate-alerts:

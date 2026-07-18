@@ -4,22 +4,36 @@
 # dependencies = ["confluent-kafka>=2.5"]
 # ///
 """
-p03 车联网可判定造数：三场景 + 可选控制面发布（D-12）。
+p03 车联网可判定造数：三场景 + 速率压测 + 冻结 eventTime + 可选控制面发布（D-07/D-10/D-12）。
 
 用法:
     uv run scripts/gen_vehicle_events.py --scenario match-harsh-fault
     uv run scripts/gen_vehicle_events.py --scenario match-triple-harsh
     uv run scripts/gen_vehicle_events.py --scenario match-dtc-pair
     uv run scripts/gen_vehicle_events.py --publish-control '{"activePatterns":["TRIPLE_HARSH"],"version":2}'
+    uv run scripts/gen_vehicle_events.py --rate 100 --duration 120
+    uv run scripts/gen_vehicle_events.py --eps 100 --duration 45   # --eps 为 --rate 别名
+    uv run scripts/gen_vehicle_events.py --partial harsh-open --vin VIN-STALL-001
+    uv run scripts/gen_vehicle_events.py --frozen-event-time --duration 50 --rate 2 --vin VIN-STALL-001
     make gen
+
+模式互斥规则（--help 同源）:
+  - --scenario / --partial：离散剧本（一次发完）
+  - --rate|--eps + --duration：恒定速率，eventTime 随墙钟推进（压测）
+  - --frozen-event-time + --duration：HEARTBEAT 涓流，eventTime 固定为 T0（watermark 停滞演练）
+  - --publish-control 可与上述任一模式组合
+  - 纯 --scenario 与纯速率/冻结模式互斥；勿同时指定 --scenario 与 --rate/--frozen-event-time
 
 宿主机 bootstrap 默认 localhost:9094（容器内 Flink 用 kafka:9092，勿混用）。
 控制 topic 默认 vehicle.pattern.control（可用 --control-topic 覆盖）。
+速率/时长上限：--rate≤5000、--duration≤600（防误打云端；默认仍指向 localhost:9094）。
 """
 from __future__ import annotations
 
 import argparse
 import json
+import random
+import signal
 import sys
 import time
 from pathlib import Path
@@ -36,10 +50,23 @@ SCENARIOS = (
     "match-triple-harsh",
     "match-dtc-pair",
 )
+PARTIALS = ("harsh-open",)
+MAX_RATE = 5000
+MAX_DURATION = 600
 
 
 def build_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="p03 vehicle event generator")
+    p = argparse.ArgumentParser(
+        description="p03 vehicle event generator",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "模式互斥:\n"
+            "  --scenario / --partial  离散剧本（一次发完）\n"
+            "  --rate|--eps + --duration  恒定速率，advancing eventTime（压测）\n"
+            "  --frozen-event-time + --duration  冻结 eventTime=T0 的 HEARTBEAT 涓流（停滞演练）\n"
+            "  --publish-control 可与上述组合；勿同时指定 --scenario 与 --rate/--frozen-event-time\n"
+        ),
+    )
     p.add_argument("--bootstrap", default="localhost:9094")
     p.add_argument("--topic", default="vehicle.events")
     p.add_argument(
@@ -57,6 +84,12 @@ def build_args() -> argparse.Namespace:
         ),
     )
     p.add_argument(
+        "--partial",
+        choices=list(PARTIALS),
+        default=None,
+        help="部分 CEP 序列：harsh-open = HEARTBEAT+HARSH（无 DTC/尾心跳），供停滞演练",
+    )
+    p.add_argument(
         "--publish-control",
         default=None,
         metavar="JSON_OR_PATH",
@@ -66,6 +99,40 @@ def build_args() -> argparse.Namespace:
         ),
     )
     p.add_argument("--vin", default="VIN-P03-E2E-001")
+    p.add_argument(
+        "--rate",
+        "--eps",
+        dest="rate",
+        type=int,
+        default=None,
+        metavar="N",
+        help="每秒事件数（--eps 为别名）；与 --duration 组成速率模式",
+    )
+    p.add_argument(
+        "--duration",
+        type=int,
+        default=None,
+        metavar="SEC",
+        help="速率/冻结模式持续时间（秒）",
+    )
+    p.add_argument(
+        "--frozen-event-time",
+        action="store_true",
+        help="冻结 eventTime=T0 的 HEARTBEAT 涓流（需 --duration；可选 --rate 默认 2）",
+    )
+    p.add_argument(
+        "--freeze-at",
+        type=int,
+        default=None,
+        metavar="EPOCH_MS",
+        help="冻结的 eventTime（毫秒）；默认取启动时刻；仅 --frozen-event-time 有效",
+    )
+    p.add_argument(
+        "--vin-count",
+        type=int,
+        default=1,
+        help="速率模式下轮换 vin 数量（默认 1；压测可调大分散 key）",
+    )
     return p.parse_args()
 
 
@@ -224,18 +291,189 @@ def scenario_match_dtc_pair(producer: Producer, topic: str, vin: str) -> int:
     return len(sequence)
 
 
+def partial_harsh_open(producer: Producer, topic: str, vin: str) -> tuple[int, int]:
+    """部分序列：HEARTBEAT + HARSH，无 DTC/尾心跳。返回 (sent, freeze_at_ms=HARSH.eventTime)。"""
+    base = int(time.time() * 1000)
+    sequence = [
+        {"vin": vin, "signalType": "HEARTBEAT", "value": 1.0, "eventTime": base},
+        {
+            "vin": vin,
+            "signalType": "HARSH_ACCEL",
+            "value": 500.0,
+            "eventTime": base + 2_000,
+        },
+    ]
+    for ev in sequence:
+        emit(producer, topic, ev)
+        print(f"  sent {ev['signalType']} value={ev['value']} ts={ev['eventTime']}")
+    freeze_at = sequence[-1]["eventTime"]
+    print(f"  partial harsh-open freeze_hint={freeze_at}")
+    return len(sequence), freeze_at
+
+
+def run_rate_mode(
+    producer: Producer,
+    topic: str,
+    vin_base: str,
+    rate: int,
+    duration: int,
+    vin_count: int,
+) -> int:
+    """恒定速率：HEARTBEAT/HARSH 混合，eventTime 随墙钟推进（对齐 gen_events.py 循环）。"""
+    if rate < 1 or rate > MAX_RATE:
+        raise SystemExit(f"FAIL: --rate 须在 1..{MAX_RATE}，got={rate}")
+    if duration < 1 or duration > MAX_DURATION:
+        raise SystemExit(f"FAIL: --duration 须在 1..{MAX_DURATION}，got={duration}")
+    if vin_count < 1:
+        raise SystemExit("FAIL: --vin-count 须 ≥1")
+
+    running = True
+
+    def stop(*_: object) -> None:
+        nonlocal running
+        running = False
+
+    signal.signal(signal.SIGINT, stop)
+    signal.signal(signal.SIGTERM, stop)
+
+    sent = 0
+    deadline = time.monotonic() + duration
+    tick = time.monotonic()
+    print(
+        f"rate-mode → {topic} rate={rate} duration={duration}s "
+        f"vin_count={vin_count} advancing eventTime"
+    )
+    while running and time.monotonic() < deadline:
+        batch_deadline = tick + 1.0
+        for i in range(rate):
+            if time.monotonic() >= deadline or not running:
+                break
+            vin = vin_base if vin_count == 1 else f"{vin_base}-{i % vin_count:04d}"
+            # ~80% HEARTBEAT / ~20% HARSH，模拟遥测混合
+            if random.random() < 0.2:
+                signal_type, value = "HARSH_ACCEL", 480.0 + random.random() * 40.0
+            else:
+                signal_type, value = "HEARTBEAT", 1.0
+            event = {
+                "vin": vin,
+                "signalType": signal_type,
+                "value": value,
+                "eventTime": int(time.time() * 1000),
+            }
+            emit(producer, topic, event)
+            sent += 1
+        producer.poll(0)
+        if sent > 0 and sent % max(rate * 10, 1) < rate:
+            print(f"  sent={sent}")
+        sleep = batch_deadline - time.monotonic()
+        if sleep > 0:
+            time.sleep(sleep)
+        tick = batch_deadline
+    return sent
+
+
+def run_frozen_mode(
+    producer: Producer,
+    topic: str,
+    vin: str,
+    rate: int,
+    duration: int,
+    freeze_at: int | None,
+) -> int:
+    """冻结 eventTime=T0 的 HEARTBEAT 涓流：源不 idle，但 watermark 卡在 T0-ooo。"""
+    if rate < 1 or rate > MAX_RATE:
+        raise SystemExit(f"FAIL: --rate 须在 1..{MAX_RATE}，got={rate}")
+    if duration < 1 or duration > MAX_DURATION:
+        raise SystemExit(f"FAIL: --duration 须在 1..{MAX_DURATION}，got={duration}")
+
+    t0 = freeze_at if freeze_at is not None else int(time.time() * 1000)
+    running = True
+
+    def stop(*_: object) -> None:
+        nonlocal running
+        running = False
+
+    signal.signal(signal.SIGINT, stop)
+    signal.signal(signal.SIGTERM, stop)
+
+    sent = 0
+    deadline = time.monotonic() + duration
+    tick = time.monotonic()
+    print(
+        f"frozen-mode → {topic} rate={rate} duration={duration}s "
+        f"vin={vin} frozen_eventTime={t0}"
+    )
+    while running and time.monotonic() < deadline:
+        batch_deadline = tick + 1.0
+        for _ in range(rate):
+            if time.monotonic() >= deadline or not running:
+                break
+            event = {
+                "vin": vin,
+                "signalType": "HEARTBEAT",
+                "value": 1.0,
+                "eventTime": t0,
+            }
+            emit(producer, topic, event)
+            sent += 1
+        producer.poll(0)
+        if sent > 0 and sent % max(rate * 10, 1) < rate:
+            print(f"  sent={sent} frozen_ts={t0}")
+        sleep = batch_deadline - time.monotonic()
+        if sleep > 0:
+            time.sleep(sleep)
+        tick = batch_deadline
+    return sent
+
+
 def resolve_scenario(name: str) -> str:
     return SCENARIO_ALIASES.get(name, name)
 
 
-def main() -> None:
-    args = build_args()
-    if args.publish_control is None and args.scenario is None:
+def validate_mode(args: argparse.Namespace) -> None:
+    discrete = args.scenario is not None or args.partial is not None
+    rate_mode = args.rate is not None and not args.frozen_event_time
+    frozen_mode = args.frozen_event_time
+
+    if args.publish_control is None and not discrete and not rate_mode and not frozen_mode:
         print(
-            "FAIL: 需指定 --scenario 和/或 --publish-control",
+            "FAIL: 需指定 --scenario / --partial / (--rate + --duration) / "
+            "--frozen-event-time / --publish-control 之一",
             file=sys.stderr,
         )
         sys.exit(2)
+
+    if discrete and (rate_mode or frozen_mode):
+        print(
+            "FAIL: --scenario/--partial 与 --rate/--frozen-event-time 互斥",
+            file=sys.stderr,
+        )
+        sys.exit(2)
+
+    if rate_mode and frozen_mode:
+        print("FAIL: 速率模式与 --frozen-event-time 互斥", file=sys.stderr)
+        sys.exit(2)
+
+    if args.scenario is not None and args.partial is not None:
+        print("FAIL: --scenario 与 --partial 互斥", file=sys.stderr)
+        sys.exit(2)
+
+    if rate_mode and args.duration is None:
+        print("FAIL: 速率模式需要 --duration", file=sys.stderr)
+        sys.exit(2)
+
+    if frozen_mode and args.duration is None:
+        print("FAIL: --frozen-event-time 需要 --duration", file=sys.stderr)
+        sys.exit(2)
+
+    if args.duration is not None and not rate_mode and not frozen_mode and not discrete:
+        print("FAIL: --duration 须配合 --rate 或 --frozen-event-time", file=sys.stderr)
+        sys.exit(2)
+
+
+def main() -> None:
+    args = build_args()
+    validate_mode(args)
 
     producer = Producer(
         {
@@ -258,6 +496,43 @@ def main() -> None:
             f"version={payload['version']}"
         )
         sent += 1
+
+    if args.partial is not None:
+        print(
+            f"producing → {args.bootstrap} topic={args.topic} "
+            f"partial={args.partial} vin={args.vin}"
+        )
+        if args.partial == "harsh-open":
+            n, _ = partial_harsh_open(producer, args.topic, args.vin)
+            sent += n
+        else:
+            print(f"未知 partial: {args.partial}", file=sys.stderr)
+            sys.exit(1)
+
+    if args.frozen_event_time:
+        rate = args.rate if args.rate is not None else 2
+        sent += run_frozen_mode(
+            producer,
+            args.topic,
+            args.vin,
+            rate,
+            args.duration,
+            args.freeze_at,
+        )
+
+    if args.rate is not None and not args.frozen_event_time:
+        print(
+            f"producing → {args.bootstrap} topic={args.topic} "
+            f"rate={args.rate} duration={args.duration}s vin={args.vin}"
+        )
+        sent += run_rate_mode(
+            producer,
+            args.topic,
+            args.vin,
+            args.rate,
+            args.duration,
+            args.vin_count,
+        )
 
     if args.scenario is not None:
         scenario = resolve_scenario(args.scenario)

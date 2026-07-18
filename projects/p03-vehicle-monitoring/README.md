@@ -1,7 +1,7 @@
 # p03 · 车联网监控告警链路样板
 
-> 对应教材:[docs/10-cep](../../docs/10-cep/README.md) · 企业实战模块 15 · GSD Phase 1–3（VEH-01–VEH-05）
-> 模式五元组评审见 [docs/PATTERN-LIBRARY.md](docs/PATTERN-LIBRARY.md)。Grafana 双 DS 大盘与异常阈值见下文；压测/ADR/简历页属同里程碑后续 plan。
+> 对应教材:[docs/10-cep](../../docs/10-cep/README.md) · 企业实战模块 15 · GSD Phase 1–3（VEH-01–VEH-06）
+> 模式五元组评审见 [docs/PATTERN-LIBRARY.md](docs/PATTERN-LIBRARY.md)。Grafana 双 DS 大盘、压测 baseline 与 watermark 演练见下文；ADR/简历页属同里程碑后续 plan。
 
 ## 1. 背景
 
@@ -55,11 +55,14 @@ Compose 隔离：`profiles: ["p03"]` 的 `p03-init` 幂等创建 topic + `vehicl
 | `ParseVehicleJson` / `ParsePatternControlJson` | 事件/控制 JSON；脏数据丢弃 |
 | `ClickHouseAlertSink` | HTTP SinkV2 → `flinklab.vehicle_alerts`（含 `pattern_id`） |
 | `monitoring/dashboards/p03-vehicle-overview.json` | Grafana 双 DS 大盘（可 provisioning） |
-| `scripts/gen_vehicle_events.py` | 三 scenario + `--publish-control`；尾心跳推进 watermark |
+| `scripts/gen_vehicle_events.py` | 三 scenario + `--rate/--duration` + `--frozen-event-time` + `--publish-control` |
 | `scripts/verify.sh` | `PATTERN_ID` 白名单 + CH MATCH 权威断言 |
 | `scripts/verify_dashboard.sh` | 大盘 JSON + Grafana API + CH metrics smoke |
+| `scripts/loadtest.sh` | 项目级压测 → [`docs/baseline.md`](docs/baseline.md)（Prometheus + CH） |
+| `scripts/drill_watermark_stall.sh` | 冻结 eventTime HEARTBEAT 停滞 → 恢复后 MATCH 断言 |
 | `docs/PATTERN-LIBRARY.md` | 三模式五元组评审页 |
 | `docs/ANOMALY-THRESHOLDS.md` | 异常阈值条文（演示默认 / 非生产 SLA） |
+| `docs/baseline.md` | OrbStack arm64 实测压测数字（由 `make loadtest` 生成） |
 
 Maven 独立模块（不挂 `examples/` 父工程），版本对齐仓库 SSOT（Flink 2.2.1 / Kafka connector 5.0.0-2.2）。
 
@@ -176,11 +179,34 @@ make verify-dashboard
 
 面板覆盖：窗口吞吐（CH）、按 `pattern_id` 的 MATCH 速率（CH）、异常阈值 stat（CH）、Flink checkpoint/重启/event-time lag/反压（Prometheus）。阈值条文见 [docs/ANOMALY-THRESHOLDS.md](docs/ANOMALY-THRESHOLDS.md)。可导入 JSON 路径：`monitoring/dashboards/p03-vehicle-overview.json`。
 
+### 5.4 压测与 watermark 演练（VEH-06）
+
+两条 MVP 演练入口（失败非 0；无 k6/JMeter）：
+
+```bash
+cd projects/p03-vehicle-monitoring
+
+# (1) 项目级压测：热身丢弃 → rate×duration → 刮 Prometheus/CH → 写 docs/baseline.md
+make loadtest
+# 覆盖参数示例：RATE=100 WARMUP_SEC=45 DURATION_SEC=120 make loadtest
+
+# (2) watermark 停滞：部分 HARSH + 冻结 eventTime HEARTBEAT ≥45s → 恢复后 PATTERN_ID verify
+make drill-watermark
+```
+
+预期：
+
+- `make loadtest` 生成 [`docs/baseline.md`](docs/baseline.md)（环境 / 负载 / 指标 / 结论），数字来自本次 OrbStack 运行。
+- `make drill-watermark` stall 阶段 CH MATCH 不增且 Prometheus `currentEmitEventTimeLag` 上升；recover 后 `PATTERN_ID=HARSH_THEN_FAULT` 的 `verify.sh` 为绿。
+- 副证（human-check）：stall 期间 Flink UI → 作业 → Timestamps/Watermarks 列停滞（REST `/watermarks` 可能为空，勿作唯一断言）。时间语义见 [docs/02-time-window](../../docs/02-time-window/README.md)。
+
+造数速率模式：`uv run scripts/gen_vehicle_events.py --rate 100 --duration 60`（`--eps` 为别名）；冻结心跳：`--frozen-event-time --duration 50 --rate 2 --vin VIN-STALL-001`。
+
 ## 6. 踩坑
 
 1. **bootstrap 混用**：宿主机造数/控制必须 `localhost:9094`；作业默认 `kafka:9092`。写反则「topic 有数据、作业不消费」或反之。
 2. **Pattern 无 `within`**：部分匹配永不释放，状态膨胀；`PatternRegistryWithinTest` 强制三模式均有 `within`。
-3. **watermark 停滞**：多分区时空闲分区会卡住水位；作业配置 `withIdleness(30s)`。造数须在业务末事件后追加足够晚的 HEARTBEAT，把水位推过末事件（BoundedOutOfOrderness=5s），否则 MATCH 迟迟不落库。
+3. **watermark 停滞**：多分区时空闲分区会卡住水位；作业配置 `withIdleness(30s)` 会在 30s 后排除空闲分区——因此演练**不能只靠空闲分区**，须用冻结 `eventTime` 的 HEARTBEAT 涓流（`make drill-watermark`）。造数恢复时须追加足够晚的 HEARTBEAT，把水位推过末事件（BoundedOutOfOrderness=5s），否则 MATCH 迟迟不落库。
 4. **`TRIPLE_HARSH` 被 HEARTBEAT 打断**：`times(3).consecutive()` 中间夹其它事件即作废；`match-triple-harsh` 故意不在三次 HARSH 之间插心跳。
 5. **门控关闭 ≠ CEP 状态停止**：Broadcast 仅过滤出口；三路 CEP 仍占状态，靠各自 `within` TTL 回收（见 PATTERN-LIBRARY）。
 6. **切换后不 TRUNCATE**：旧 `pattern_id` 行会污染断言；`verify-switch` 先清表。
