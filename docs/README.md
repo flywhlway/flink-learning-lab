@@ -72,7 +72,7 @@
 |---|---|---|
 | 15-03 | [p03 车联网监控 · P4 单项目完成态](../projects/p03-vehicle-monitoring/README.md)（compose profile `p03` + 三 CEP + Broadcast + 旁路窗口大盘 + 压测/WM 演练） | ✅ 完成：Grafana 双 DS JSON（`p03-vehicle-overview`）+ [baseline.md](../projects/p03-vehicle-monitoring/docs/baseline.md) + [ADR-0001](../projects/p03-vehicle-monitoring/docs/adr/0001-cep-broadcast-precompiled.md) + [RESUME](../projects/p03-vehicle-monitoring/docs/RESUME.md) + [ARCHITECTURE](../projects/p03-vehicle-monitoring/docs/ARCHITECTURE.md) 可打开；CH 仍为 CEP 权威 |
 | 15-01 | [p01 日志 AI 平台 · P4 单项目完成态](../projects/p01-log-ai-platform/README.md)（compose profile `p01` + 规则路径默认 AI off + 可选 Async Ollama + BudgetGate/Guardrail + 压测/降级演练） | ✅ 完成：`make verify` / `make verify-ai`（可选）+ [baseline.md](../projects/p01-log-ai-platform/docs/baseline.md) + [ADR-0001](../projects/p01-log-ai-platform/docs/adr/0001-ai-path-degradable.md) + [RESUME](../projects/p01-log-ai-platform/docs/RESUME.md) + [ARCHITECTURE](../projects/p01-log-ai-platform/docs/ARCHITECTURE.md) 可打开；CH 仍为规则/AI 权威；主构建零硬依赖 Preview/外部模型 |
-| 15-02 | p02 实时推荐 | 📋(后续 Phase) |
+| 15-02 | [p02 实时推荐 · P4 单项目完成态](../projects/p02-realtime-reco/README.md)（compose profile `p02` + Keyed State/Redis 双通道特征 + PG 目录规则 Top-K + 压测/Redis 降级演练） | ✅ 完成：`make match` / `make drill-redis` / `make loadtest` + [baseline.md](../projects/p02-realtime-reco/docs/baseline.md) + [ADR-0001](../projects/p02-realtime-reco/docs/adr/0001-dual-channel-features.md) + [RESUME](../projects/p02-realtime-reco/docs/RESUME.md) + [ARCHITECTURE](../projects/p02-realtime-reco/docs/ARCHITECTURE.md) 可打开；CH 仍为推荐权威；Redis 写 at-least-once，读失败 STATE_ONLY |
 
 ---
 

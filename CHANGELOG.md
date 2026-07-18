@@ -5,6 +5,9 @@
 ## [Unreleased]
 
 ### Added
+- **projects/p02-realtime-reco Phase 5 单项目完成态（RECO-01–03）**：独立 compose profile `p02`；Kafka `reco.events` → Parse → Keyed State 会话特征 → Redis at-least-once 点查 → PG `reco_items` 规则 Top-K → 双写 `reco.results` + CH `reco_results`；验收 `make match`（CH 权威）
+- 演练：`make loadtest` → `docs/baseline.md`（OrbStack arm64 实测）；`make drill-redis`（stop `fll-redis` 后 CH `feature_source=STATE_ONLY` 仍绿）
+- 文档包：`docs/ARCHITECTURE.md`、`docs/adr/0001-dual-channel-features.md`、`docs/RESUME.md`；docs 模块 15-02 回填完成态
 - **projects/p01-log-ai-platform Phase 4 单项目完成态（LOG-01–05）**：独立 compose profile `p01`；Kafka `logs.events` → Parse/Enrich/Rule →（可选）BudgetGate + Async Ollama 风险分级 → Guardrail → CH `log_results`；默认 `--ai.enabled=false` 零外部模型；验收双轨 `make verify` / `make verify-ai`
 - 演练：`make loadtest` → `docs/baseline.md`（OrbStack arm64 实测）；`make drill-degrade`（AI off + 不可达 endpoint 后 verify 仍绿）
 - 文档包：`docs/ARCHITECTURE.md`、`docs/adr/0001-ai-path-degradable.md`、`docs/RESUME.md`、`docs/DEGRADE-CHECKLIST.md`；docs 模块 15-01 回填完成态
