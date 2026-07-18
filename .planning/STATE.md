@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 2
+current_plan: 3
 status: executing
-last_updated: "2026-07-18T02:56:38.780Z"
+last_updated: "2026-07-18T03:00:23.095Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 19
-  completed_plans: 14
+  completed_plans: 15
   percent: 43
 ---
 
@@ -26,13 +26,13 @@ See: .planning/PROJECT.md (updated 2026-07-17)
 ## Current Position
 
 Phase: 4
-Plan: 2 of 6
-Current Plan: 2
+Plan: 3 of 6
+Current Plan: 3
 Total Plans in Phase: 6
 Status: Ready to execute
 Last activity: 2026-07-18
 
-Progress: [███████░░░] 74%
+Progress: [████████░░] 79%
 
 ## Performance Metrics
 
@@ -66,6 +66,7 @@ Progress: [███████░░░] 74%
 | Phase 02 P02b | 2min | 2 tasks | 12 files |
 | Phase 02 P03 | 5min | 3 tasks | 9 files |
 | Phase 04 P00 | 2min | 3 tasks | 11 files |
+| Phase 04 P01 | 3min | 3 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -103,6 +104,10 @@ Progress: [███████░░░] 74%
 - [Phase 04]: 四脚本以 --implemented 门闩保持默认非 0；verify 声明 RULE_LABEL 白名单与 CH 权威出口
 - [Phase 04]: p01-init 独立 --profile p01；default make up 不加 p01
 - [Phase 04]: 主 pom 禁止 flink-agents / Milvus / flink-cep（D-02/D-03/D-07）
+- [Phase 04]: LogEvent 用公开字段 + 无参构造（Flink POJO）并保留访问器以兼容 Wave 0 单测
+- [Phase 04]: 排除 RuleTaggerTest/BudgetGateTest 编译直至 04-02+ 交付生产类
+- [Phase 04]: V1 LogAiJob 以 print 作临时 Sink，注释标明 V2 接 CH
+- [Phase 04]: submit 显式 --ai.enabled=false，与 JobConfig 默认双重保险
 
 ### Pending Todos
 
@@ -121,6 +126,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T02:56:33.141Z
-Stopped at: Completed 04-00-PLAN.md
+Last session: 2026-07-18T03:00:23.090Z
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None
