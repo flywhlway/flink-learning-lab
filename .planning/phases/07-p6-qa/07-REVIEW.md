@@ -109,3 +109,9 @@ esac
 _Reviewed: 2026-07-18T17:00:00Z_
 _Reviewer: Claude (gsd-code-reviewer)_
 _Depth: standard (advisory)_
+
+
+## Post-review fixes (2026-07-19)
+
+- CR-01: link scanner now realpath + repo-root prefix jail
+- WR-01: missing eng_audit.sh is hard fail
