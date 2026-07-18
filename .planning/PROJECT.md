@@ -23,10 +23,10 @@
 - ✓ P4-p01 日志 AI 平台（LOG-01–05）：独立 compose profile + 可降级 AI 路径 + 压测/演练/ADR/简历页 — Phase 4
 - ✓ P4-p02 实时推荐（RECO-01–03）：双通道特征 + 规则 Top-K + Redis 降级演练 + baseline/ADR/简历页 — Phase 5
 - ✓ P4 三项目均满足：独立 compose profile 一键起、架构文档+ADR+验证脚本、压测与故障演练本机跑通 — Phase 1–5
+- ✓ P5 生产化（PROD-01–04）：裁剪压测矩阵 + `benchmark/baseline.md`、Operator 1.15 Blue/Green 时间线、Argo CD + GitHub Actions、interview≥150 + 三块 Grafana JSON + best-practice 体系 — Phase 6
 
 ### Active
 
-- [ ] P5 生产化：benchmark 全矩阵与 baseline、Operator/CI-CD/GitOps、best-practice 完整规范、interview 扩至 150+、monitoring 看板 JSON；OrbStack K8s 完成 Blue/Green 演练
 - [ ] P6 总装 QA：全仓交叉引用、违禁词扫描、行数与案例数盘点、README 终稿；qa_check.sh 全绿、案例 ≥100、文档 ≥30k 行
 
 ### Out of Scope
@@ -41,7 +41,7 @@
 - **接力协议入口**：阅读 PHASES.md 与 docs/README.md，继续 Phase N，遵守根 README 第 5 节。
 - **已有基座可复用**：e10 CEP 车联网告警雏形、e07/e08 连接器与 CDC、e12 AI 路径、docker compose（Kafka/Flink/CH/PG/Redis/MinIO/Prom/Grafana）、Milvus ai-profile。
 - **目标目录**：`projects/p03-vehicle-monitoring`、`p01-log-ai-platform`、`p02-realtime-reco` 均已达 P4 单项目完成态。
-- **当前焦点**：Phase 6 — P5 生产化。
+- **当前焦点**：Phase 7 — P6 总装 QA。
 - **会话粒度**：一个会话 ≤ 一个模块；先教材/架构章节，再 Demo/工程，再回填交叉引用。
 - **中断恢复**：主干始终可 `make up`；半成品放 `wip/`。
 - **受众**：已有 Flink 生产经验的架构师 → Enterprise Streaming Architect；三大项目同时服务简历陈述。
@@ -67,6 +67,9 @@
 | p03：先告警链路，后监控大盘 | 两者都要；告警先证明 CEP 端到端可复现 | ✓ Phase 1–3 全套已交付（大盘/演练/ADR） |
 | 跳过 codebase map | 用户熟悉仓库；以 PHASES/docs/已交付产物为上下文 | ✓ Good |
 | 主线锁定 Flink 2.2.1 | ADR-001：生态兼容优先于最新号 | ✓ Good |
+| P5 压测默认 compose Flink | OrbStack 稳定；K8s 留给 Operator BG 硬门禁 | ✓ Phase 6 |
+| GitOps 单一路径锁定 Argo CD | STACK 拒绝双栈；本机用 git-daemon 镜像演示 sync | ✓ Phase 6 |
+| 反压值班指标名 | 本机 Prom 为 `backPressuredTimeMsPerSecond`（非 is*） | ✓ Phase 6 review 修复 |
 
 ## Evolution
 
@@ -86,4 +89,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-07-18 after Phase 5 complete*
+*Last updated: 2026-07-18 after Phase 6 complete*
