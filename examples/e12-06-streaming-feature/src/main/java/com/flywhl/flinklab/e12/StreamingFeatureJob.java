@@ -90,7 +90,7 @@ public final class StreamingFeatureJob {
         }
     }
 
-    /** Redis 攒批写(jedis Pipeline,e07-C7 同款容错模式的简化教学版:本 Demo 省略 Operator State 部分)。 */
+    /** Redis 攒批写(jedis Pipeline,e07-C7 同款容错模式的简化教学版:本 Demo 未包含 Operator State 部分)。 */
     public static final class RedisFeatureWriter
             implements org.apache.flink.api.common.functions.MapFunction<String, String> {
         private final int threshold;
