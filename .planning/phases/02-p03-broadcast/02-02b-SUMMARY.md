@@ -83,7 +83,7 @@ Each task was committed atomically:
 2. **Task 1 GREEN: AlertEvent.patternId + 三模式 Handler 族** - `4a267d7` (feat)
 3. **Task 2: 三 CEP 作业接线 + pattern_id DDL/Sink + control topic** - `3f35d8e` (feat)
 
-**Plan metadata:** _(见收尾 docs commit)_
+**Plan metadata:** `7291bdb` (docs: complete plan)
 
 ## Files Created/Modified
 
