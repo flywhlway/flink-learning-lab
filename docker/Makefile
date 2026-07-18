@@ -2,7 +2,7 @@
 SHELL := /bin/bash
 TM ?= 2            # TaskManager 数量(2 台 × 4 slot = 8 slots)
 
-.PHONY: up up-ai up-p03 up-p01 down clean ps logs init urls topics submit-e01 submit-p03 submit-p03-window submit-p01 sql savepoint-e01
+.PHONY: up up-ai up-p03 up-p01 up-p02 down clean ps logs init urls topics submit-e01 submit-p03 submit-p03-window submit-p01 sql savepoint-e01
 
 up:            ## 启动全部核心服务(TaskManager 默认 2 个,不含 AI/p03 profile)
 	docker compose up -d --scale taskmanager=$(TM)
@@ -19,6 +19,16 @@ up-p03:        ## 额外启动 p03 profile(创建 vehicle topics + CH DDL;核心
 up-p01:        ## 额外启动 p01 profile(创建 logs.events + CH log_results DDL;核心服务需已 up 或一并拉起依赖)
 	docker compose --profile p01 up -d p01-init
 	@echo "p01-init 已调度,查看: docker compose --profile p01 ps -a"
+
+up-p02:        ## 额外启动 p02 profile(reco topics + CH reco_results + PG reco_items 种子;核心服务需已 up)
+	@echo "提示: 请确保 redis / postgres 已在 default make up 中可达（p02 不新建这两个服务）"
+	docker compose --profile p02 up -d p02-init
+	@echo "==> up-p02: 种子 PostgreSQL reco_items（psql -f；非 CH HTTP）"
+	docker compose exec -T postgres \
+		psql -U $${PG_USER:-flinklab} -d flinklab \
+		-v ON_ERROR_STOP=1 \
+		-f - < ../projects/p02-realtime-reco/sql/postgres_reco_items.sql
+	@echo "p02-init 已调度且 reco_items 已种子,查看: docker compose --profile p02 ps -a"
 
 down:          ## 停止(保留数据卷)
 	docker compose down

@@ -379,6 +379,46 @@ services:
         echo
         echo "==> p01-init: 完成（logs.events + flinklab.log_results）"
 
+  # ─────────────────────────── P4 · p02 实时推荐(profile=p02,按需启动)───────────────────────────
+  # 用法: make up-p02  或  docker compose --profile p02 up -d p02-init
+  # 说明: 一次性创建 reco.events / reco.results + 执行 reco_results DDL；
+  #       PG reco_items 种子由 Makefile up-p02 经 psql 执行（kafka 镜像无 psql）。
+  #       禁止写入 default init.sh；不新建 redis/postgres 服务（D-08）。
+  p02-init:
+    image: ${KAFKA_IMAGE}
+    container_name: fll-p02-init
+    profiles: ["p02"]
+    restart: "no"
+    environment:
+      CH_USER: ${CH_USER}
+      CH_PASSWORD: ${CH_PASSWORD}
+    volumes:
+      - ../projects/p02-realtime-reco/sql/clickhouse_reco_results.sql:/ddl/clickhouse_reco_results.sql:ro
+    depends_on:
+      kafka:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -euo pipefail
+        echo "==> p02-init: 创建 Kafka topics reco.events / reco.results"
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists \
+          --topic reco.events --partitions 4 --replication-factor 1
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists \
+          --topic reco.results --partitions 4 --replication-factor 1
+        echo "==> p02-init: 等待 ClickHouse HTTP"
+        for i in $$(seq 1 30); do
+          if wget -qO- "http://clickhouse:8123/ping" >/dev/null 2>&1; then break; fi
+          sleep 1
+        done
+        echo "==> p02-init: 执行 ClickHouse DDL（单语句 POST；CH HTTP 禁多语句）"
+        wget -qO- --post-file=/ddl/clickhouse_reco_results.sql \
+          "http://clickhouse:8123/?user=$${CH_USER}&password=$${CH_PASSWORD}"
+        echo
+        echo "==> p02-init: 完成（reco.events + reco.results + flinklab.reco_results）"
+
 volumes:
   kafka-data:
   pg-data:
