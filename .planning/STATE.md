@@ -4,7 +4,7 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: 4
 status: executing
-last_updated: "2026-07-18T16:54:37.537Z"
+last_updated: "2026-07-18T16:54:45.509Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
@@ -164,6 +164,8 @@ Progress: [██████████] 97%
 - [Phase 07]: eng_audit 独立文件，qa_check 末尾调用（D-10 Discretion）
 - [Phase ?]: 跳过 e12-10 MCP，用 e0x/e12 第二 Job 补足 mains
 - [Phase ?]: CDC Maven 坐标锁定 3.6.0-2.2；JDBC 锁定 3.3.0-1.20
+- [Phase 07]: 07-02: docs+interview 主杠杆抬升 md 至 30620 — 不堆 bluegreen-timeline；排除 .planning 刷数
+- [Phase 07]: 07-02: 清单禁写违禁词字面 — 避免 qa_check ② 自伤
 
 ### Pending Todos
 
