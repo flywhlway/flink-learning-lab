@@ -7,7 +7,7 @@
   <!--
     p01 日志 AI 平台：独立 Maven 模块（不挂 examples 父工程）。
     版本对齐仓库 SSOT（根 README / examples/pom.xml 属性区）。
-    禁止 flink-agents / Milvus SDK / flink-cep（D-02/D-03/D-07）。
+    禁止 Agents Preview 坐标 / 向量库 SDK / CEP（D-02/D-03/D-07）。
   -->
   <groupId>com.flywhl.flinklab</groupId>
   <artifactId>p01-log-ai-platform</artifactId>

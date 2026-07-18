@@ -4,7 +4,7 @@ package com.flywhl.flinklab.p01;
  * p01 作业参数集中解析：手写 {@code --key} / {@code --key=value}（D-04）。
  *
  * <p>默认 {@code --ai.enabled=false}；kafka/clickhouse 默认对齐 compose 网络；
- * AI 相关默认值供后续切片覆写，本切片不发起 HTTP。
+ * {@code --ai.capacity} 上限 16（T-04-03）；模型名可用 {@code --ai.model} 覆盖本机实际 pull。
  */
 public final class JobConfig {
 
@@ -66,7 +66,20 @@ public final class JobConfig {
         this.guardrailKeywords = guardrailKeywords;
     }
 
+    /** Async capacity 硬上限，防止打爆宿主机 Ollama（T-04-03）。 */
+    public static final int AI_CAPACITY_MAX = 16;
+
     public static JobConfig from(String[] args) {
+        int capacity = Integer.parseInt(arg(args, "ai.capacity", "16"));
+        if (capacity < 1) {
+            capacity = 1;
+        } else if (capacity > AI_CAPACITY_MAX) {
+            capacity = AI_CAPACITY_MAX;
+        }
+        int retry = Integer.parseInt(arg(args, "ai.retry", "2"));
+        if (retry < 0) {
+            retry = 0;
+        }
         return new JobConfig(
                 arg(args, "job-name", "p01-log-ai"),
                 Long.parseLong(arg(args, "checkpoint-interval-ms", "15000")),
@@ -82,8 +95,8 @@ public final class JobConfig {
                 arg(args, "ai.endpoint", "http://host.docker.internal:11434"),
                 arg(args, "ai.model", "qwen3:8b"),
                 Long.parseLong(arg(args, "ai.timeout-ms", "8000")),
-                Integer.parseInt(arg(args, "ai.capacity", "16")),
-                Integer.parseInt(arg(args, "ai.retry", "2")),
+                capacity,
+                retry,
                 Integer.parseInt(arg(args, "budget.max-ai-calls", "120")),
                 arg(args, "guardrail.keywords", ""));
     }
