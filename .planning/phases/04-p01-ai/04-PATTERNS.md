@@ -144,8 +144,8 @@ gated
 ```
 
 **p01 差异接线:**
-- `ai.enabled=false`：Parse → FeatureEnricher → RuleTagger → Guardrail/Budget → CH（`ai_source=DISABLED`）
-- `ai.enabled=true`：在 RuleTagger 后接 `AsyncDataStream.unorderedWaitWithRetry`（见下节），再 Guardrail/Budget → CH
+- `ai.enabled=false`：Parse → FeatureEnricher → RuleTagger → BudgetGate（透传）→ Guardrail → CH（`ai_source=DISABLED`）
+- `ai.enabled=true`：Parse → FeatureEnricher → RuleTagger → **BudgetGate（超限短路，不进 Async）** →（allow 时）`AsyncDataStream.unorderedWaitWithRetry` → Guardrail → CH
 - 所有算子强制 `.uid("p01-...")`
 
 ---
