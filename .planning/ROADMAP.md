@@ -9,7 +9,7 @@
 - [x] **Phase 1: p03 告警链路样板** - compose profile + 事件→CEP→告警落库可复现 (completed 2026-07-17)
 - [x] **Phase 2: p03 模式库与 Broadcast** - ≥3 模式五元组 + 动态选择预编译模式 (completed 2026-07-18)
 - [x] **Phase 3: p03 大盘与演练收官** - Grafana 大盘 + 压测/故障演练 + 完整文档包 (completed 2026-07-18)
-- [ ] **Phase 4: p01 日志 AI 平台** - 可降级 AI 路径 + 生产项目纪律全套
+- [x] **Phase 4: p01 日志 AI 平台** - 可降级 AI 路径 + 生产项目纪律全套 (completed 2026-07-18)
 - [ ] **Phase 5: p02 实时推荐** - 特征+打分闭环 + 生产项目纪律全套
 - [ ] **Phase 6: P5 生产化** - benchmark / Operator Blue-Green / GitOps / 规范题库看板
 - [ ] **Phase 7: P6 总装 QA** - qa_check 全绿 + 计量达标 + 工程不变量终检
@@ -121,7 +121,7 @@ Plans:
   3. 至少一条 AI 路径在启用环境下可观察输出；成本/护栏指标可见
   4. 压测、故障演练、架构/ADR/验证脚本/简历陈述齐全
 
-**Plans:** 5/6 plans executed
+**Plans:** 6/6 plans complete
 
 Plans:
 **Wave 0**
@@ -146,7 +146,7 @@ Plans:
 
 **Wave 5** *(blocked on Wave 4)*
 
-- [ ] 04-05-PLAN.md — V5 演练+文档包（LOG-05）：loadtest/drill/ADR/RESUME/15-01/qa_check
+- [x] 04-05-PLAN.md — V5 演练+文档包（LOG-05）：loadtest/drill/ADR/RESUME/15-01/qa_check
 
 ### Phase 5: p02 实时推荐
 
@@ -203,7 +203,7 @@ Plans:
 | 1. p03 告警链路样板 | 4/4 | Complete    | 2026-07-17 |
 | 2. p03 模式库与 Broadcast | 5/5 | Complete    | 2026-07-18 |
 | 3. p03 大盘与演练收官 | 4/4 | Complete    | 2026-07-18 |
-| 4. p01 日志 AI 平台 | 5/6 | In Progress|  |
+| 4. p01 日志 AI 平台 | 6/6 | Complete   | 2026-07-18 |
 | 5. p02 实时推荐 | 0/TBD | Not started | - |
 | 6. P5 生产化 | 0/TBD | Not started | - |
 | 7. P6 总装 QA | 0/TBD | Not started | - |

@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 current_plan: 6
-status: executing
-last_updated: "2026-07-18T03:15:57.478Z"
+status: verifying
+last_updated: "2026-07-18T03:22:57.772Z"
 last_activity: 2026-07-18
 progress:
   total_phases: 7
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 19
-  completed_plans: 18
-  percent: 43
+  completed_plans: 19
+  percent: 57
 ---
 
 # Project State
@@ -29,10 +29,10 @@ Phase: 4
 Plan: 6 of 6
 Current Plan: 6
 Total Plans in Phase: 6
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-07-18
 
-Progress: [██████████] 95%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -70,6 +70,7 @@ Progress: [██████████] 95%
 | Phase 04 P02 | 4min | 3 tasks | 10 files |
 | Phase 04 P03 | 5min | 3 tasks | 9 files |
 | Phase 04 P04 | 3min | 3 tasks | 10 files |
+| Phase 04 P05 | 6min | 3 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -120,6 +121,9 @@ Progress: [██████████] 95%
 - [Phase 04]: 护栏选型：静态 JobConfig --guardrail.keywords（非 Broadcast），对齐 e12-17 BLOCK 语义（D-12 Discretion）
 - [Phase 04]: BudgetGate 仅在 ai.enabled=true 分支挂图；源码 BudgetGate 标识符仍位于 AsyncDataStream 之前
 - [Phase 04]: PromQL 全名不臆造：README 以 :9249 grep 名片段为观察路径
+- [Phase 04]: 压测默认 RATE=100 WARMUP=30s DURATION=90s（OrbStack 稳定 Discretion）
+- [Phase 04]: drill_ai_degrade 同时 --ai.enabled=false + 不可达 endpoint
+- [Phase 04]: 恰好 2 条硬演练：loadtest + drill-degrade
 
 ### Pending Todos
 
@@ -138,7 +142,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-07-18T03:15:07.296Z
-Stopped at: Completed 04-03-PLAN.md
+Last session: 2026-07-18T03:22:57.767Z
+Stopped at: Completed 04-05-PLAN.md
 Resume file: 
 None
